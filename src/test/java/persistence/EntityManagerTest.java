@@ -1,15 +1,15 @@
 package persistence;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
-import utn.ddsG8.impacto_ambiental.model.estructura.*;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.Auto;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.Colectivo;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.Subte;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.*;
+import utn.ddsG8.impacto_ambiental.domain.estructura.*;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Auto;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Colectivo;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Subte;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.*;
 
 import javax.persistence.Query;
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,6 @@ public class EntityManagerTest {
         }
     }
 
-
     @Test
     public void persistirLocations() {
 
@@ -56,8 +55,7 @@ public class EntityManagerTest {
         EntityManagerHelper.commit();
     }
 
-//    Comento este test porque no usa mockito y tarda como 1 min en correr
-//    @Test
+    @Test
     public void persistirMovilidad() {
         Auto auto = new Auto(null);
         Subte subte = new Subte(null);
@@ -99,6 +97,15 @@ public class EntityManagerTest {
     }
 
     @Test
+    public void existeJana(){
+        String queryString = "FROM Miembro where id = 1";
+        Query query = EntityManagerHelper.createQuery(queryString);
+        Miembro miembro = (Miembro) query.getResultList().get(0);
+        Assertions.assertTrue(miembro.getNombre().equals("Jana"));
+
+    }
+
+    @Test
     public void encontrarProvincias() {
         String queryString = "FROM Provincia";
         Query query = EntityManagerHelper.createQuery(queryString);
@@ -106,4 +113,19 @@ public class EntityManagerTest {
         provincias.forEach(p -> System.out.println(p.nombre));
     }
 
+
+
+    @Test
+    public void persistirTrayectoDeJana() {
+        String queryString = "FROM Miembro where nombre = 'Jana'";
+        Query query = EntityManagerHelper.createQuery(queryString);
+        Miembro jana = (Miembro) query.getResultList().get(0);
+
+        Query query1 = EntityManagerHelper.createQuery("FROM Organizacion where id = 1");
+        Organizacion org = (Organizacion) query1.getResultList().get(0);
+    }
+
+    @Test
+    public void test() {
+    }
 }

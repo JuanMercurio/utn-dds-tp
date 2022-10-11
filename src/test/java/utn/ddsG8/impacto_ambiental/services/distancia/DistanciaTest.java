@@ -2,7 +2,7 @@ package utn.ddsG8.impacto_ambiental.services.distancia;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.*;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.*;
 
 import java.io.IOException;
 import java.util.List;

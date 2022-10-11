@@ -2,8 +2,8 @@ package utn.ddsG8.impacto_ambiental.services.sheets;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.model.calculos.Medicion;
-import utn.ddsG8.impacto_ambiental.model.services.sheets.LectorExcel;
+import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
+import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
 
 import java.io.IOException;
 import java.util.List;

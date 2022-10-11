@@ -2,11 +2,11 @@ package utn.ddsG8.impacto_ambiental.estructura;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.model.estructura.*;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Localidad;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Municipio;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Provincia;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Pais;
+import utn.ddsG8.impacto_ambiental.domain.estructura.*;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Municipio;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Provincia;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Pais;
 import java.io.IOException;
 
 class MiembroTest {

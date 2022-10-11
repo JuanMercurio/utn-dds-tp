@@ -2,7 +2,7 @@ package utn.ddsG8.impacto_ambiental.contrasenia;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.model.contrasenia.PassValidatorList;
+import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassValidatorList;
 
 import java.io.FileNotFoundException;
 

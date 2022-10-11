@@ -1,9 +1,8 @@
 package utn.ddsG8.impacto_ambiental.db.converters;
 
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Distancia;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
 
 import javax.persistence.AttributeConverter;
-import java.util.List;
 
 public class DistanciaConverter implements AttributeConverter<Distancia, String> {
     @Override

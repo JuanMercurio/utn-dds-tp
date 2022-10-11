@@ -2,22 +2,22 @@ package utn.ddsG8.impacto_ambiental.movilidad;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import utn.ddsG8.impacto_ambiental.model.calculos.CalcularHC;
-import utn.ddsG8.impacto_ambiental.model.estructura.Direccion;
-import utn.ddsG8.impacto_ambiental.model.calculos.FE;
-import utn.ddsG8.impacto_ambiental.model.movilidad.Tramo;
-import utn.ddsG8.impacto_ambiental.model.movilidad.TramoTransportePrivado;
-import utn.ddsG8.impacto_ambiental.model.movilidad.TramoTransportePublico;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.Moto;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.Pie;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.combustibles.Combustible;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.combustibles.Nafta;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.Auto;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.Parada;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.TransportePublico;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.Tren;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Distancia;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Localidad;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
+import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.TramoTransportePrivado;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.TramoTransportePublico;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Moto;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Pie;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.combustibles.Combustible;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.combustibles.Nafta;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Auto;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Tren;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 
 class TramoTest {
     private final String token = "Bearer E8iN6xBPXQsUI+M72MfPdVhM/o3axkzywqKZjjOyhe0=";

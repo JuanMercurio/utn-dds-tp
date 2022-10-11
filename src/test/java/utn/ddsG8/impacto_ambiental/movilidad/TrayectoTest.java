@@ -3,20 +3,20 @@ package utn.ddsG8.impacto_ambiental.movilidad;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.model.calculos.CalcularHC;
-import utn.ddsG8.impacto_ambiental.model.calculos.FE;
-import utn.ddsG8.impacto_ambiental.model.estructura.Direccion;
-import utn.ddsG8.impacto_ambiental.model.movilidad.Tramo;
-import utn.ddsG8.impacto_ambiental.model.movilidad.TramoTransportePrivado;
-import utn.ddsG8.impacto_ambiental.model.movilidad.TramoTransportePublico;
-import utn.ddsG8.impacto_ambiental.model.movilidad.Trayecto;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.Auto;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.Pie;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.Parada;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.TransportePublico;
-import utn.ddsG8.impacto_ambiental.model.movilidad.transportes.publico.Tren;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Distancia;
-import utn.ddsG8.impacto_ambiental.model.services.distancia.Localidad;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.TramoTransportePrivado;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.TramoTransportePublico;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Auto;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Pie;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Tren;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 
 
 class TrayectoTest {

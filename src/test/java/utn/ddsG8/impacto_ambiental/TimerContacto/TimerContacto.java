@@ -1,7 +1,7 @@
 package utn.ddsG8.impacto_ambiental.TimerContacto;
 
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.model.Notificaciones.Contacto;
+import utn.ddsG8.impacto_ambiental.domain.Notificaciones.Contacto;
 
 public class TimerContacto {
     @Test
