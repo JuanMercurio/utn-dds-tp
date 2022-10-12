@@ -3,6 +3,9 @@ package utn.ddsG8.impacto_ambiental.server;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.OrganizacionController;
+import utn.ddsG8.impacto_ambiental.helpers.PermisoHelper;
+import utn.ddsG8.impacto_ambiental.middleware.AuthMiddleware;
+import utn.ddsG8.impacto_ambiental.sessions.Permiso;
 import utn.ddsG8.impacto_ambiental.spark.utils.BooleanHelper;
 import utn.ddsG8.impacto_ambiental.spark.utils.HandlebarsTemplateEngineBuilder;
 
@@ -31,6 +34,19 @@ public class Router {
         });
 
         Spark.path("/organizacion", () -> {
+            //authenticar las sessiones
+            Spark.before("", AuthMiddleware::authenticateSession);
+            Spark.before("/*", AuthMiddleware::authenticateSession);
+
+            //autenticar los permisos
+            //TODO se puede hacer directamente con roles, o con permisos
+            Spark.before("", (((request, response) -> {
+                if(!PermisoHelper.userHasPermissions(request, Permiso.EJEMPLO)){
+                    response.redirect("/prohibido");
+                    Spark.halt();
+                }
+            })));
+
             Spark.get("", orgController::showAll, engine);
             Spark.get("/create", orgController::create, engine);
             Spark.post("", orgController::save);

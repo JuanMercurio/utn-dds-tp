@@ -1,8 +1,12 @@
 package utn.ddsG8.impacto_ambiental.contrasenia;
 
+import org.apache.poi.xssf.usermodel.helpers.XSSFPasswordHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
+import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassHasher;
 import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassValidatorList;
+import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.io.FileNotFoundException;
 
@@ -22,6 +26,13 @@ class PassValidatorListTest {
         Assertions.assertFalse(list.validarPass("11111111"));
         Assertions.assertFalse(list.validarPass("aaaaaaaa"));
         Assertions.assertFalse(list.validarPass("AAAAAAAA"));
+    }
+
+    @Test
+    public void obtenersha() {
+        User user = new User("juan", PassHasher.SHA_256("Juan12345"));
+        EntityManagerHelper.getEntityManager().persist(user);
+
     }
 
 

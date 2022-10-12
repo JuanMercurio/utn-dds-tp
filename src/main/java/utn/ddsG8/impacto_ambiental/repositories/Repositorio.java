@@ -1,6 +1,7 @@
 package utn.ddsG8.impacto_ambiental.repositories;
 
 
+import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.repositories.daos.DAO;
 
 import java.util.List;
@@ -34,5 +35,9 @@ public class Repositorio<T> {
 
     public T buscar(int id){
         return this.dao.buscar(id);
+    }
+
+    public List<T> query(String query){
+        return EntityManagerHelper.getEntityManager().createQuery(query).getResultList();
     }
 }
