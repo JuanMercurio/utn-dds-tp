@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de Transporte</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css' />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+    <!-- Custom -->
+    <link rel='stylesheet' href='../public/stylesheets/style.css' />
+    <link rel='stylesheet' href='../public/stylesheets/_shared.css' />
+    <link href="../public/stylesheets/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="hc-navbar">
+        <div class="hc-navbar-img">
+            <img class="hc-navbar-img-huellas" src="../public/images/huellas.jpeg"/>
+        </div>
+        <div class="hc-navbar-items">
+            <a class="hc-navbar-item" href="../views/AltaOrganizacion.html">
+                <i class="fa-solid fa-building hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Alta de Organizaciones</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/AltaMiembros.html">
+                <i class="fa-solid fa-user hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Alta de Miembros</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/SolicitudMiembros.html">
+                <i class="fa-solid fa-envelope hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Solicitudes de Miembros</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/altaTransporte.html">
+                <i class="fa-solid fa-bus hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Alta de Transportes</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/altaTrayecto.html">
+                <i class="fa-solid fa-road hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Alta de Trayectos</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/Login.html">
+                <i class="fa-solid fa-arrow-right-from-bracket hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Salir</span>
+            </a>
+        </div>
+    </nav>
+    <div class="hc-content">
+        <div class="hc-card">
+            <div class="hc-card-header">
+                <span class="hc-card-title">
+                    Alta de Transporte
+                </span>
+            </div>
+            <div class="hc-card-tabs">
+                <button class="hc-card-tab selected" data-target="#nuevaParadaDiv">
+                    <span class="hc-card-tab-name">
+                        Nueva Parada
+                    </span>
+                </button>
+                <button class="hc-card-tab" data-target="#nuevaLineaDiv">
+                    <span class="hc-card-tab-name" >
+                        Nueva Línea de Transporte Público
+                    </span>
+                </button>
+                <button class="hc-card-tab" data-target="#nuevoTransportePrivadoDiv">
+                    <span class="hc-card-tab-name" >
+                        Nuevo Servicio Privado
+                    </span>
+                </button>
+            </div>
+            <div class="hc-card-body" id="nuevaParadaDiv">
+                <form action="" class="alta-form" id="nuevaParadaForm">
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="transporteSelect">
+                                Transporte
+                            </label>
+                            <select class="form-control" id="transporteSelect">
+                                <option value="0">Colectivo</option>
+                            </select>                          
+                        </div>
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Línea
+                            </label>
+                            <select class="form-control" id="lineaSelect">
+                                <option value="0">145 - De Plaza Italia a Villa Albertina</option>
+                            </select>                          
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Nombre de la Parada
+                            </label>
+                            <input type="text" class="form-control" id="nombreParada" placeholder="">                        
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Dirección de la Parada
+                            </label>
+                            <input type="text" class="form-control" id="nombreParada" placeholder="">                        
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Número de Parada
+                            </label>
+                            <input type="number" class="form-control" id="nombreParada" placeholder="">                        
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <button type="submit" class="alta-button">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+                <div class="paradas-card">
+                    <div class="paradas-card-header">
+                        <span class="paradas-card-header-title">
+                            Paradas
+                        </span>
+                    </div>
+                    <table class="paradas-table">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Dirección</td>
+                                <td>Nombre</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Dirección 1</td>
+                                <td>Nombre 1</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Dirección 2</td>
+                                <td>Nombre 2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="hc-card-body d-none" id="nuevaLineaDiv">
+                <form action="" class="alta-form" id="nuevaLineaForm">
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="transporteSelect">
+                                Transporte
+                            </label>
+                            <select class="form-control" id="transporteSelect">
+                                <option value="0">Colectivo</option>
+                            </select>                          
+                        </div>
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreLinea">
+                                Nombre de la Línea
+                            </label>
+                            <input type="text" class="form-control" id="nombreLinea" placeholder="">                                                 
+                        </div>
+                    </div>
+                    <div class="alta-paradas">
+                        <span class="alta-paradas-title">
+                            Paradas
+                        </span>
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Importar Archivo
+                            </label>
+                            <input class="form-control" type="file" id="formFile">                        
+                        </div>
+                        <div class="alta-paradas-table">
+                            <span class="alta-paradas-subtitle">
+                                Agregar Parada
+                            </span>
+                            <div class="alta-paradas-control">
+                                <div class="form-group alta-numero-parada">
+                                    <label class="alta-form-group-name" for="numeroParada">
+                                        #
+                                    </label>
+                                    <input type="number" class="form-control" id="numeroParada" value="1" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="alta-form-group-name">
+                                        Nombre de la Parada
+                                    </label>
+                                    <input type="text" class="form-control" id="nombreParada">
+                                </div>
+                                <div class="form-group">
+                                    <label class="alta-form-group-name">
+                                        Dirección de la Parada
+                                    </label>
+                                    <input type="text" class="form-control" id="nombreParada">
+                                </div>
+                                <button class="agregar-parada-button" id="agregarParadaButton" type="button">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <button type="submit" class="alta-button">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="hc-card-body d-none" id="nuevoTransportePrivadoDiv">
+                <form action="" class="alta-form" id="nuevoTransportePrivadoForm">
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="transporteSelect">
+                                Nombre de Nuevo Servicio
+                            </label>
+                            <input type="text" class="form-control" id="nombreTransportePrivado" placeholder="">                                                 
+                        
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <button type="submit" class="alta-button">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+    <!-- Custom -->
+  <script src="../public/javascripts/altaTransporte.js"></script>
+</body>
+</html>
+
