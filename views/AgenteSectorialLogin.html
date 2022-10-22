@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login - Admin</title>
+    <title>Login - Agente sectorial</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -22,15 +22,14 @@
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
           <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onclick="window.location.href='./MiembroLogin.html'">
           <label class="btn btn-outline-success" for="btnradio1">Miembro</label>          
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="window.location.href='./AdminLogin.html'">
           <label class="btn btn-outline-success" for="btnradio2">Administrador</label>
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="window.location.href='./AgenteSectorialLogin.html'">
-          <label class="btn btn-outline-success" for="btnradio3">Agente sectorial</label>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-success" for="btnradio1">Agente sectorial</label>
         </div>
-        
       </div>
       <div class="pb-3 text-center">
-      <a href="./AltaOrganizacion.html">Deseo registrarme como administrador de una organizacion</a>
+      <a href="#">Deseo registrarme como agente sectorial (falta definir pantalla para crear agentes sectoriales)</a>
     </div>
       <div class="form-floating mb-3">
           <input class="form-control" type="text" placeholder="Email" />
@@ -47,7 +46,7 @@
         </div>
         <!-- TODO: Cambiar el sig boton por uno que valide los formularios -->
         <div class="col text-center mt-3">
-          <button type="button" class="btn btn-success" onclick="window.location.href='./SolicitudMiembros.html'">Iniciar sesion</button>
+          <button type="button" class="btn btn-success" onclick="window.location.href='./ReportesAgenteSectorial.html'">Iniciar sesion</button>
         </div>
       </form>
     </div>
