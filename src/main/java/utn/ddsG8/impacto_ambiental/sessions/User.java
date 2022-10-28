@@ -1,10 +1,16 @@
 package utn.ddsG8.impacto_ambiental.sessions;
 
 import lombok.Getter;
+import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Referencia;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
 
 import javax.persistence.*;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "user")
@@ -25,5 +31,10 @@ public class User extends Persistable {
         this.username = username;
         this.password = password;
     }
+
+    public boolean isAdmin() {
+        return this.username.equals("admin");
+    }
+
 
 }

@@ -10,4 +10,8 @@ public class UserHelper {
                 .getEntityManager()
                 .find(User.class, request.session().attribute("id"));
     }
+
+    public static boolean isAdmin(Request request){
+        return loggedUser(request).isAdmin();
+    }
 }

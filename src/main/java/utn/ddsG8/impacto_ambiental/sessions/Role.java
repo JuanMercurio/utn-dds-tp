@@ -5,7 +5,7 @@ import utn.ddsG8.impacto_ambiental.db.Persistable;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -20,7 +20,17 @@ public class Role extends Persistable {
     @Enumerated(EnumType.STRING)
     private Set<Permiso> permisos;
 
+    public Role() {}
+    public Role(String nombre) {
+        this.name = nombre;
+        this.permisos = new HashSet<>();
+    }
+
     public Boolean tieneTodosLosPermisos(Permiso ... permisos) {
         return Arrays.stream(permisos).allMatch(p -> this.permisos.contains(p));
+    }
+
+    public void agregarPermiso(Permiso ... permisos) {
+        Arrays.stream(permisos).forEach(p ->this.permisos.add(p));
     }
 }

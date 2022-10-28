@@ -17,4 +17,9 @@ public class RepositorioTest {
            System.out.println(organizacion.getId());
         }
     }
+
+    @Test
+    public void cambiarrol() {
+
+    }
 }

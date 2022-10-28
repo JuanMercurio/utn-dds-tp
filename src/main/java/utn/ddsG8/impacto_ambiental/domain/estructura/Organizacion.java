@@ -8,6 +8,7 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
+import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -20,6 +21,10 @@ import java.util.Set;
 @Table(name = "organizacion")
 @Getter
 public class Organizacion extends Persistable {
+
+    @OneToOne
+    @JoinColumn(name = "usuario", referencedColumnName = "id")
+    private User usuario;
 
     @Column(name = "razon_social")
     private String razonSocial;
