@@ -1,0 +1,29 @@
+{{# partial "contenido"}}
+
+<form method="post">
+    <input type="text" id="username" name="username" placeholder="Usuario"  required>
+    <input type="password" id="password" name="password" placeholder="Password"  required>
+    <input type="text" id="razonSocial" name="razonSocial" placeholder="Razon Social"  required>
+
+    <label for="orgTipo">Tipo Organizacion</label>
+    <select id="orgTipo" name="orgTipo">
+        <option value="Gubernamental">Gubernamental</option>
+        <option value="OGN">OGN</option>
+        <option value="Empresa">Empresa</option>
+        <option value="Institucion">Institucion</option>
+    </select>
+
+    <label for="clasificacion">Clasificacion</label>
+    <select id="clasificacion" name="clasificacion">
+        <option value="Ministerio">Ministerio</option>
+        <option value="Universidad">Universidad</option>
+        <option value="Escuela">Escuela</option>
+        <option value="Empresa_del_sector_Primario">Empresa del sector Primario</option>
+    </select>
+
+    <input type="submit" value="Log In">
+</form>
+
+
+{{/partial}}
+{{> base.hbs}}

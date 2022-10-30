@@ -16,7 +16,7 @@ public abstract class PassValidator{
 
     public PassValidator(String archivoContrasenias, Integer cantMinCaracteres,
                          Integer cantMinLower, Integer cantMinNum, Integer cantMinUpper)
-                         throws FileNotFoundException {
+                          {
 
         crearListaPasswords(archivoContrasenias);
         this.cantMinCaracteres = cantMinCaracteres;
@@ -25,11 +25,16 @@ public abstract class PassValidator{
         this.cantMinUpper = cantMinUpper;
     }
 
-    private void crearListaPasswords(String path) throws FileNotFoundException {
+    private void crearListaPasswords(String path)  {
         this.malasContrasenias = new ArrayList<>();
 
         File myFile = new File(path) ;
-        Scanner myReader = new Scanner(myFile);
+        Scanner myReader = null;
+        try {
+            myReader = new Scanner(myFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         while(myReader.hasNextLine()){
             String pass = myReader.nextLine();

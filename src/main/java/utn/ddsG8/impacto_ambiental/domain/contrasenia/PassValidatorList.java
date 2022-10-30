@@ -5,7 +5,7 @@ import java.util.*;
 
 public class PassValidatorList extends PassValidator {
 
-    public PassValidatorList(String archivoContrasenias, Integer cantMinCaracteres, Integer cantMinLower, Integer cantMinNum, Integer cantMinUpper) throws FileNotFoundException, FileNotFoundException {
+    public PassValidatorList(String archivoContrasenias, Integer cantMinCaracteres, Integer cantMinLower, Integer cantMinNum, Integer cantMinUpper)   {
         super(archivoContrasenias, cantMinCaracteres, cantMinLower, cantMinNum, cantMinUpper);
     }
 

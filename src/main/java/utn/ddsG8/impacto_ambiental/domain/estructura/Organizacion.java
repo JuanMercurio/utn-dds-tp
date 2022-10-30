@@ -19,8 +19,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "organizacion")
+@Setter
 @Getter
-public class Organizacion extends Persistable {
+public class Organizacion {
+
+    @Id
+    private int id;
 
     @OneToOne
     @JoinColumn(name = "usuario", referencedColumnName = "id")

@@ -9,8 +9,6 @@ import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
-import java.util.List;
-
 public class LoginController {
     private static Repositorio<User> repo = FactoryRepositorio.get(User.class);
 
@@ -39,7 +37,7 @@ public class LoginController {
         return response;
     }
 
-    public static ModelAndView logInResponse(Request request, Response response)  {
+    public static ModelAndView logInView(Request request, Response response)  {
         return new ModelAndView(null, "login.hbs");
     }
 

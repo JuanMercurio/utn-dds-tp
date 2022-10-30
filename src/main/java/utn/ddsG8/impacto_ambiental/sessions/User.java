@@ -3,6 +3,7 @@ package utn.ddsG8.impacto_ambiental.sessions;
 import lombok.Getter;
 import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
+import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassHasher;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Referencia;
@@ -29,12 +30,11 @@ public class User extends Persistable {
     public User() {}
     public User(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.password = PassHasher.SHA_256(password);
     }
 
     public boolean isAdmin() {
         return this.username.equals("admin");
     }
-
 
 }

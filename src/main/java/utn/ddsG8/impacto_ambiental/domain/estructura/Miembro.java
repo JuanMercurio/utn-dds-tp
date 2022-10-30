@@ -12,7 +12,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "miembro")
-public class Miembro extends Persistable {
+public class Miembro   {
+
+    @Id
+    private int id;
 
     @Setter
     @Getter
