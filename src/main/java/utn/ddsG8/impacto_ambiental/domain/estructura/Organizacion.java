@@ -26,6 +26,10 @@ public class Organizacion {
     @Id
     private int id;
 
+    // TODO: sacarlo a la mierda este atributo.
+    /* Como el miembro usa el id del usuario no hace falta que ninguno tenga al otro como atributo
+    *  en este disenio
+    * */
     @OneToOne
     @JoinColumn(name = "usuario", referencedColumnName = "id")
     private User usuario;

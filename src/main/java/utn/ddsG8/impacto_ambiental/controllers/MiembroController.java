@@ -5,7 +5,6 @@ import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
-import utn.ddsG8.impacto_ambiental.helpers.UserHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.Role;
@@ -23,6 +22,7 @@ public class MiembroController {
 
     public static Response save(Request request, Response response) {
 
+        // TODO: Se puede separar esta parte como esta en figma pero por ahora va todo en un request
         User user = UserController.create(request, response);
         if (user == null) {
             return response;
