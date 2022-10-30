@@ -11,14 +11,14 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "miembro")
 public class Miembro   {
 
     @Id
     private int id;
 
-    @Setter
-    @Getter
     @Column(name = "nombre")
     private String nombre;
 

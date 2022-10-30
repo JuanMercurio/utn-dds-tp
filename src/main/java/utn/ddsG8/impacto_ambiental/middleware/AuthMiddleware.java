@@ -16,8 +16,9 @@ public class AuthMiddleware {
         return response;
     }
 
-    public static Response authenticateOrg(Request request, Response response) {
-        if (!UserHelper.isAdmin(request) && !isOrganization(request)) {
+    public static Response authenticateId(Request request, Response response) {
+
+        if (!UserHelper.isAdmin(request) && UserHelper.loggedUser(request).getId() != Integer.parseInt(request.params("id"))) {
             response.redirect("/prohibido");
             Spark.halt();
         }
@@ -25,10 +26,4 @@ public class AuthMiddleware {
         return response;
     }
 
-    public static boolean isOrganization(Request request) {
-        String query = "from organizacion where usuario= '" + UserHelper.loggedUser(request).getId() + "'";
-        Organizacion org = (Organizacion) EntityManagerHelper.getEntityManager().createQuery(query);
-
-        return Integer.parseInt(request.params("id")) == org.getId();
-    }
 }

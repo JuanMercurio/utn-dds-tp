@@ -28,8 +28,7 @@ public class LoginController {
             request.session(true);
             request.session().attribute("id", user.getId());
             String nombreRol = user.getRole().getName();
-            response.redirect("/" + nombreRol);
-            System.out.println("Vamos a /" + nombreRol);
+            response.redirect("/" + nombreRol + "/" + user.getId());
         } else {
             response.redirect("/login");
         }

@@ -33,7 +33,7 @@ public class OrganizacionController {
     }
 
     public static ModelAndView createView(Request request, Response response) {
-        return new ModelAndView(null, "newOrg.hbs");
+        return new ModelAndView(null, "organizacion/newOrg.hbs");
     }
 
     // instancia una nueva org y lo guarda en la db
@@ -45,15 +45,12 @@ public class OrganizacionController {
         }
 
         Role rol = (Role) EntityManagerHelper.getEntityManager().createQuery("from Role where name = 'organizacion'").getSingleResult();
-        if (rol == null) {
-            System.out.println("esta funcionando mal perro");
-        }
         user.setRole(rol);
         Repositorio<User> users = FactoryRepositorio.get(User.class);
         users.modificar(user);
 
-        Organizacion org = new Organizacion();
 
+        // todo falta la direccion. ver si lo hace despues el usuario o ahora
         String razonSocial = request.queryParams("razonSocial");
         OrgTipo orgTipo = OrgTipo.valueOf(request.queryParams("orgTipo"));
         Clasificacion clasificacion = Clasificacion.valueOf(request.queryParams("clasificacion"));
@@ -61,11 +58,10 @@ public class OrganizacionController {
         Organizacion newOrg = new Organizacion(razonSocial, orgTipo, clasificacion, null);
         newOrg.setId(user.getId());
 
-        organizaciones.agregar(org);
+        organizaciones.agregar(newOrg);
 
-        response.redirect("/prohibido");
+        response.redirect("/organizacion/" + newOrg.getId());
 
-        // Termine de instanciar la nueva organizacion
         return response;
     }
 
