@@ -1,5 +1,6 @@
 package utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico;
 
+import lombok.Getter;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "tipo_publico")
 public abstract class TransportePublico extends  Transporte {
 
+    @Getter
     @Column(name = "nombre")
     protected String nombre;
 

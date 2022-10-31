@@ -1,0 +1,11 @@
+{{# partial "contenido"  }}
+
+    <h1>Solicitudes</h1>
+
+    {{#each solicitud}}
+        <h1> {{this.solicitante.nombre}} </h1>
+    {{/each}}
+
+{{/partial}}
+
+{{> base.hbs}}

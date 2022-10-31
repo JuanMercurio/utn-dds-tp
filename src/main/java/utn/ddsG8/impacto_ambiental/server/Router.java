@@ -1,10 +1,12 @@
 package utn.ddsG8.impacto_ambiental.server;
 
+import spark.Route;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.LoginController;
 import utn.ddsG8.impacto_ambiental.controllers.MiembroController;
 import utn.ddsG8.impacto_ambiental.controllers.OrganizacionController;
+import utn.ddsG8.impacto_ambiental.controllers.TrayectoController;
 import utn.ddsG8.impacto_ambiental.middleware.AuthMiddleware;
 import utn.ddsG8.impacto_ambiental.spark.utils.BooleanHelper;
 import utn.ddsG8.impacto_ambiental.spark.utils.HandlebarsTemplateEngineBuilder;
@@ -31,7 +33,16 @@ public class Router {
         loginConfig();
         prohibidoConfig();
         miembroConfig();
+        trayectoConfig();
         orgConfig();
+    }
+
+    private static void trayectoConfig() {
+        Spark.path("/createTrayecto", () -> {
+            Spark.before("", AuthMiddleware::authenticateSession);
+            Spark.get("",  TrayectoController::createView, engine);
+
+        });
     }
 
     private static void orgConfig() {
@@ -47,6 +58,8 @@ public class Router {
             Spark.get("/:id", OrganizacionController::show, engine);
             Spark.get("/:id/edit", OrganizacionController::edit, engine);
             Spark.post("/:id", OrganizacionController::update);
+
+            Spark.get("/:id/solicitudes", OrganizacionController::solicitudes, engine);
 //            Spark.post("/remove", orgController::remove);
         });
     }

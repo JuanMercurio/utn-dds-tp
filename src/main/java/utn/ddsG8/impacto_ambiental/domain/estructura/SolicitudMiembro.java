@@ -20,6 +20,7 @@ public class SolicitudMiembro extends Persistable {
     @JoinColumn(name = "sector", referencedColumnName = "id")
     private Sector sector;
 
+    public SolicitudMiembro() {}
     public SolicitudMiembro(Miembro solicitante, Sector sector) {
         this.solicitante = solicitante;
         this.sector = sector;

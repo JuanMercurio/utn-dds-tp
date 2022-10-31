@@ -28,6 +28,7 @@ public class Sector extends Persistable {
     @JoinColumn(name = "organizacion", referencedColumnName = "id")
     private Organizacion organizacion;
 
+    public Sector() {}
     public Sector(String nombre, Organizacion org) {
         this.nombre = nombre;
         this.organizacion = org;

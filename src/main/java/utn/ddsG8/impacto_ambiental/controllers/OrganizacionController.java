@@ -7,6 +7,7 @@ import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.OrgTipo;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.SolicitudMiembro;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.Role;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class OrganizacionController {
     private final static Repositorio<Organizacion> organizaciones = FactoryRepositorio.get(Organizacion.class);
+    private final static Repositorio<SolicitudMiembro> solicitudesPendientes = FactoryRepositorio.get(SolicitudMiembro.class);
 
     // retorna una vista en la cual figuran todas las organizaciones
     public static ModelAndView showAll(Request request, Response response) {
@@ -32,6 +34,7 @@ public class OrganizacionController {
         }}, "organizacion/org.hbs");
     }
 
+    // retorna una vista en la cual se crea una nueva organizacion
     public static ModelAndView createView(Request request, Response response) {
         return new ModelAndView(null, "organizacion/newOrg.hbs");
     }
@@ -63,6 +66,14 @@ public class OrganizacionController {
         response.redirect("/organizacion/" + newOrg.getId());
 
         return response;
+    }
+
+    public static ModelAndView solicitudes(Request request, Response response) {
+        String query = "from SolicitudMiembro where organizacion = '"+ request.params("id") + "'";
+        List<SolicitudMiembro> solicitudes = EntityManagerHelper.getEntityManager().createQuery(query).getResultList();
+        return new ModelAndView(new HashMap<String, Object>(){{
+            put("solicitud", solicitudes);
+        }}, "organizacion/solicitudes.hbs");
     }
 
     // carga la nueva version del objeto a la base de datos
