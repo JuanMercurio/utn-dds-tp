@@ -1,5 +1,7 @@
 package utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico;
 
+import lombok.Getter;
+import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.db.converters.DistanciaConverter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
@@ -23,6 +25,8 @@ public class Parada extends Persistable {
     @JoinColumn(name = "direccion", referencedColumnName = "id")
     private Direccion direccion;
 
+    @Getter
+    @Setter
     @Column(name = "nombre")
     private String nombre;
 
@@ -34,6 +38,7 @@ public class Parada extends Persistable {
     @Convert(converter = DistanciaConverter.class)
     private Distancia distanciaAnteriorParada; //TODO por ahora no se usa esto, analizar si lo sacamos
 
+    public Parada() {}
     public Parada(String nombre, Direccion direccion/*, double distanciaProxima,
                   double distanciaAnterior, int i*/) {
         this.nombre = nombre;

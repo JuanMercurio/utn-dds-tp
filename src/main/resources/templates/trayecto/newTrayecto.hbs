@@ -19,28 +19,23 @@
         </select>
 
          <select id="transporte" name="transporte">
-             {{#each camioneta}}
-             <option data-parent="camioneta" value="{{camioneta.id}}">{{camioneta.nombre}}</option>
-             {{/each}}
-             {{#each auto}}
-                 <option data-parent="auto" value="{{auto.id}}">{{auto.nombre}}</option>
-             {{/each}}
-             {{#each moto}}
-                 <option data-parent="moto" value="{{moto.id}}">{{moto.nombre}}</option>
-             {{/each}}
-             {{#each servicio_contratado}}
-                 <option data-parent="servicio_contratado" value="{{servicio_contratado.id}}">{{servicio_contratado.nombre}}</option>
-             {{/each}}
              {{#each colectivo}}
-                 <option data-parent="colectivo" value="{{colectivo.id}}">{{colectivo.nombre}}</option>
-             {{/each}}
-             {{#each subte}}
-                 <option data-parent="subte" value="{{subte.id}}">{{subte.nombre}}</option>
-             {{/each}}
-             {{#each tren}}
-                 <option data-parent="tren" value="{{tren.id}}">{{tren.nombre}}</option>
+                 <option value="{{id}}">{{nombre}}</option>
              {{/each}}
          </select>
+
+        <select id="parada-inicial" name="parada-inicial">
+            {{#each parada}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+
+        <select id="parada-final" name="parada-final">
+            {{#each parada}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+
         <input type="submit" value="Log In">
     </form>
 
