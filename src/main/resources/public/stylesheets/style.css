@@ -1,0 +1,8 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a, a:hover {
+  color: white;
+  text-decoration: none; 
+}

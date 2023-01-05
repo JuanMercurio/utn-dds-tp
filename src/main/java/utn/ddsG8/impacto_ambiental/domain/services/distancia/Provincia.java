@@ -19,7 +19,7 @@ public class Provincia {
     @JoinColumn(name = "pais", referencedColumnName = "id")
     public Pais pais;
 
-    @Transient //TODO
+    @Transient
     public List<AgenteSectorial> agenteSectorialesP;
 
     public Provincia(int id, String nombre, Pais pais) {

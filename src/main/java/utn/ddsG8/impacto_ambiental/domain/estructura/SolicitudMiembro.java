@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Table(name = "solucitud_miembro_organizacion")
 public class SolicitudMiembro extends Persistable {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "solicitante", referencedColumnName = "id")
     private Miembro solicitante;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "sector", referencedColumnName = "id")
     private Sector sector;
 

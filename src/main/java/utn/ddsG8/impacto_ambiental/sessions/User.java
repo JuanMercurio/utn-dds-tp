@@ -21,6 +21,7 @@ public class User extends Persistable {
     private String username;
 
     @Column(name = "hashed_pass")
+    @Setter
     private String password;
 
     @ManyToOne

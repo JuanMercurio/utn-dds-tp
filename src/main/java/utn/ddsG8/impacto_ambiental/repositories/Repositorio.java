@@ -2,6 +2,8 @@ package utn.ddsG8.impacto_ambiental.repositories;
 
 
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
 import utn.ddsG8.impacto_ambiental.repositories.daos.DAO;
 
 import java.util.List;

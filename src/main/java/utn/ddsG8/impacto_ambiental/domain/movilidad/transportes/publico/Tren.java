@@ -8,6 +8,7 @@ import java.util.ArrayList;
 @DiscriminatorValue("tren")
 public class Tren extends TransportePublico {
 
+    public Tren() {}
     public Tren(String nombre) {
         this.nombre = nombre;
         this.paradas = new ArrayList<Parada>();

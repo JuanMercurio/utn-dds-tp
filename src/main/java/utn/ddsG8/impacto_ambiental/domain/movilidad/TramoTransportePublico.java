@@ -18,6 +18,7 @@ public class TramoTransportePublico extends Tramo {
     @JoinColumn(name = "parada_fin", referencedColumnName = "id")
     private Parada fin;
 
+    public TramoTransportePublico() {}
     public TramoTransportePublico(TransportePublico transporte, Parada inicio, Parada fin) {
         this.transporte = transporte;
         this.inicio = inicio;

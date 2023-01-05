@@ -55,4 +55,8 @@ public abstract class TransportePublico extends  Transporte {
         return -1;
     }
 
+    @Override
+    public Boolean esPublico() {
+        return true;
+    }
 }

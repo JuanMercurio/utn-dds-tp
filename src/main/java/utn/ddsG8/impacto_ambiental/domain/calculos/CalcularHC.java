@@ -1,13 +1,19 @@
 package utn.ddsG8.impacto_ambiental.domain.calculos;
 
 
+import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // SINGLETON
 
 public class CalcularHC {
-    public static CalcularHC instancia = null;
+    private static CalcularHC instancia = null;
     private double K;
     private List<FE> factoresDeEmision;
 
@@ -22,6 +28,7 @@ public class CalcularHC {
         }
         return instancia;
     }
+
 
     // TODO: CALCULAR HUELAL DE CARBONO DEL EXCEL
     // TODO: CALCULAR HUELLAD E CARBONO DE LOGISTICA.
@@ -305,5 +312,34 @@ public class CalcularHC {
             }
         }
         return 0.0;
+    }
+
+    public double obtenerHCOrganizacion(Organizacion org) {
+        return org.CalcularHC();
+    }
+
+    public double obtenerHCTrayectosOrganizacion(Organizacion organizacion) {
+        return organizacion.getSectores().stream().mapToDouble(s -> obtenerHCSector(s)).sum();
+
+    }
+
+    public double obtenerHCSector(Sector sector) {
+        return sector.getMiembros().stream().mapToDouble(m -> obtenerHCMiembroDeOrg(m, sector.getOrganizacion())).sum();
+    }
+
+    public double obtenerHCMiembroDeOrg(Miembro miembro, Organizacion organizacion) {
+        return miembro.getTrayectos().stream().filter(t -> t.formaParte(organizacion)).mapToDouble(t -> obtenerHCTrayecto(t)).sum();
+    }
+
+    public double obtenerHCMiembro(Miembro miembro) {
+        return miembro.getTrayectos().stream().mapToDouble(t -> obtenerHCTrayecto(t)).sum();
+    }
+
+    public double obtenerHCTrayecto(Trayecto trayecto) {
+        return trayecto.getTramos().stream().mapToDouble(t -> obtenerHCTramo(t)).sum();
+    }
+
+    public double obtenerHCTramo(Tramo tramo) {
+        return tramo.calcularHC();
     }
 }

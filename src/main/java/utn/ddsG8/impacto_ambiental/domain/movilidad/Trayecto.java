@@ -32,9 +32,11 @@ public class Trayecto extends Persistable {
             joinColumns = @JoinColumn(name = "trayecto_id"),
             inverseJoinColumns = @JoinColumn(name = "org_id")
     )
+
     private List<Organizacion> organizaciones;
 
-    // es la forma fea de hacer un one-to-many unidireccional
+    // es la forma fea de hacer u one-to-many unidireccional
+    @Getter
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "trayecto", referencedColumnName = "id")
     private List<Tramo> tramos;
@@ -108,4 +110,7 @@ public class Trayecto extends Persistable {
 
     }
 
+    public boolean formaParte(Organizacion organizacion) {
+        return organizaciones.contains(organizacion);
+    }
 }

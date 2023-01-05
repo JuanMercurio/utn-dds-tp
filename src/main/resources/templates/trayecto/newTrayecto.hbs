@@ -3,7 +3,6 @@
     <h1>Agregar un trayecto</h1>
 
     <form method="post">
-        <input type="text" id="username" name="username" placeholder="Usuario"  required>
 
         <label for="tipo_transporte">Transporte</label>
         <select id="tipo_transporte" name="tipo_transporte">
@@ -18,20 +17,26 @@
             <option value="subte">Subte</option>
         </select>
 
-         <select id="transporte" name="transporte">
-             {{#each colectivo}}
+         <select id="transporte_publico" name="transporte_publico">
+             {{#each transportesPublicos}}
                  <option value="{{id}}">{{nombre}}</option>
              {{/each}}
          </select>
 
+        <select id="transporte_privado" name="transporte_privado">
+            {{#each transportesPrivados}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+
         <select id="parada-inicial" name="parada-inicial">
-            {{#each parada}}
+            {{#each paradas}}
                 <option value="{{id}}">{{nombre}}</option>
             {{/each}}
         </select>
 
         <select id="parada-final" name="parada-final">
-            {{#each parada}}
+            {{#each paradas}}
                 <option value="{{id}}">{{nombre}}</option>
             {{/each}}
         </select>

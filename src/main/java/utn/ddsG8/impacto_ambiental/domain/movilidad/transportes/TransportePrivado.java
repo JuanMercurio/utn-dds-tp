@@ -6,9 +6,7 @@ import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.combustibles.Com
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("privado")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_privado")
 public abstract class TransportePrivado extends Transporte {
 
     @Transient //todo
@@ -29,5 +27,10 @@ public abstract class TransportePrivado extends Transporte {
 
     public void setNombre(String nombre) {
         this.nombreFE = nombre;
+    }
+
+    @Override
+    public Boolean esPublico() {
+        return false;
     }
 }

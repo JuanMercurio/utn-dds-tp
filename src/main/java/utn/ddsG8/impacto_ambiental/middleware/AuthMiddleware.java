@@ -4,8 +4,6 @@ package utn.ddsG8.impacto_ambiental.middleware;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.helpers.UserHelper;
 
 public class AuthMiddleware {
@@ -23,6 +21,13 @@ public class AuthMiddleware {
             Spark.halt();
         }
 
+        return response;
+    }
+
+    public static Response isAdmin(Request request, Response response) {
+        if (!UserHelper.isAdmin(request)) {
+            response.redirect("/prohibido");
+        }
         return response;
     }
 

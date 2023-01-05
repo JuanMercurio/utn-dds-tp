@@ -6,12 +6,9 @@ import utn.ddsG8.impacto_ambiental.domain.Notificaciones.Contacto;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
-import utn.ddsG8.impacto_ambiental.db.Persistable;
-import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import javax.persistence.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -45,7 +42,6 @@ public class Organizacion {
     @Column(name = "clasificacion")
     private Clasificacion clasificacion;
 
-    @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // esta cascada es medio dudosa
     @JoinColumn(name = "direccion", referencedColumnName = "id")
     private Direccion direccion;
@@ -104,9 +100,8 @@ public class Organizacion {
         return potencialesMiembros;
     }
 
-    public void cargarMediciones() throws IOException {
-        LectorExcel lector = new LectorExcel();
-        List<Medicion> mediciones = lector.obtenerDatosActividades(archivoDatosActividades);
+    public void cargarMediciones(List<Medicion> medicionesNuevas) {
+        medicionesNuevas.forEach(m -> mediciones.add(m));
     }
 
     public void confimarMiembros(){

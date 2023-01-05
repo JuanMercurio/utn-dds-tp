@@ -1,0 +1,26 @@
+
+<html>
+    <head></head>
+    <body>
+    <form method="post">
+        </form>
+            {{#each solicitud}}
+                <tr>
+                    <form method="post" class="form=inline">
+
+                        <!-- hidden = cosas para el back -->
+                        <input type="hidden"  name="id_solicitud" value="{{this.id}}">
+
+<!--                                <div type="text" readonly class="form-control-plaintext" value="{{this.solicitante.nombre}}">{{this.solicitante.nombre}}</div>-->
+<!--                                <div readonly class="form-control-plaintext" value="{{this.solicitante.tipoDoc}}">{{this.solicitante.nombre}}</div>-->
+<!--                                <div readonly  class="form-control-plaintext" value="{{this.solicitante.documento}}">{{this.solicitante.nombre}}</div>-->
+<!--                                <div readonly class="form-control-plaintext" value="{{this.sector.nombre}}">{{this.solicitante.nombre}}</div>-->
+
+                        <button type="submit" class="btn btn-success" id="estado" value="aceptado">Aceptado</button>
+                        <button type="submit" class="btn btn-danger" id="estado" value="rechazado">Rechazado</button>
+                    </form>
+                </tr>
+        {{/each}}
+    </body>
+</html>
+

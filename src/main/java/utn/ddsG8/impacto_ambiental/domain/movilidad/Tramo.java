@@ -25,11 +25,13 @@ public abstract class Tramo extends Persistable {
     @Convert(converter = DistanciaConverter.class)
     protected Distancia distancia;
 
+    @Getter
     @ManyToOne
     @JoinColumn(name = "transporte", referencedColumnName = "id")
     protected Transporte transporte;
 
     public Double calcularHC() {
+        System.out.println("AAAAAAAAAAAA;LKJASDF;LKAJSDF;LKJASDF:w");
         return transporte.calcularHC(this.distancia.valor);
     }
 

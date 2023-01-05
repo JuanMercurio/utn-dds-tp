@@ -6,6 +6,7 @@ import java.util.ArrayList;
 @Entity
 @DiscriminatorValue("subte")
 public class Subte extends TransportePublico {
+    public Subte() {}
     public Subte(String nombre) {
         this.nombre = nombre;
         this.paradas = new ArrayList<>();

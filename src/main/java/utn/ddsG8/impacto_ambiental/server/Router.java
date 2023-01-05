@@ -1,6 +1,5 @@
 package utn.ddsG8.impacto_ambiental.server;
 
-import spark.Route;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.LoginController;
@@ -56,10 +55,16 @@ public class Router {
             Spark.before("/:id",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", OrganizacionController::show, engine);
-            Spark.get("/:id/edit", OrganizacionController::edit, engine);
+
+//            Spark.get("/:id/edit", OrganizacionController::edit, engine);
             Spark.post("/:id", OrganizacionController::update);
 
+            Spark.get("/:id/subirActividades", OrganizacionController::subirActividadesView, engine);
+            Spark.post("/:id/subirActividades", OrganizacionController::subirActividades);
+
             Spark.get("/:id/solicitudes", OrganizacionController::solicitudes, engine);
+            Spark.post("/:id/solicitudes", OrganizacionController::administrarSolicitud);
+            Spark.get("/:id/huella", OrganizacionController::vistaCalculadora, engine);
 //            Spark.post("/remove", orgController::remove);
         });
     }
@@ -75,6 +80,7 @@ public class Router {
             Spark.before("/:id",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", MiembroController::show, engine);
+            Spark.get("/:id/trayectos", TrayectoController::mostrarTrayectosMiembro, engine);
         });
     }
 
@@ -91,6 +97,7 @@ public class Router {
 
     private static void adminConfig() {
         Spark.path("/admin", () -> {
+            Spark.before("", AuthMiddleware::isAdmin);
             Spark.get("", (request, response) -> "Sos un admin wacho");
             Spark.get("/*", (request, response) -> {
                 response.redirect("/admin");

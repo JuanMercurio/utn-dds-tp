@@ -38,11 +38,6 @@ public class MiembroController {
         String documento = request.queryParams("documento");
         TipoDoc tipodoc = TipoDoc.valueOf(request.queryParams("docTipo"));
 
-        System.out.println(nombre);
-        System.out.println(apellido);
-        System.out.println(documento);
-        System.out.println(tipodoc);
-
         Miembro nuevoMiembro = new Miembro(nombre, apellido, tipodoc, documento);
         nuevoMiembro.setId(user.getId());
 

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("auto")
 public class Auto extends VehiculoParticular {
 
+    public Auto() {}
     public Auto(Combustible combustible) {
         this.combustible = combustible;
         this.nombreFE = "Auto";
