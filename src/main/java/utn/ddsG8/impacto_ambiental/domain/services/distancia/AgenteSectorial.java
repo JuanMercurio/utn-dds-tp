@@ -1,20 +1,25 @@
 package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity(name = "agenteSectorial")
 public class AgenteSectorial {
 
     @Id
+    @Setter
+    @Getter
     private int id;
 
     @Column
     private String nombre;
 
-//    @ManyToOne
-//    @JoinColumn(name = "sectorTerritorial", referencedColumnName = "id")
-    @Transient
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "sectorTerritorial", referencedColumnName = "id_DB")
     SectorTerritorial sectorTerritorial;
 
 

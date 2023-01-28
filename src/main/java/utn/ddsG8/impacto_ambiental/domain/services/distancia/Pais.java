@@ -1,15 +1,14 @@
 package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
 public class Pais {
+
     @Id
     public int id;
+
     @Column
     public String nombre;
 

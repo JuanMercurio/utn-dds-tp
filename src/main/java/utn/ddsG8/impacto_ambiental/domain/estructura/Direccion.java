@@ -15,7 +15,7 @@ public class Direccion extends Persistable {
     @Column
     private Integer altura;
     @ManyToOne
-    @JoinColumn(name = "localidad", referencedColumnName = "id")
+    @JoinColumn(name = "localidad", referencedColumnName = "id_db")
     private Localidad localidad;
 
     public Direccion(String calle, Integer altura, Localidad localidad) {

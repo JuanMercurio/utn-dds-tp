@@ -2,10 +2,7 @@ package utn.ddsG8.impacto_ambiental.server;
 
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import utn.ddsG8.impacto_ambiental.controllers.LoginController;
-import utn.ddsG8.impacto_ambiental.controllers.MiembroController;
-import utn.ddsG8.impacto_ambiental.controllers.OrganizacionController;
-import utn.ddsG8.impacto_ambiental.controllers.TrayectoController;
+import utn.ddsG8.impacto_ambiental.controllers.*;
 import utn.ddsG8.impacto_ambiental.middleware.AuthMiddleware;
 import utn.ddsG8.impacto_ambiental.spark.utils.BooleanHelper;
 import utn.ddsG8.impacto_ambiental.spark.utils.HandlebarsTemplateEngineBuilder;
@@ -29,11 +26,21 @@ public class Router {
 
     private static void configure(){
         adminConfig();
+        agenteConfig();
         loginConfig();
         prohibidoConfig();
         miembroConfig();
         trayectoConfig();
         orgConfig();
+    }
+
+    private static void agenteConfig() {
+        Spark.path("/createAgente", () -> {
+            Spark.get("", AgenteController::createView, engine);
+            Spark.post("", AgenteController::save);
+
+        });
+
     }
 
     private static void trayectoConfig() {

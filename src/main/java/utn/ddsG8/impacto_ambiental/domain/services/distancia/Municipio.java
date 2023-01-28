@@ -1,37 +1,30 @@
 package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
+import lombok.Getter;
+import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "municipio")
-public class Municipio {
+@DiscriminatorValue("municipio")
+public class Municipio extends SectorTerritorial {
 
-    @Id
-    public int id;
-    @Column(name = "nombre")
-    public String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "provincia", referencedColumnName = "id")
+    @JoinColumn(name = "provincia", referencedColumnName = "id_db")
     public Provincia provincia;
-
-    @Transient // TODO
-    public List<AgenteSectorial> agentesSectoriales;
 
     public Municipio(int id, String nombre, Provincia provincia) {
         this.id = id;
         this.nombre = nombre;
         this.provincia = provincia;
-        agentesSectoriales = new ArrayList<>();
     }
 
-    public void AgregarAgenteSectorial(AgenteSectorial ags){
-        agentesSectoriales.add(ags);
-    }
     public double CalcularHCMunicipio (List<Organizacion> organizaciones){
         double hc = 0;
         for (Organizacion org: organizaciones) {
@@ -42,5 +35,10 @@ public class Municipio {
             //
         }
         return hc;
+    }
+
+    @Override
+    public SectorTerritorial getPadre() {
+        return this.provincia;
     }
 }

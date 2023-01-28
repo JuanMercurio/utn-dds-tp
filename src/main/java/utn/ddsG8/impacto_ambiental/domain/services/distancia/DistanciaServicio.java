@@ -9,6 +9,7 @@ import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import java.io.IOException;
 import java.util.List;
 
+// TODO: agregar metodo para crear cuenta y recibir token
 public class DistanciaServicio {
     private static DistanciaServicio instancia = null;
     private static final String URL= "https://ddstpa.com.ar/"; //agregar para obtener de archivo de config y set desde el instanciador
