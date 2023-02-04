@@ -71,27 +71,9 @@ public class Administrador {
         this.calculador = calculador;
     }
 
-    public Colectivo CrearColectivo(String nombre){
-        Colectivo unColectivo = new Colectivo(nombre);
-        return unColectivo;
-
-    }
-    public Subte CrearSubte(String nombre){
-        Subte unColectivo = new Subte(nombre);
-        return unColectivo;
-
-    }
-    public Tren CrearTren(String nombre){
-        Tren unColectivo = new Tren(nombre);
-        return unColectivo;
-
-    }
     //String nombre, TransportePublico transportePublico, Direccion direccion, double distanciaProxima, double distanciaAnterior, int i
     public void AgregarParadaTransportePublico(String nombre, TransportePublico transportePublico, Direccion direccion,
                                                double distanciaProxima, double distanciaAnterior, int i ){
-        // TODO: Ver si se le saca la distancia entre paradas entre el constructor.
-        Parada nuevaParada = new Parada(nombre,direccion);
-        transportePublico.agregarParada(nuevaParada,distanciaProxima,distanciaAnterior,i);
     }
     public long getPeriodoEnvioNotificaciones() {
         return periodoEnvioNotificaciones;

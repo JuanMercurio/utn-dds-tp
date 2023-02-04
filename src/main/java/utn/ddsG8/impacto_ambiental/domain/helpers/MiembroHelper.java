@@ -1,7 +1,6 @@
-package utn.ddsG8.impacto_ambiental.helpers;
+package utn.ddsG8.impacto_ambiental.domain.helpers;
 
 import spark.Request;
-import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;

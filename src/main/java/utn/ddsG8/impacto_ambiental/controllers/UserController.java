@@ -4,7 +4,6 @@ import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassValidator;
 import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassValidatorList;
-import utn.ddsG8.impacto_ambiental.helpers.UserHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;

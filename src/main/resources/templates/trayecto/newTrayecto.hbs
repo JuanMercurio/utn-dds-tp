@@ -16,32 +16,71 @@
             <option value="colectivo">Colectivo</option>
             <option value="subte">Subte</option>
         </select>
+        <br>
 
+        <value>Transporte Publico</value>
          <select id="transporte_publico" name="transporte_publico">
              {{#each transportesPublicos}}
                  <option value="{{id}}">{{nombre}}</option>
              {{/each}}
          </select>
+        <br>
 
-        <select id="transporte_privado" name="transporte_privado">
-            {{#each transportesPrivados}}
+        <value>Vehiculo Particular</value>
+        <select id="vehiculosParticular" name="vehiculosParticular">
+            {{#each vehiculosParticular}}
                 <option value="{{id}}">{{nombre}}</option>
             {{/each}}
         </select>
+        <br>
 
+        <value>Parada Inicial</value>
         <select id="parada-inicial" name="parada-inicial">
             {{#each paradas}}
                 <option value="{{id}}">{{nombre}}</option>
             {{/each}}
         </select>
+        <br>
 
+        <value>Parada Final</value>
         <select id="parada-final" name="parada-final">
             {{#each paradas}}
                 <option value="{{id}}">{{nombre}}</option>
             {{/each}}
         </select>
+        <br>
 
-        <input type="submit" value="Log In">
+<!--        TODO esto hay que ver como verga con los de front-->
+
+        <value>Localidad Inicial</value>
+        <select id="localidad-inicial" name="localidad-inicial">
+            {{#each localidades}}
+                <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+            {{/each}}
+        </select>
+        <br>
+
+        <value>Calle</value>
+        <input type="text" id="calle" name="calle">
+        <value>Altura</value>
+        <input type="text" id="altura" name="altura">
+        <br>
+
+        <value>Localidad Final</value>
+        <select id="localidad-final" name="localidad-final">
+            {{#each localidades}}
+                <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+            {{/each}}
+        </select>
+        <br>
+
+        <value>Calle</value>
+        <input  type="text" id="calle" name="calle">
+        <value>Altura</value>
+        <input type="text" id="altura" name="altura">
+        <br>
+
+        <input type="submit" value="Crear Trayecto">
     </form>
 
 

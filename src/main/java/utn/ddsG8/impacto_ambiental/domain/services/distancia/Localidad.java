@@ -14,10 +14,11 @@ public class Localidad extends SectorTerritorial {
     @Column
     public int codPostal;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "municipio", referencedColumnName = "id_db")
     public Municipio municipio;
 
+    public Localidad() {}
     public Localidad(int id, String nombre, int codPostal, Municipio municipio) {
         this.id = id;
         this.codPostal = codPostal;

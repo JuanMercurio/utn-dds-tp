@@ -5,6 +5,7 @@ import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 
 import javax.persistence.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,11 @@ import java.util.List;
 public class Municipio extends SectorTerritorial {
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "provincia", referencedColumnName = "id_db")
     public Provincia provincia;
 
+    public Municipio() {}
     public Municipio(int id, String nombre, Provincia provincia) {
         this.id = id;
         this.nombre = nombre;

@@ -35,7 +35,7 @@ public class Miembro   {
     @ManyToMany(mappedBy = "miembros", fetch = FetchType.LAZY)
     private List<Sector> sectores;
 
-    @ManyToMany(mappedBy = "miembros", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "miembros", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Trayecto> trayectos;
 
     public Miembro(){}
@@ -51,7 +51,9 @@ public class Miembro   {
 
     public void agregarSector(Sector sector) {
         this.sectores.add(sector);
+        sector.agregarMiembro(this);
     }
+
     // TODO: estoy suponiendo que en una direccion solo hay una org
     public Organizacion EstaYendoAOrganizacion(Direccion unaDireccion){
         for (Sector unSector:this.sectores) {

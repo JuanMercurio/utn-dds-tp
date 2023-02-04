@@ -9,11 +9,11 @@ import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import java.io.IOException;
 import java.util.List;
 
-// TODO: agregar metodo para crear cuenta y recibir token
 public class DistanciaServicio {
     private static DistanciaServicio instancia = null;
     private static final String URL= "https://ddstpa.com.ar/"; //agregar para obtener de archivo de config y set desde el instanciador
     private final Retrofit retrofit;
+    private final String token = "Bearer E8iN6xBPXQsUI+M72MfPdVhM/o3axkzywqKZjjOyhe0=";
 
     private DistanciaServicio() {
         this.retrofit = new Retrofit.Builder()
@@ -29,7 +29,7 @@ public class DistanciaServicio {
         return instancia;
     }
 
-    public List<Pais> paises(String token, int offset) {
+    public List<Pais> paises(int offset) {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Pais>> requestPaises= distanciaAPI.paises(token, offset);
         Response<List<Pais>> responsePaises = null;
@@ -42,7 +42,7 @@ public class DistanciaServicio {
     }
 
 
-    public List<Provincia> provincias(String token, int offset) {
+    public List<Provincia> provincias(int offset) {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Provincia>> requestProvincia= distanciaAPI.provincias(token, offset);
         Response<List<Provincia>> responseProvincia = null;
@@ -54,7 +54,7 @@ public class DistanciaServicio {
         return responseProvincia.body();
     }
 
-    public List<Provincia> provincias(String token, int offset, int pais) {
+    public List<Provincia> provincias(int offset, int pais) {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Provincia>> requestProvincia= distanciaAPI.provincias(token, offset, pais);
         Response<List<Provincia>> responseProvincia = null;
@@ -67,7 +67,7 @@ public class DistanciaServicio {
     }
 
 
-    public List<Localidad> localidades(String token, int offset) {
+    public List<Localidad> localidades(int offset) {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Localidad>> requestLocalidad = distanciaAPI.localidades(token, offset);
         Response<List<Localidad>> responseLocalidad = null;
@@ -79,7 +79,7 @@ public class DistanciaServicio {
         return responseLocalidad.body();
     }
 
-    public List<Localidad> localidades(String token, int offset, int municipio) {
+    public List<Localidad> localidades(int offset, int municipio) {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Localidad>> requestLocalidad = distanciaAPI.localidades(token, offset, municipio);
         Response<List<Localidad>> responseLocalidad = null;
@@ -92,7 +92,7 @@ public class DistanciaServicio {
     }
 
 
-    public List<Municipio> municipios(String token, int offset) {
+    public List<Municipio> municipios(int offset) {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Municipio>> requestMunicipio = distanciaAPI.municipios(token, offset);
         Response<List<Municipio>> responseMunicipio = null;
@@ -104,7 +104,7 @@ public class DistanciaServicio {
         return responseMunicipio.body();
     }
 
-    public List<Municipio> municipios(String token, int offset, int provincia)  {
+    public List<Municipio> municipios(int offset, int provincia)  {
         DistanciaAPI distanciaAPI = this.retrofit.create(DistanciaAPI.class);
         Call<List<Municipio>> requestMunicipio = distanciaAPI.municipios(token, offset, provincia);
         Response<List<Municipio>> responseMunicipio = null;
@@ -116,8 +116,8 @@ public class DistanciaServicio {
         return responseMunicipio.body();
     }
 
-    public Distancia distancia(String token, Direccion inicio, Direccion fin)  {
-        return distancia(token, inicio.getLocalidad().getId(),
+    public Distancia distancia(Direccion inicio, Direccion fin)  {
+        return distancia(inicio.getLocalidad().getId(),
                                 inicio.getCalle(),
                                 inicio.getAltura(),
                                 fin.getLocalidad().getId(),
@@ -127,8 +127,7 @@ public class DistanciaServicio {
 
     }
 
-    public Distancia distancia(String token,
-                               int localidadOrigenId,
+    public Distancia distancia(int localidadOrigenId,
                                String calleOrigen,
                                String alturaOrigen,
                                int localidadDestinoId,

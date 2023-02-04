@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Auto;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Colectivo;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Subte;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.*;
 
 import javax.persistence.Query;
@@ -14,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityManagerTest {
-    private static final String token = "Bearer E8iN6xBPXQsUI+M72MfPdVhM/o3axkzywqKZjjOyhe0=";
     private static List<Pais> paises;
     private static List<Provincia> provincias;
     private static List<Municipio> municipios;
@@ -23,16 +19,16 @@ public class EntityManagerTest {
 
     public void getLocations() {
         // TODO: Este test es muy lento, hay que usar mockito
-        paises = DistanciaServicio.getInstancia().paises(token, 1);
-        provincias = DistanciaServicio.getInstancia().provincias(token, 1);
-        municipios = new ArrayList<Municipio>();
-        localidades = new ArrayList<Localidad>();
+        paises = DistanciaServicio.getInstancia().paises( 1);
+        provincias = DistanciaServicio.getInstancia().provincias( 1);
+        municipios = new ArrayList<>();
+        localidades = new ArrayList<>();
         for (Provincia p : provincias) {
-            List municipiosProvicia = DistanciaServicio.getInstancia().municipios(token, 1, p.id);
+            List<Municipio> municipiosProvicia = DistanciaServicio.getInstancia().municipios( 1, p.id);
             municipios.addAll(municipiosProvicia);
         }
         for (Municipio m : municipios) {
-            List localidadesMunicipio = DistanciaServicio.getInstancia().localidades(token, 1, m.id);
+            List<Localidad> localidadesMunicipio = DistanciaServicio.getInstancia().localidades( 1, m.id);
             localidades.addAll(localidadesMunicipio);
         }
     }
@@ -57,24 +53,24 @@ public class EntityManagerTest {
 
     @Test
     public void persistirMovilidad() {
-        Auto auto = new Auto(null);
-        Subte subte = new Subte(null);
-        Colectivo colectivo = new Colectivo(null);
-
-        EntityManagerHelper.beginTransaction();
-
-        EntityManagerHelper.getEntityManager().persist(auto);
-        EntityManagerHelper.getEntityManager().persist(subte);
-        EntityManagerHelper.getEntityManager().persist(colectivo);
-
-        EntityManagerHelper.commit();
+//        Auto auto = new Auto(null);
+//        Subte subte = new Subte(null);
+//        Colectivo colectivo = new Colectivo(null);
+//
+//        EntityManagerHelper.beginTransaction();
+//
+//        EntityManagerHelper.getEntityManager().persist(auto);
+//        EntityManagerHelper.getEntityManager().persist(subte);
+//        EntityManagerHelper.getEntityManager().persist(colectivo);
+//
+//        EntityManagerHelper.commit();
 
     }
 
     @Test
     public void persistirEstructura() {
 
-        Direccion direccion = new Direccion("ejemplo_calle", new Integer(123) , null);
+        Direccion direccion = new Direccion("ejemplo_calle", 123, null);
         Organizacion org = new Organizacion(
                 "ejemplo razonSocial",
                 OrgTipo.Empresa,

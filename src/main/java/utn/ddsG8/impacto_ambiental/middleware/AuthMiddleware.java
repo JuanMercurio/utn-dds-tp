@@ -4,7 +4,7 @@ package utn.ddsG8.impacto_ambiental.middleware;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-import utn.ddsG8.impacto_ambiental.helpers.UserHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.UserHelper;
 
 public class AuthMiddleware {
     public static Response authenticateSession(Request request, Response response) {

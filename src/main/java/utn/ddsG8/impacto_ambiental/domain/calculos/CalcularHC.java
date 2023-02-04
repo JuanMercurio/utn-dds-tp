@@ -323,6 +323,7 @@ public class CalcularHC {
 
     }
 
+    // TODO de esta forma se repiten los trayectos compartidos
     public double obtenerHCSector(Sector sector) {
         return sector.getMiembros().stream().mapToDouble(m -> obtenerHCMiembroDeOrg(m, sector.getOrganizacion())).sum();
     }
@@ -336,8 +337,9 @@ public class CalcularHC {
     }
 
     public double obtenerHCTrayecto(Trayecto trayecto) {
-        return trayecto.getTramos().stream().mapToDouble(t -> obtenerHCTramo(t)).sum();
+        return trayecto.CalcularHCTrayecto();
     }
+
 
     public double obtenerHCTramo(Tramo tramo) {
         return tramo.calcularHC();

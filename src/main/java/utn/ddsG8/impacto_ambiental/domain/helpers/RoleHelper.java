@@ -1,4 +1,4 @@
-package utn.ddsG8.impacto_ambiental.helpers;
+package utn.ddsG8.impacto_ambiental.domain.helpers;
 
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.sessions.Role;

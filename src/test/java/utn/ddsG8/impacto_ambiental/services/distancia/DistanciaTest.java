@@ -21,7 +21,7 @@ public class DistanciaTest {
     @Test
     public void retornaPaises() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Pais> paises = api.paises(token, 1);
+        List<Pais> paises = api.paises(1);
         System.out.println();
         System.out.println("Imprime paises recibidos");
         System.out.println();
@@ -34,7 +34,7 @@ public class DistanciaTest {
     @Test
     public void retornaProvincias() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Provincia> provincias = api.provincias(token, 1);
+        List<Provincia> provincias = api.provincias(1);
         System.out.println();
         System.out.println("Imprime provincias recibidas");
         System.out.println();
@@ -47,14 +47,14 @@ public class DistanciaTest {
     @Test
     public void retornaProvinciasDePais() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Provincia> provincias = api.provincias(token, 1, 9);
+        List<Provincia> provincias = api.provincias(1, 9);
         Assertions.assertEquals("BUENOS AIRES", provincias.get(0).nombre);
     }
 
     @Test
     public void retornaMunicipios() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Municipio> municipios = api.municipios(token, 10);
+        List<Municipio> municipios = api.municipios(10);
         System.out.println();
         System.out.println("Imprime municipios recibidos");
         System.out.println();
@@ -67,14 +67,14 @@ public class DistanciaTest {
     @Test
     public void retornaMunicipiosDeProvincia() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Municipio> municipios = api.municipios(token, 1, 171);
+        List<Municipio> municipios = api.municipios(1, 171);
         Assertions.assertEquals("RAWSON ", municipios.get(0).nombre);
     }
 
     @Test
     public void retornaLocalidades() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Localidad> localidades = api.localidades(token, 1);
+        List<Localidad> localidades = api.localidades(1);
         System.out.println();
         System.out.println("Imprime localidades y municipios obtenidos");
         System.out.println();
@@ -95,15 +95,14 @@ public class DistanciaTest {
     @Test
     public void retornaLocalidadesDeMunicipio() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        List<Localidad> localidades = api.localidades(token, 1, 9);
+        List<Localidad> localidades = api.localidades(1, 9);
         Assertions.assertEquals("ALDEA BRASILERA ", localidades.get(0).nombre);
     }
 
     @Test
     public void retornaUnaDistancia() throws IOException {
         DistanciaServicio api = DistanciaServicio.getInstancia();
-        Distancia distancia = api.distancia(token,
-                1,
+        Distancia distancia = api.distancia( 1,
                 "maipu",
                 "100",
                 457,

@@ -22,6 +22,7 @@ public class LoginController {
                 + PassHasher.SHA_256(request.queryParams("password"))
                 + "'";
 
+        // TODO si pone mal la contrasenia o el username
         User user =  repo.query(query).get(0);
 
         if (user != null) {

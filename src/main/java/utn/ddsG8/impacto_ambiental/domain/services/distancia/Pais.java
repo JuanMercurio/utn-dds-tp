@@ -2,7 +2,7 @@ package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "pais")
 @Table
 public class Pais {
 

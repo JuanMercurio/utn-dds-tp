@@ -36,17 +36,24 @@ public class Router {
 
     private static void agenteConfig() {
         Spark.path("/createAgente", () -> {
+
             Spark.get("", AgenteController::createView, engine);
             Spark.post("", AgenteController::save);
 
         });
 
+        Spark.path("/agente", () -> {
+            Spark.before("/*", AuthMiddleware::authenticateSession);
+            Spark.before("/:id",  AuthMiddleware::authenticateId);
+
+            Spark.get("/:id", AgenteController::show, engine);
+        });
     }
 
     private static void trayectoConfig() {
         Spark.path("/createTrayecto", () -> {
             Spark.before("", AuthMiddleware::authenticateSession);
-            Spark.get("",  TrayectoController::createView, engine);
+            Spark.get("",  TrayectoController::crearTrayectoView, engine);
 
         });
     }

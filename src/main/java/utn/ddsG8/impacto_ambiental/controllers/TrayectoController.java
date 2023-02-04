@@ -4,44 +4,41 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.TransportePrivado;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Colectivo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Subte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
-import utn.ddsG8.impacto_ambiental.helpers.MiembroHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TrayectoController {
 
-    private static Repositorio<Colectivo> colectivosRepo = FactoryRepositorio.get(Colectivo.class);
     private static Repositorio<Parada> paradaRepo = FactoryRepositorio.get(Parada.class);
     private static Repositorio<Trayecto> trayectosRepo = FactoryRepositorio.get(Trayecto.class);
-    private static Repositorio<Subte> subtesRepo = FactoryRepositorio.get(Subte.class);
     private static Repositorio<TransportePublico> transportesPublicos = FactoryRepositorio.get(TransportePublico.class);
     private static Repositorio<Transporte> transportesRepo = FactoryRepositorio.get(Transporte.class);
+    private static List<Localidad> localidadList = FactoryRepositorio.get(Localidad.class).buscarTodos();
 
-    public static ModelAndView createView(Request request, Response response) {
+    public static ModelAndView crearTrayectoView(Request request, Response response) {
         Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
 
-        List<Transporte> transportesDeMiembro = transportesRepo.query("from Transporte where duenio = 21");
+        List<Transporte> transportesDeMiembro = transportesRepo.query("from Transporte where duenio = " + miembro.getId());
         List<TransportePublico> tpublicos = transportesPublicos.buscarTodos();
         List<Parada> paradas = paradaRepo.buscarTodos();
 
+
         Map<String, Object> parametros = new HashMap<>();
+        parametros.put("localidades", localidadList);
         parametros.put("transportesPublicos", tpublicos);
-        parametros.put("transportesPrivados", transportesDeMiembro);
+        parametros.put("vehiculosParticular", transportesDeMiembro);
         parametros.put("paradas", paradas);
         return new ModelAndView(parametros, "/trayecto/newTrayecto.hbs");
     }

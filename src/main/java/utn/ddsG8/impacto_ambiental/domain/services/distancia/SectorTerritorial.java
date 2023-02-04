@@ -6,7 +6,7 @@ import utn.ddsG8.impacto_ambiental.db.Persistable;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "sectorTerritorial")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
 public abstract class SectorTerritorial {

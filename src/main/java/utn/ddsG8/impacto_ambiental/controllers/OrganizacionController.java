@@ -4,15 +4,13 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
-import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
-import utn.ddsG8.impacto_ambiental.helpers.OrganizacionHelper;
-import utn.ddsG8.impacto_ambiental.helpers.UserHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.OrganizacionHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
-import utn.ddsG8.impacto_ambiental.sessions.Role;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import javax.servlet.MultipartConfigElement;
@@ -21,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrganizacionController {
     private final static Repositorio<Organizacion> organizaciones = FactoryRepositorio.get(Organizacion.class);
@@ -51,15 +48,11 @@ public class OrganizacionController {
     public static Response save(Request request, Response response) {
 
         User user = UserController.create(request, response);
-        if (user == null) {
-            return response;
-        }
+        if (user == null) return response;
 
-        Role rol = (Role) EntityManagerHelper.getEntityManager().createQuery("from Role where name = 'organizacion'").getSingleResult();
-        user.setRole(rol);
+        user.setRole(RoleHelper.getRole("organizacion"));
         Repositorio<User> users = FactoryRepositorio.get(User.class);
         users.modificar(user);
-
 
         // todo falta la direccion. ver si lo hace despues el usuario o ahora
         String razonSocial = request.queryParams("razonSocial");

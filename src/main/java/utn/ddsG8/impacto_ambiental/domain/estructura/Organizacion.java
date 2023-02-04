@@ -88,6 +88,7 @@ public class Organizacion {
     public int cantidadMiembros(){
         // se puede buscar una forma mas elegante como ya tener un set de miembros, pero eso seria informacion redundante...
         Set<Miembro> miembros = new HashSet<Miembro>();
+        //esto esta como el orto addall no hace eso jajaja
         sectores.forEach(sector -> miembros.addAll(sector.getMiembros()));
         return miembros.size();
     }
@@ -134,7 +135,8 @@ public double CalcularHC (){
         return hc + CalcularHC.getInstancia().CalcularFEActividadesTOTAL(mediciones);
     }
 
-    public void HuellaCarbonoMiembros(CalcularHC calculador){
+    // TODO repite trayectos
+    public void HuellaCarbonoMiembros(){
         int cant = 0;
         for (Sector sector:  sectores) {
             for (Miembro miembro: sector.getMiembros()) {
@@ -148,22 +150,6 @@ public double CalcularHC (){
         }
     }
 
-    public double CalcularHCAnual (CalcularHC calculador, int anio){
-        double hc = 0;
-        for (Trayecto trayecto: trayectos) {
-            hc+= trayecto.CalcularHCTrayectoAnual(calculador,anio);
-        }
-        return hc + calculador.CalcularFEActividadesAnual(mediciones,anio);
-    }
-
-    public double CalcularHCMensual (CalcularHC calculador, int anio, int mes){
-        double hc = 0;
-        for (Trayecto trayecto: trayectos) {
-            hc+= trayecto.CalcularHCTrayectoMensual(calculador,mes,anio);
-        }
-        return hc + calculador.CalcularFEActividadesMensual(mediciones,mes,anio);
-    }
-
     public double IndicadorHC_CANT (CalcularHC calculardor){
         return CalcularHC()*cantidadMiembros();
     }
@@ -174,5 +160,13 @@ public double CalcularHC (){
     }
     public void agregarContacto(Contacto contacto){
         contactos.add(contacto);
+    }
+
+    public void agregarSector(Sector sector) {
+        this.sectores.add(sector);
+    }
+
+    public void agregarTrayecto(Trayecto trayecto) {
+        trayectos.add(trayecto);
     }
 }

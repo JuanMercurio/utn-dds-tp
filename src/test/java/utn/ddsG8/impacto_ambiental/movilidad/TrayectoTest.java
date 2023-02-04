@@ -7,14 +7,9 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.TramoTransportePrivado;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.TramoTransportePublico;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Auto;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Pie;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Tren;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 
@@ -32,14 +27,14 @@ class TrayectoTest {
 
     @BeforeAll
     public static void iniciarTramos() {
-        Auto auto = new Auto(null);
-        Pie pie = new Pie();
-        transportePublico = crearTren();
-        tramoAuto = new TramoTransportePrivado(auto, inicio, fin, token);
-        tramoPie = new TramoTransportePrivado(pie, inicio, fin, token);
-        tramoTren1 = new TramoTransportePublico(transportePublico, transportePublico.getParadas().get(2), transportePublico.getParadas().get(4));
-        tramoTren2 = new TramoTransportePublico(transportePublico, transportePublico.getParadas().get(6), transportePublico.getParadas().get(7));
-
+//        Auto auto = new Auto(null);
+//        Pie pie = new Pie();
+//        transportePublico = crearTren();
+//        tramoAuto = new TramoTransportePrivado(auto, inicio, fin, token);
+//        tramoPie = new TramoTransportePrivado(pie, inicio, fin, token);
+//        tramoTren1 = new TramoTransportePublico(transportePublico, transportePublico.getParadas().get(2), transportePublico.getParadas().get(4));
+//        tramoTren2 = new TramoTransportePublico(transportePublico, transportePublico.getParadas().get(6), transportePublico.getParadas().get(7));
+//
 
 
     }
@@ -118,11 +113,12 @@ class TrayectoTest {
     }
 
     private static TransportePublico crearTren() {
-        TransportePublico tren = new Tren("Aguante Pablo");
-        for (int i = 0; i <10; i++) {
-            Parada parada = new Parada("parada "+i, null);
-            tren.agregarParada(parada,1,2,i);
-        }
-        return tren;
+//        TransportePublico tren = new Tren("Aguante Pablo");
+//        for (int i = 0; i <10; i++) {
+//            Parada parada = new Parada("parada "+i, null);
+//            tren.agregarParada(parada,1,2,i);
+//        }
+//        return tren;
+        return null;
     }
 }

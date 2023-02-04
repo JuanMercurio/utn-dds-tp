@@ -7,7 +7,7 @@ import javax.persistence.AttributeConverter;
 public class DistanciaConverter implements AttributeConverter<Distancia, String> {
     @Override
     public String convertToDatabaseColumn(Distancia distancia) {
-        return distancia.unidad.toString() + distancia.unidad;
+        return String.valueOf(distancia.valor) + " " +  distancia.unidad;
     }
 
     @Override

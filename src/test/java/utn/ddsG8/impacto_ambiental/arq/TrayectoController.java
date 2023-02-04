@@ -3,18 +3,13 @@ package utn.ddsG8.impacto_ambiental.arq;
 import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Colectivo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Subte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TrayectoController {

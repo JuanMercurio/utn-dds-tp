@@ -46,6 +46,7 @@ public class Sector extends Persistable {
         this.organizacion = org;
         this.miembros = new ArrayList<Miembro>();
         this.cantidadMiembros = 0.0;
+        this.organizacion.agregarSector(this);
     }
 
     public void agregarMiembro(Miembro miembro) {

@@ -10,7 +10,9 @@ import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @Entity
@@ -33,7 +35,7 @@ public class Trayecto extends Persistable {
             inverseJoinColumns = @JoinColumn(name = "org_id")
     )
 
-    private List<Organizacion> organizaciones;
+    private Set<Organizacion> organizaciones;
 
     // es la forma fea de hacer u one-to-many unidireccional
     @Getter
@@ -47,7 +49,7 @@ public class Trayecto extends Persistable {
 
     public Trayecto() {
         this.miembros = new ArrayList<Miembro>() ;
-        this.organizaciones = new ArrayList<Organizacion>() ;
+        this.organizaciones = new HashSet<>();
         this.tramos = new ArrayList<Tramo>() ;
     }
 
@@ -68,6 +70,7 @@ public class Trayecto extends Persistable {
 
     public void agregarTramo(Tramo tramo) {
         tramos.add(tramo);
+        this.setDistancia();
     }
 
     public void agregarTramos(Tramo ... tramo) {
@@ -76,6 +79,7 @@ public class Trayecto extends Persistable {
 
     public  void agregarOrganizacion(Organizacion unaOrg) {
         this.organizaciones.add(unaOrg);
+        unaOrg.agregarTrayecto(this);
     }
 
     public void agregarMiembro(Miembro miembro) {
@@ -91,24 +95,25 @@ public class Trayecto extends Persistable {
         return hc;
 
     }
-    public double CalcularHCTrayectoMensual(CalcularHC calculador, int mes, int anio){
-        double hc = 0;
 
-        for ( Tramo tramo: tramos) {
-            hc += tramo.calcularHCMensual(mes,anio);
-        }
-        return hc;
-
-    }
-    public double CalcularHCTrayectoAnual(CalcularHC calculador, int anio){
-        double hc = 0;
-
-        for ( Tramo tramo: tramos) {
-            hc += tramo.calcularHCAnual(anio);
-        }
-        return hc;
-
-    }
+//    public double CalcularHCTrayectoMensual(CalcularHC calculador, int mes, int anio){
+//        double hc = 0;
+//
+//        for ( Tramo tramo: tramos) {
+//            hc += tramo.calcularHCMensual(mes,anio);
+//        }
+//        return hc;
+//
+//    }
+//    public double CalcularHCTrayectoAnual(CalcularHC calculador, int anio){
+//        double hc = 0;
+//
+//        for ( Tramo tramo: tramos) {
+//            hc += tramo.calcularHCAnual(anio);
+//        }
+//        return hc;
+//
+//    }
 
     public boolean formaParte(Organizacion organizacion) {
         return organizaciones.contains(organizacion);

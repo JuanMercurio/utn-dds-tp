@@ -4,10 +4,12 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
-import utn.ddsG8.impacto_ambiental.helpers.RoleHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
+
+import java.util.HashMap;
 
 public class AgenteController {
 
@@ -36,4 +38,13 @@ public class AgenteController {
 
         return response;
     }
+
+    public static ModelAndView show(Request request, Response response) {
+        AgenteSectorial agente = agentes.buscar(new Integer(request.params("id")));
+        return new ModelAndView(new HashMap<String, Object>(){{
+            put("agente", agente);
+        }}, "agenteSectorial/agente.hbs");
+    }
 }
+
+

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name = "agenteSectorial")
+@Entity(name = "agentesectorial")
 public class AgenteSectorial {
 
     @Id
@@ -14,6 +14,7 @@ public class AgenteSectorial {
     @Getter
     private int id;
 
+    @Getter
     @Column
     private String nombre;
 
@@ -26,4 +27,6 @@ public class AgenteSectorial {
     public AgenteSectorial(String nombre) {
         this.nombre = nombre;
     }
+
+    public AgenteSectorial() {}
 }

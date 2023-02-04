@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 public class Role extends Persistable {
+
     @Column(name = "name")
     private String name;
 

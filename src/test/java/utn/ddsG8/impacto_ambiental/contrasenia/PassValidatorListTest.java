@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassHasher;
 import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassValidatorList;
+import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.io.FileNotFoundException;
@@ -30,9 +31,7 @@ class PassValidatorListTest {
 
     @Test
     public void obtenersha() {
-        User user = new User("juan", PassHasher.SHA_256("Juan12345"));
-        EntityManagerHelper.getEntityManager().persist(user);
-
+        System.out.println(PassHasher.SHA_256("miembro"));
     }
 
 

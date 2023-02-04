@@ -13,12 +13,19 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
-            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/disenio" />
-            <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="root" />
+<!--            Settings para conectarse a local (juan)-->
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/disenio" />-->
+<!--            <property name="hibernate.connection.username" value="root" />-->
+<!--            <property name="hibernate.connection.password" value="root" />-->
 
-            <property name="hibernate.show_sql" value="true" />
+<!--        Settings para conectarse a base de datos remota    -->
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://dds-tp.cxjzgi7r4z8c.sa-east-1.rds.amazonaws.com:3306/tp?characterEncoding=utf8" />
+            <property name="hibernate.connection.username" value="admin" />
+            <property name="hibernate.connection.password" value="DISENIO123" />
+
+            <property name="hibernate.show_sql" value="false" />
             <!-- Enable the logging of all the generated SQL statements to the console -->
 
             <property name="hibernate.format_sql" value="true" />
