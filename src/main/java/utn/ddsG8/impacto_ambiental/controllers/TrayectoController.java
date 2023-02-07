@@ -30,7 +30,7 @@ public class TrayectoController {
     public static ModelAndView crearTrayectoView(Request request, Response response) {
         Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
 
-        List<Transporte> transportesDeMiembro = transportesRepo.query("from Transporte where duenio = " + miembro.getId());
+        List<Transporte> transportesDeMiembro = transportesRepo.query("from transporte where duenio = " + miembro.getId());
         List<TransportePublico> tpublicos = transportesPublicos.buscarTodos();
         List<Parada> paradas = paradaRepo.buscarTodos();
 
