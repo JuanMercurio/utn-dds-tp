@@ -10,4 +10,8 @@ public class OrganizacionHelper {
     public static Organizacion getOrg(Request request) {
         return organizacionRepositorio.buscar(UserHelper.loggedUser(request).getId());
     }
+
+    public static Organizacion getOrg(int i) {
+        return organizacionRepositorio.buscar(i);
+    }
 }

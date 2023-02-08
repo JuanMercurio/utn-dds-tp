@@ -1,0 +1,14 @@
+{{# partial "contenido"}}
+
+        {{#each organizaciones}}
+            <form method="post">
+            <p>Me quiero unir a la organizacion: {{this.razonSocial}}</p>
+            <input type="hidden" name="org" value="{{this.id}}">
+                <input type="hidden" name="miembro" value="{{miembro.id}}">
+            <button type="submit">Unirse</button>
+            </form>
+        {{/each}}
+
+{{/partial}}
+{{> base.hbs}}
+

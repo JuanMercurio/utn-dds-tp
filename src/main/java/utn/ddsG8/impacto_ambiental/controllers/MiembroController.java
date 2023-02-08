@@ -4,16 +4,21 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
+import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.OrganizacionHelper;
 import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.SectorHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MiembroController {
 
     private static Repositorio<Miembro>  miembros = FactoryRepositorio.get(Miembro.class);
+    private static Repositorio<Organizacion>  repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
 
     public static ModelAndView createView(Request request, Response respose) {
         return new ModelAndView(null, "/miembro/newMiembro.hbs");
@@ -49,5 +54,21 @@ public class MiembroController {
         return new ModelAndView(new HashMap<String, Object>(){{
             put("miembro", miembro);
         }}, "/miembro/miembro.hbs");
+    }
+
+    public static ModelAndView organizacionesParaUnirse(Request request, Response response) {
+        //TODO falta poner los sectores
+        List<Organizacion> orgs = repoOrganizacion.buscarTodos();
+        return new ModelAndView(new HashMap<String, Object>(){{
+            put("organizaciones", orgs);
+        }}, "/miembro/solicitarUnirseAOrg.hbs");
+    }
+
+    public static Response unirseAOrg(Request request, Response response) {
+        Organizacion org = OrganizacionHelper.getOrg(new Integer(request.queryParams("org")));
+        Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
+        Sector sector = SectorHelper.getSector(new Integer(request.queryParams("sector")));
+        miembro.unirseAOrg(org, sector);
+        return response;
     }
 }

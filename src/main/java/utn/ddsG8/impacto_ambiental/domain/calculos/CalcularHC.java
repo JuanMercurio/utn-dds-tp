@@ -1,14 +1,21 @@
 package utn.ddsG8.impacto_ambiental.domain.calculos;
 
 
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
+import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
+import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 // SINGLETON
 
@@ -16,6 +23,10 @@ public class CalcularHC {
     private static CalcularHC instancia = null;
     private double K;
     private List<FE> factoresDeEmision;
+
+    private Repositorio<Direccion> repoDireccion = FactoryRepositorio.get(Direccion.class);
+    private Repositorio<Trayecto> repoTrayecto = FactoryRepositorio.get(Trayecto.class);
+    private Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
 
     public CalcularHC() {
     factoresDeEmision = new ArrayList<>();
@@ -315,18 +326,27 @@ public class CalcularHC {
     }
 
     public double obtenerHCOrganizacion(Organizacion org) {
-        return org.CalcularHC();
+        // todo ES LA SUMA DE LOS TRAYECTOS Y LOS DA
+        return org.calcularHC();
+    }
+
+    public double obtenerHCSector(Sector sector) {
+        return obtenerTrayectos(sector).stream().mapToDouble(t -> t.CalcularHCTrayecto()).sum();
     }
 
     public double obtenerHCTrayectosOrganizacion(Organizacion organizacion) {
-        return organizacion.getSectores().stream().mapToDouble(s -> obtenerHCSector(s)).sum();
-
+        return  organizacion.getTrayectos().stream().mapToDouble(t -> t.CalcularHCTrayecto()).sum();
     }
 
-    // TODO de esta forma se repiten los trayectos compartidos
-    public double obtenerHCSector(Sector sector) {
-        return sector.getMiembros().stream().mapToDouble(m -> obtenerHCMiembroDeOrg(m, sector.getOrganizacion())).sum();
+    public List<Trayecto> obtenerTrayectos(Sector sector) {
+        Set<Trayecto> trayectos = new HashSet<>();
+        sector.getMiembros().forEach(m -> m.getTrayectos().forEach(t -> {
+            if (t.getOrganizaciones().contains(sector.getOrganizacion())) trayectos.add(t);
+        }));
+        return trayectos.stream().collect(Collectors.toList());
     }
+
+
 
     public double obtenerHCMiembroDeOrg(Miembro miembro, Organizacion organizacion) {
         return miembro.getTrayectos().stream().filter(t -> t.formaParte(organizacion)).mapToDouble(t -> obtenerHCTrayecto(t)).sum();
@@ -344,4 +364,10 @@ public class CalcularHC {
     public double obtenerHCTramo(Tramo tramo) {
         return tramo.calcularHC();
     }
+
+    public double obtenerHCSectorTerritorial(SectorTerritorial sectorTerritorial) {
+        List<Organizacion> listOrganizacion = repoOrganizacion.buscarTodos().stream().filter(o -> o.perteneceASector(sectorTerritorial)).collect(Collectors.toList());
+        return listOrganizacion.stream().mapToDouble(o -> o.calcularHC()).sum();
+    }
+
 }

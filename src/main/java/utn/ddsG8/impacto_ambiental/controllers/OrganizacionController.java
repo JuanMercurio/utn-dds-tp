@@ -23,7 +23,6 @@ import java.util.List;
 public class OrganizacionController {
     private final static Repositorio<Organizacion> organizaciones = FactoryRepositorio.get(Organizacion.class);
     private final static Repositorio<SolicitudMiembro> solicitudesPendientes = FactoryRepositorio.get(SolicitudMiembro.class);
-    private final static Repositorio<Sector> sectorRepositorio = FactoryRepositorio.get(Sector.class);
 
     // retorna una vista en la cual figuran todas las organizaciones
     public static ModelAndView showAll(Request request, Response response) {
@@ -36,6 +35,7 @@ public class OrganizacionController {
         Organizacion org = organizaciones.buscar(new Integer(request.params("id")));
         return new ModelAndView(new HashMap<String, Object>(){{
             put("organizacion", org);
+            put("huella", org.calcularHC());
         }}, "organizacion/org.hbs");
     }
 
