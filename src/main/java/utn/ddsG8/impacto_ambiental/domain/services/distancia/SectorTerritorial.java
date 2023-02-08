@@ -2,6 +2,8 @@ package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
 import lombok.Getter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,4 +28,6 @@ public abstract class SectorTerritorial {
     public List<AgenteSectorial> agentes;
 
     public abstract SectorTerritorial getPadre();
+    public abstract void CalcularHC();
+    public abstract boolean tieneDireccion(Direccion direccion);
 }

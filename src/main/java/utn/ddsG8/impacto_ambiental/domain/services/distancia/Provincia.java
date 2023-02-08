@@ -1,8 +1,8 @@
 package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 
 import javax.persistence.*;
@@ -31,7 +31,7 @@ public class Provincia extends SectorTerritorial {
         for (Organizacion org: organizaciones) {
 
             if(org.getDireccion().getLocalidad().municipio.provincia.nombre == this.nombre){
-                hc+= org.CalcularHC();
+                hc+= org.calcularHC();
             }
             //
         }
@@ -41,5 +41,15 @@ public class Provincia extends SectorTerritorial {
     @Override
     public SectorTerritorial getPadre() {
         return null;
+    }
+
+    @Override
+    public void CalcularHC() {
+
+    }
+
+    @Override
+    public boolean tieneDireccion(Direccion direccion) {
+        return false;
     }
 }

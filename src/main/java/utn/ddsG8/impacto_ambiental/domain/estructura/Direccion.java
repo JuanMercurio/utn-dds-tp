@@ -5,6 +5,7 @@ import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 
 import javax.persistence.*;
 
@@ -45,5 +46,9 @@ public class Direccion extends Persistable {
 
     public String getAltura() {
         return this.altura.toString();
+    }
+
+    public boolean perteneceASectorTerritorial(SectorTerritorial sectorTerritorial) {
+        return sectorTerritorial == localidad || sectorTerritorial == localidad.getMunicipio() || sectorTerritorial == localidad.getMunicipio().getProvincia();
     }
 }

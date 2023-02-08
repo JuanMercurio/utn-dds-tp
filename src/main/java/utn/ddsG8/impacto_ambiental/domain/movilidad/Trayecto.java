@@ -28,13 +28,13 @@ public class Trayecto extends Persistable {
     )
     private List<Miembro> miembros;
 
+    @Getter
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
             name = "trayecto_org",
             joinColumns = @JoinColumn(name = "trayecto_id"),
             inverseJoinColumns = @JoinColumn(name = "org_id")
     )
-
     private Set<Organizacion> organizaciones;
 
     // es la forma fea de hacer u one-to-many unidireccional

@@ -95,6 +95,7 @@ public class Router {
 
             Spark.get("/:id", MiembroController::show, engine);
             Spark.get("/:id/trayectos", TrayectoController::mostrarTrayectosMiembro, engine);
+            Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
         });
     }
 

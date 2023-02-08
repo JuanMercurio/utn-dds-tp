@@ -6,6 +6,7 @@ import utn.ddsG8.impacto_ambiental.domain.Notificaciones.Contacto;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import javax.persistence.*;
@@ -58,7 +59,7 @@ public class Organizacion {
     private String archivoDatosActividades;
 
     @ManyToMany(mappedBy = "organizaciones", fetch =FetchType.LAZY, cascade = CascadeType.PERSIST) // tiene sentido que los trayectos sigan vivos sin la organizacion?
-    private List<Trayecto> trayectos;
+    private Set<Trayecto> trayectos;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "organizacion", referencedColumnName = "id")
@@ -82,6 +83,7 @@ public class Organizacion {
         this.potencialesMiembros = new ArrayList<SolicitudMiembro>();
         this.mediciones          = new ArrayList<Medicion>();
         this.contactos = new ArrayList<>();
+        this.trayectos = new HashSet<>();
     }
 
 
@@ -127,7 +129,7 @@ public class Organizacion {
         potencialesMiembros.add(solicitante);
     }
 
-public double CalcularHC (){
+public double calcularHC(){
         double hc = 0;
         for (Trayecto trayecto: trayectos) {
             hc+= trayecto.CalcularHCTrayecto();
@@ -151,7 +153,7 @@ public double CalcularHC (){
     }
 
     public double IndicadorHC_CANT (CalcularHC calculardor){
-        return CalcularHC()*cantidadMiembros();
+        return calcularHC()*cantidadMiembros();
     }
 
     public void CrearContacto (String nombre, String email,String telefono){
@@ -168,5 +170,9 @@ public double CalcularHC (){
 
     public void agregarTrayecto(Trayecto trayecto) {
         trayectos.add(trayecto);
+    }
+
+    public boolean perteneceASector(SectorTerritorial sectorTerritorial) {
+        return this.direccion.perteneceASectorTerritorial(sectorTerritorial);
     }
 }

@@ -68,7 +68,6 @@ public class Miembro   {
     }
 
     public void unirseAOrg(Organizacion org, Sector sector) {
-        //TODO: deberia pasarle el sector tambien?
         org.solicitudNuevoMiembro(this, sector);
     }
 

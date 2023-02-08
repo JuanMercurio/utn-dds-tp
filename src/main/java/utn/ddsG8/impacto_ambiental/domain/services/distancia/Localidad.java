@@ -2,6 +2,7 @@ package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
 import lombok.Getter;
 import lombok.Setter;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 
 import javax.persistence.*;
 
@@ -34,5 +35,15 @@ public class Localidad extends SectorTerritorial {
     @Override
     public SectorTerritorial getPadre() {
         return this.municipio;
+    }
+
+    @Override
+    public void CalcularHC() {
+
+    }
+
+    @Override
+    public boolean tieneDireccion(Direccion direccion) {
+        return false;
     }
 }
