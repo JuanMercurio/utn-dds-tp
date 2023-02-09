@@ -1,0 +1,27 @@
+{{# partial "contenido"  }}
+
+    <h1>Factores</h1>
+
+<!--    TODO no esta en el controller -->
+    <form method="post">
+        <label for="nombre-nuevo-fe valor-nuevo-fe">Agregar un FE</label>
+        <input type="text" required placeholder="Nombre FE" name="nombre-nuevo-fe">
+        <input type="text" required placeholder="Valor FE" name="valor-nuevo-fe">
+        <input type="hidden" name="form" value="nuevo-FE">
+        <input type="submit">
+    </form>
+
+    {{#each factores}}
+        <h1> {{this.nombre}}  </h1>
+        <form method="post">
+            <label for="{{this.nombre}}">Cambiar el valor anterior: </label>
+            <input type="text" placeholder="{{this.valor}}" name="valor" id="{{this.nombre}}">
+            <input type="hidden"  name="id" value="{{this.id}}">
+            <input type="hidden" name="form" value="editar-FE">
+            <input type="submit">
+        </form>
+    {{/each}}
+
+{{/partial}}
+
+{{> base.hbs}}

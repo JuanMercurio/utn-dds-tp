@@ -69,6 +69,9 @@ public class MiembroController {
         Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
         Sector sector = SectorHelper.getSector(new Integer(request.queryParams("sector")));
         miembro.unirseAOrg(org, sector);
+        repoOrganizacion.modificar(org);
+        // TODO falta mandar un alert o algo como que ya lo solicito
         return response;
     }
+
 }

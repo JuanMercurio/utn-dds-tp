@@ -96,6 +96,7 @@ public class Router {
             Spark.get("/:id", MiembroController::show, engine);
             Spark.get("/:id/trayectos", TrayectoController::mostrarTrayectosMiembro, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
+            Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);
         });
     }
 
@@ -113,11 +114,23 @@ public class Router {
     private static void adminConfig() {
         Spark.path("/admin", () -> {
             Spark.before("", AuthMiddleware::isAdmin);
+            Spark.before("/*", AuthMiddleware::isAdmin);
+
             Spark.get("", (request, response) -> "Sos un admin wacho");
-            Spark.get("/*", (request, response) -> {
+            Spark.get("/factoresFE", AdminController::mostrarFactores, engine);
+            Spark.post("/factoresFE", AdminController::editarFactor);
+            Spark.post("/factoresFE", AdminController::editarFactor);
+
+            Spark.get("/actualizarFE", AdminController::actualizarFE);
+
+            Spark.get("/:id", (request, response) -> {
                 response.redirect("/admin");
                 return response;
             });
+//            Spark.get("/*", (request, response) -> {
+//                response.redirect("/admin");
+//                return response;
+//            });
         });
     }
 }
