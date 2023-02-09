@@ -103,7 +103,11 @@ public class PersistirTrayectosTest {
             t.agregarTramo(tramo);
             repoTrayectos.modificar(t);
         });
+    }
 
-
+    @Test
+    public void noHayTrayectosRepetidos() {
+        Miembro miembro = repoMiembro.buscar(13);
+        System.out.println(miembro.getTrayectos().size());
     }
 }

@@ -1,6 +1,8 @@
 package utn.ddsG8.impacto_ambiental.domain.movilidad;
 
 import lombok.Getter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import utn.ddsG8.impacto_ambiental.db.converters.DistanciaConverter;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
@@ -20,7 +22,8 @@ import java.util.stream.Stream;
 public class Trayecto extends Persistable {
 
     @Getter
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany()
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(
             name = "trayecto_miembro",
             joinColumns = @JoinColumn(name = "trayecto_id"),

@@ -44,17 +44,9 @@ public class TrayectoController {
     }
 
     public static ModelAndView mostrarTrayectosMiembro(Request request, Response response) {
-//        List<Trayecto> trayectos = trayectosRepo.buscarTodos().stream().filter(p -> {
-//            return !p.getMiembros().contains(miembros.buscar(request.params("id")));
-//        }).collect(Collectors.toList());
-//        List<Trayecto> trayectos =  trayectosRepo.query("from Trayecto where miembros ='" + request.params("id") + "'");
-        String query = "from Trayecto t join t.miembros tm where tm.id = '"+ request.params("id") + "'";
-        List<Trayecto> trayectos = EntityManagerHelper.getEntityManager().createQuery(query).getResultList();
-//        trayectos.forEach(tr -> System.out.println(tr.getId()));
-
+        Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("trayecto", trayectos);
-
+        parametros.put("miembro", miembro);
         return new ModelAndView(parametros, "trayecto/trayectosMiembro.hbs");
     }
 }
