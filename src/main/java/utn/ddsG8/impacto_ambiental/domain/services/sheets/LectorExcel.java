@@ -50,8 +50,6 @@ public class LectorExcel {
 
     public static  List<Medicion> getMedicionesFromInputStream(InputStream stream) {
 
-        if (stream == null) System.out.println("SATURNOOOO");
-
         List<Medicion> mediciones = new ArrayList<Medicion>();
         XSSFWorkbook workbook = null;
         try {

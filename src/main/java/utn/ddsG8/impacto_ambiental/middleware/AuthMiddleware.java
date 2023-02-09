@@ -25,6 +25,7 @@ public class AuthMiddleware {
     }
 
     public static Response isAdmin(Request request, Response response) {
+        if (request.session().attribute("id") == null) response.redirect("/login");
         if (!UserHelper.isAdmin(request)) {
             response.redirect("/prohibido");
         }
