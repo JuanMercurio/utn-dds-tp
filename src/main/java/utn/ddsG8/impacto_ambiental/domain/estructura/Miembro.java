@@ -6,7 +6,9 @@ import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -35,8 +37,10 @@ public class Miembro   {
     @ManyToMany(mappedBy = "miembros", fetch = FetchType.LAZY)
     private List<Sector> sectores;
 
-    @ManyToMany(mappedBy = "miembros", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Trayecto> trayectos;
+    @ManyToMany(mappedBy = "miembros")
+    // TODO duda. cuando persistimos trayectos con miembros, se insertan filas duplicadas, debe ser por el tipo de
+    // persistencia y eso. El resultado para eso fue poner un Set. Pero en un futuro deberia solucionarse de raiz
+    private Set<Trayecto> trayectos;
 
     public Miembro(){}
 
@@ -46,7 +50,7 @@ public class Miembro   {
         this.tipoDoc = tipoDoc;
         this.documento = documento;
         this.sectores = new ArrayList<Sector>();
-        this.trayectos = new ArrayList<Trayecto>();
+        this.trayectos = new HashSet<>();
     }
 
     public void agregarSector(Sector sector) {
