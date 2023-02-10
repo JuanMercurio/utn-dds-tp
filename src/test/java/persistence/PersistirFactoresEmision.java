@@ -10,17 +10,16 @@ import java.util.List;
 
 public class PersistirFactoresEmision {
 
-    public final Repositorio<FE> repoFactores = FactoryRepositorio.get(FE.class);
+    public final static Repositorio<FE> repoFactores = FactoryRepositorio.get(FE.class);
 
-    @Test
-    public void persistirFactores() {
+    public static void persistirFactores() {
 
         crearFactores().forEach(f -> {
             repoFactores.agregar(f);
         });
     }
 
-    public List<FE> crearFactores() {
+    public static List<FE> crearFactores() {
 
         List<FE> factores =  new ArrayList<>();
         factores.add( new FE("autoFE", 30));
