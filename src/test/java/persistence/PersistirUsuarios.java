@@ -11,6 +11,7 @@ import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PersistirUsuarios {
 
@@ -20,6 +21,7 @@ public class PersistirUsuarios {
     private final Repositorio<Organizacion> orgs = FactoryRepositorio.get(Organizacion.class);
     private final Repositorio<Role> roles = FactoryRepositorio.get(Role.class);
 
+
     @Test
     public void persistirUsuarios() {
         persistirRoles();
@@ -27,19 +29,21 @@ public class PersistirUsuarios {
         usuarios.addAll(crearUsuariosMiembro(5));
         usuarios.addAll(crearUsuariosOrg(3));
         usuarios.addAll(crearUsuariosAgente(1));
+        usuarios.add(crearAdmin());
 
         usuarios.forEach(u -> usuariosRepo.agregar(u));
-        usuarios.stream().filter(u -> u.getRole().getName().equals("miembro")).forEach(u -> persistirMiembro(u));
         usuarios.stream().filter(u -> u.getRole().getName().equals("organizacion")).forEach(u -> persistirOrganizacion(u));
+        usuarios.stream().filter(u -> u.getRole().getName().equals("miembro")).forEach(u -> persistirMiembro(u));
         usuarios.stream().filter(u -> u.getRole().getName().equals("agente")).forEach(u -> persistirAgente(u));
+
     }
 
-    // todo
+
     private void persistirRoles() {
-        if (RoleHelper.getRole("organizacion") == null) persistirRol("organizacion");
-        if (RoleHelper.getRole("admin") == null) persistirRol("admin");
-        if (RoleHelper.getRole("agente") == null) persistirRol("agente");
-        if (RoleHelper.getRole("miembro") == null) persistirRol("miembro");
+        persistirRol("organizacion");
+        persistirRol("admin");
+        persistirRol("agente");
+        persistirRol("miembro");
     }
 
     private void persistirRol(String nombre) {
@@ -47,12 +51,20 @@ public class PersistirUsuarios {
         roles.agregar(role);
     }
 
+
+    public User crearAdmin() {
+        User user = new User("admin", "admin");
+        user.setRole(RoleHelper.getRole("admin"));
+        return user;
+    }
+
     // retorna una lista con un 3 usuarios de nombre miembro + numero, agente + numero, org + numero
     public List<User> crearUsuariosOrg(int n) {
         List<User> usuarios = new ArrayList<>();
 
         for (int i = 0; i<n; i++) {
-            User org = new User(Random.nombreUsuarioOrg(), "");
+            String nombre = Random.nombreUsuarioOrg();
+            User org = new User(nombre, nombre);
             org.setRole(RoleHelper.getRole("organizacion"));
             org.setPassword(org.getUsername());
             usuarios.add(org);
@@ -66,7 +78,8 @@ public class PersistirUsuarios {
         List<User> usuarios = new ArrayList<>();
 
         for (int i = 0; i<n; i++) {
-            User agente = new User(Random.nombreUsuarioAgente(), "");
+            String nombre = Random.nombreUsuarioAgente();
+            User agente = new User(nombre, nombre);
             agente.setRole(RoleHelper.getRole("agente"));
             agente.setPassword(agente.getUsername());
             usuarios.add(agente);
@@ -79,9 +92,9 @@ public class PersistirUsuarios {
         List<User> usuarios = new ArrayList<>();
 
         for (int i = 0; i<n; i++) {
-            User miembro = new User(Random.nombreUsuarioMiembro(), "");
+            String nombre = Random.nombreUsuarioMiembro();
+            User miembro = new User(nombre, nombre);
             miembro.setRole(RoleHelper.getRole("miembro"));
-            miembro.setPassword(miembro.getUsername());
             usuarios.add(miembro);
         }
 
@@ -115,5 +128,11 @@ public class PersistirUsuarios {
         agente.setId(user.getId());
         agente.setSectorTerritorial(Random.getRandomSectorTerritorial());
         agentes.agregar(agente);
+    }
+
+    @Test
+    public void test() {
+        Direccion dir = Random.getRandomDireccion();
+        System.out.println(dir.getCalle());
     }
 }
