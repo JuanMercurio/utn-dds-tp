@@ -81,8 +81,8 @@ public class Trayecto extends Persistable {
     }
 
     public  void agregarOrganizacion(Organizacion unaOrg) {
-        this.organizaciones.add(unaOrg);
         unaOrg.agregarTrayecto(this);
+        this.organizaciones.add(unaOrg);
     }
 
     public void agregarMiembro(Miembro miembro) {

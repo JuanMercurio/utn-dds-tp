@@ -10,12 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersistirDireccionesTest {
-    private final static Repositorio<Pais> paises = FactoryRepositorio.get(Pais.class);
-    private final static Repositorio<SectorTerritorial> sectores = FactoryRepositorio.get(SectorTerritorial.class);
-    private final static Repositorio<Localidad> localidades = FactoryRepositorio.get(Localidad.class);
-    private final static Repositorio<Direccion> direcciones  = FactoryRepositorio.get(Direccion.class);
+    private final Repositorio<Pais> paises = FactoryRepositorio.get(Pais.class);
+    private final Repositorio<SectorTerritorial> sectores = FactoryRepositorio.get(SectorTerritorial.class);
+    private final Repositorio<Localidad> localidades = FactoryRepositorio.get(Localidad.class);
+    private final Repositorio<Direccion> direcciones  = FactoryRepositorio.get(Direccion.class);
 
-    public  static void persistirPaisesProvinciasMunicipiosLocalidades() {
+    @Test
+    public void persistirDirecciones() {
+
+        persistirPaisesProvinciasMunicipiosLocalidades();
+        List<Localidad> localidadesList = localidades.buscarTodos();
+        localidadesList.forEach(l -> {
+            Direccion d1 = new Direccion(Random.nombreCalleEjemplo(), Random.numeroCalle(), l);
+            Direccion d2 = new Direccion(Random.nombreCalleEjemplo(), Random.numeroCalle(), l);
+
+            direcciones.agregar(d1);
+            direcciones.agregar(d2);
+        });
+    }
+
+    public void persistirPaisesProvinciasMunicipiosLocalidades() {
 
         List<Pais> paisesList = DistanciaServicio.getInstancia().paises(1);
         List<Provincia> provincias = DistanciaServicio.getInstancia().provincias(1);
@@ -57,15 +71,4 @@ public class PersistirDireccionesTest {
 
     }
 
-    public static void persistirDirecciones() {
-        persistirPaisesProvinciasMunicipiosLocalidades();
-        List<Localidad> localidadesList = localidades.buscarTodos();
-        localidadesList.forEach(l -> {
-            Direccion d1 = new Direccion(Random.nombreCalleEjemplo(), Random.numeroCalle(), l);
-            Direccion d2 = new Direccion(Random.nombreCalleEjemplo(), Random.numeroCalle(), l);
-
-            direcciones.agregar(d1);
-            direcciones.agregar(d2);
-       });
-    }
 }

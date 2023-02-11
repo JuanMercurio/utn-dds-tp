@@ -15,9 +15,7 @@ public class PersistirTransportes {
     public final Repositorio<Transporte> repoTransporte = FactoryRepositorio.get(Transporte.class);
     public final Repositorio<Miembro> repoMiembro = FactoryRepositorio.get(Miembro.class);
 
-    @Test
     public void persistirPrivados() {
-
 
         TransporteNoContaminante bici = new TransporteNoContaminante("bicicleta", "bicicletaFE");
         TransporteNoContaminante pie = new TransporteNoContaminante("pie", "pieFE");
@@ -54,7 +52,6 @@ public class PersistirTransportes {
         repoTransporte.agregar(moto);
     }
 
-    @Test
     public void persistirPublicos (){
         TransportePublico col = new TransportePublico("318", "colectivo", "colectivoFE");
         TransportePublico tren = new TransportePublico("Roca", "tren", "trenFE");
@@ -76,7 +73,6 @@ public class PersistirTransportes {
         }
     }
 
-    @Test
     public void testRandomParada() {
         TransportePublico col = new TransportePublico("318", "colectivo", "colectivoFE") ;
         Parada parada = new Parada("parada", Random.getRandomDireccion(), 1, 4);

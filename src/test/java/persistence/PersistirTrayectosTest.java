@@ -4,6 +4,7 @@ package persistence;
 import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
@@ -20,14 +21,12 @@ import java.util.stream.Collectors;
 public class PersistirTrayectosTest {
 
     public final Repositorio<Trayecto> repoTrayectos = FactoryRepositorio.get(Trayecto.class);
-    public final Repositorio<Tramo> repoTramos = FactoryRepositorio.get(Tramo.class);
     public final Repositorio<Miembro> repoMiembro = FactoryRepositorio.get(Miembro.class);
     public final Repositorio<VehiculoParticular> repoParticular = FactoryRepositorio.get(VehiculoParticular.class);
     public final Repositorio<TransportePublico> repoTransportePublico = FactoryRepositorio.get(TransportePublico.class);
     public final List<TransporteNoContaminante> repoNoContaminante = FactoryRepositorio.get(TransporteNoContaminante.class).buscarTodos();
 
 
-    @Test
     public void persistirTrayectos() {
 
         List<Miembro> miembros = repoMiembro.buscarTodos();
@@ -36,12 +35,12 @@ public class PersistirTrayectosTest {
             Trayecto trayecto = new Trayecto();
             trayecto.agregarMiembro(m);
             m.agregarATrayecto(trayecto);
-            this.crearRandomTramosPublicos(trayecto,3).forEach(t -> trayecto.agregarTramo(t));
-            this.crearRandomTramosVehiculoParticular(trayecto, m).forEach(t -> trayecto.agregarTramo(t));;
+            this.crearRandomTramosPublicos(trayecto,3).forEach(trayecto::agregarTramo);
+            this.crearRandomTramosVehiculoParticular(m).forEach(trayecto::agregarTramo);
             repoTrayectos.agregar(trayecto);
         });
 
-        miembros.forEach(m -> repoMiembro.modificar(m));
+        miembros.forEach(repoMiembro::modificar);
 
     }
 
@@ -54,12 +53,12 @@ public class PersistirTrayectosTest {
             tramos.add(tramo);
         }
 
-        tramos.forEach(t -> trayecto.agregarTramo(t));
+        tramos.forEach(trayecto::agregarTramo);
 
         return tramos;
     }
 
-    public List<Tramo> crearRandomTramosVehiculoParticular(Trayecto trayecto, Miembro miembro) {
+    public List<Tramo> crearRandomTramosVehiculoParticular(Miembro miembro) {
         List<VehiculoParticular> transportes = repoParticular.buscarTodos().stream().filter(t -> t.getDuenio() == miembro).collect(Collectors.toList());
         List<Tramo> tramos = new ArrayList<>();
         transportes.forEach(t -> {
@@ -70,32 +69,20 @@ public class PersistirTrayectosTest {
         return tramos;
     }
 
-    @Test
     public void agregarOrganizacionesATrayectos() {
         List<Miembro> miembrosList = repoMiembro.buscarTodos();
-        miembrosList.forEach(m -> {
-            m.getTrayectos().forEach(t -> {
-                Organizacion org = m.getSectores().get(Random.intBetween(0, m.getSectores().size())).getOrganizacion();
+        for (Miembro m : miembrosList) {
+            for (Trayecto t : m.getTrayectos()) {
+                List<Sector> jeje = m.getSectores();
+                int i = Random.intBetween(0, jeje.size());
+                Organizacion org = jeje.get(i).getOrganizacion();
                 t.agregarOrganizacion(org);
-            });
-        });
+            }
+        }
 
-        miembrosList.forEach(m -> {
-            repoMiembro.modificar(m);
-        });
-
+        miembrosList.forEach(repoMiembro::modificar);
     }
 
-
-    @Test
-    public void arreglarMiembros() {
-        List<Miembro> miembros = repoMiembro.buscarTodos().stream().filter(m -> m.getTrayectos().size() == 0).collect(Collectors.toList());
-        System.out.println(miembros.size());
-//        miembros.forEach(m -> m.agregarSector(Random.getRandomSector()));
-//        miembros.forEach(m -> repoMiembro.modificar(m));
-    }
-
-    @Test
     public void agregarTramosNoContamientante() {
 
         repoTrayectos.buscarTodos().forEach(t -> {
@@ -106,8 +93,8 @@ public class PersistirTrayectosTest {
     }
 
     @Test
-    public void noHayTrayectosRepetidos() {
-        Miembro miembro = repoMiembro.buscar(13);
-        System.out.println(miembro.getTrayectos().size());
+    public void miembrosSinTrayecto() {
+        List<Miembro> miembrosSinTrayecto = repoMiembro.buscarTodos().stream().filter(m -> m.getTrayectos().size() == 0).collect(Collectors.toList());
+        System.out.println(miembrosSinTrayecto.size());
     }
 }
