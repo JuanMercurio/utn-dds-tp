@@ -9,8 +9,14 @@ import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
+import java.util.List;
+
 public class LoginController {
     private static Repositorio<User> repo = FactoryRepositorio.get(User.class);
+
+
+    // TODO: metodo que se ocupe de ver si ya existe el usuario. De paso se puede arreglar la repeticion
+    // de codigo en los controllers cuando creamos usuario
 
     public static Response login(Request request, Response response) {
 
@@ -22,15 +28,16 @@ public class LoginController {
                 + PassHasher.SHA_256(request.queryParams("password"))
                 + "'";
 
-        // TODO si pone mal la contrasenia o el username
-        User user =  repo.query(query).get(0);
+        List<User> usuarios = repo.query(query);
 
-        if (user != null) {
+        // si es 1 puso bien los datos
+        if (usuarios.size() == 1) {
             request.session(true);
+            User user = usuarios.get(0);
             request.session().attribute("id", user.getId());
             String nombreRol = user.getRole().getName();
             response.redirect("/" + nombreRol + "/" + user.getId());
-        } else {
+        } else { // si entra aca es porque puso mal los datos
             response.redirect("/login");
         }
 

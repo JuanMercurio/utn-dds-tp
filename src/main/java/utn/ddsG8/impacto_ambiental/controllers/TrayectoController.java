@@ -18,6 +18,7 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TrayectoController {
 
@@ -45,8 +46,10 @@ public class TrayectoController {
 
     public static ModelAndView mostrarTrayectosMiembro(Request request, Response response) {
         Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
+        Set<Trayecto> trayectos = miembro.getTrayectos();
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("miembro", miembro);
+        parametros.put("trayectos", trayectos);
         return new ModelAndView(parametros, "trayecto/trayectosMiembro.hbs");
     }
 }

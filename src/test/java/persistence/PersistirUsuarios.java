@@ -21,10 +21,24 @@ public class PersistirUsuarios {
     private final Repositorio<Organizacion> orgs = FactoryRepositorio.get(Organizacion.class);
     private final Repositorio<Role> roles = FactoryRepositorio.get(Role.class);
 
-
     @Test
     public void persistirUsuarios() {
         persistirRoles();
+
+        User miembro = new User("miembro", "miembro");
+        miembro.setRole(RoleHelper.getRole("miembro"));
+        persistirMiembro(miembro);
+        usuariosRepo.agregar(miembro);
+        User agente = new User("agente", "agente");
+        agente.setRole(RoleHelper.getRole("agente"));
+        persistirAgente(agente);
+        usuariosRepo.agregar(agente);
+        User org = new User("org", "org");
+        org.setRole(RoleHelper.getRole("organizacion"));
+        usuariosRepo.agregar(org);
+        persistirOrganizacion(org);
+
+
         List<User> usuarios = new ArrayList<>();
         usuarios.addAll(crearUsuariosMiembro(5));
         usuarios.addAll(crearUsuariosOrg(3));
@@ -66,7 +80,6 @@ public class PersistirUsuarios {
             String nombre = Random.nombreUsuarioOrg();
             User org = new User(nombre, nombre);
             org.setRole(RoleHelper.getRole("organizacion"));
-            org.setPassword(org.getUsername());
             usuarios.add(org);
         }
 
@@ -81,7 +94,6 @@ public class PersistirUsuarios {
             String nombre = Random.nombreUsuarioAgente();
             User agente = new User(nombre, nombre);
             agente.setRole(RoleHelper.getRole("agente"));
-            agente.setPassword(agente.getUsername());
             usuarios.add(agente);
         }
 

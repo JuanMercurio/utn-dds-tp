@@ -10,12 +10,12 @@ import java.util.List;
 
 public class PersistirFactoresEmision {
 
-    public final static Repositorio<FE> repoFactores = FactoryRepositorio.get(FE.class);
+    public final Repositorio<FE> repoFactores = FactoryRepositorio.get(FE.class);
 
-    public static void persistirFactores() {
+    public void persistirFactores() {
 
         crearFactores().forEach(f -> {
-            repoFactores.agregar(f);
+            this.repoFactores.agregar(f);
         });
     }
 

@@ -17,8 +17,8 @@ public class Random {
     public final static Repositorio<Direccion> direcciones = FactoryRepositorio.get(Direccion.class);
     public final static Repositorio<SectorTerritorial> sectores = FactoryRepositorio.get(SectorTerritorial.class);
     public final static Repositorio<Parada> paradas = FactoryRepositorio.get(Parada.class);
-    private final static  List<Miembro> miembrosList = FactoryRepositorio.get(Miembro.class).buscarTodos();
-    private static List<Sector> sectoresList = FactoryRepositorio.get(Sector.class).buscarTodos();
+    public final static Repositorio<Miembro> repoMiembros = FactoryRepositorio.get(Miembro.class);
+    public final static Repositorio<Sector> repoSectores = FactoryRepositorio.get(Sector.class);
 
     public static int numeroCalle() {
         return (int) Math.floor(Math.random() *(10000 - 1 + 1) + 1);
@@ -78,10 +78,12 @@ public class Random {
     }
 
     public static Miembro getRandomMiembro() {
-        return miembrosList.get(intBetween(0, miembrosList.size()));
+        List<Miembro> miembrosList = repoMiembros.buscarTodos();
+        return miembrosList.get(intBetween(0, miembrosList.size()-1));
     }
 
     public static Sector getRandomSector() {
+        List<Sector> sectoresList = repoSectores.buscarTodos();
         return sectoresList.get(Random.intBetween(0, sectoresList.size()));
     }
 }

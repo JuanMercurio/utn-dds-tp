@@ -27,7 +27,7 @@ public class Sector extends Persistable {
     private List<Miembro> miembros;
 
     @Getter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizacion", referencedColumnName = "id")
     private Organizacion organizacion;
 
