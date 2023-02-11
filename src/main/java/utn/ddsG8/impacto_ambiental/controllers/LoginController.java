@@ -19,26 +19,31 @@ public class LoginController {
     // de codigo en los controllers cuando creamos usuario
 
     public static Response login(Request request, Response response) {
+        String boton = request.queryParams("form");
 
-        String query = "from "
-                + User.class.getName()
-                + " WHERE username = '"
-                + request.queryParams("username")
-                + "' AND password = '"
-                + PassHasher.SHA_256(request.queryParams("password"))
-                + "'";
+        if(boton == null) {
+            String query = "from "
+                    + User.class.getName()
+                    + " WHERE username = '"
+                    + request.queryParams("username")
+                    + "' AND password = '"
+                    + PassHasher.SHA_256(request.queryParams("password"))
+                    + "'";
 
-        List<User> usuarios = repo.query(query);
+            List<User> usuarios = repo.query(query);
 
-        // si es 1 puso bien los datos
-        if (usuarios.size() == 1) {
-            request.session(true);
-            User user = usuarios.get(0);
-            request.session().attribute("id", user.getId());
-            String nombreRol = user.getRole().getName();
-            response.redirect("/" + nombreRol + "/" + user.getId());
-        } else { // si entra aca es porque puso mal los datos
-            response.redirect("/login");
+            // si es 1 puso bien los datos
+            if (usuarios.size() == 1) {
+                request.session(true);
+                User user = usuarios.get(0);
+                request.session().attribute("id", user.getId());
+                String nombreRol = user.getRole().getName();
+                response.redirect("/" + nombreRol + "/" + user.getId());
+            } else { // si entra aca es porque puso mal los datos
+                response.redirect("/login");
+            }
+        } else {
+            response.redirect("createMiembro");
         }
 
         return response;
