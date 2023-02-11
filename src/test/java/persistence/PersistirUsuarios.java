@@ -27,19 +27,15 @@ public class PersistirUsuarios {
 
         User miembro = new User("miembro", "miembro");
         miembro.setRole(RoleHelper.getRole("miembro"));
-        persistirMiembro(miembro);
-        usuariosRepo.agregar(miembro);
         User agente = new User("agente", "agente");
         agente.setRole(RoleHelper.getRole("agente"));
-        persistirAgente(agente);
-        usuariosRepo.agregar(agente);
         User org = new User("org", "org");
         org.setRole(RoleHelper.getRole("organizacion"));
-        usuariosRepo.agregar(org);
-        persistirOrganizacion(org);
-
 
         List<User> usuarios = new ArrayList<>();
+        usuarios.add(miembro);
+        usuarios.add(agente);
+        usuarios.add(org);
         usuarios.addAll(crearUsuariosMiembro(5));
         usuarios.addAll(crearUsuariosOrg(3));
         usuarios.addAll(crearUsuariosAgente(1));
