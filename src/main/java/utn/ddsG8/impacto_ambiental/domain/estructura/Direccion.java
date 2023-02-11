@@ -25,7 +25,7 @@ public class Direccion extends Persistable {
     @JoinColumn(name = "localidad", referencedColumnName = "id_db")
     private Localidad localidad;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parada", referencedColumnName = "id")
     private Parada parada;
 

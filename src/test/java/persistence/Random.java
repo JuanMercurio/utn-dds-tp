@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Random {
 
-    public final static Repositorio<Direccion> direcciones = FactoryRepositorio.get(Direccion.class);
+    public  static Repositorio<Direccion> direcciones = FactoryRepositorio.get(Direccion.class);
     public final static Repositorio<SectorTerritorial> sectores = FactoryRepositorio.get(SectorTerritorial.class);
     public final static Repositorio<Parada> paradas = FactoryRepositorio.get(Parada.class);
     public final static Repositorio<Miembro> repoMiembros = FactoryRepositorio.get(Miembro.class);
