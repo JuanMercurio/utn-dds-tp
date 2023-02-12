@@ -1,36 +1,6 @@
-{{# partial "contenido"}}
-
-<nav class="hc-navbar">
-  <div class="hc-navbar-img">
-    <img class="hc-navbar-img-huellas" 
-    src="/images/huellas.jpeg" />
-  </div>
-  <div class="hc-navbar-items">
-    <a
-      class="hc-navbar-item"
-      onclick="redirectMemberTo('/unirseAOrg')"
-    >
-      <i class="fa-solid fa-envelope hc-navbar-item-icon"></i>
-      <span class="hc-navbar-item-text">Vincularme en otra organizacion</span>
-    </a>
-    <a class="hc-navbar-item" onclick="redirectMemberTo('/unirseAOrg')"
-    >
-      <i class="fa-solid fa-bus hc-navbar-item-icon"></i>
-      <span class="hc-navbar-item-text">Crear trayecto</span>
-    </a>
-    <a class="hc-navbar-item" href="/reportes">
-      <i class="fa-solid fa-road hc-navbar-item-icon"></i>
-      <span class="hc-navbar-item-text">Reportes</span>
-    </a>
-    <a class="hc-navbar-item" href="/login">
-      <i class="fa-solid fa-arrow-right-from-bracket hc-navbar-item-icon"></i>
-      <span class="hc-navbar-item-text">Salir</span>
-    </a>
-  </div>
-</nav>
+{{# partial "memberHeader"}}
 
     <form method="post">
-
         <label for="tipo_transporte">Transporte</label>
         <select id="tipo_transporte" name="tipo_transporte">
             <option value="camioneta">Camion</option>
@@ -110,6 +80,5 @@
         <input type="submit" value="Crear Trayecto">
     </form>
 
-
 {{/partial}}
-{{> base.hbs}}
+{{> memberHeader.hbs}}
