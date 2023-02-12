@@ -1,9 +1,43 @@
 {{# partial "contenido"}}
 
+    <nav class="hc-navbar">
+        <div class="hc-navbar-img">
+            <img class="hc-navbar-img-huellas" src="../../public/images/huellas.jpeg"/>
+        </div>
+        <div class="hc-navbar-items">
+            <a class="hc-navbar-item" href="../views/VincularEnOtraOrganizacionMiembro.html">
+                <i class="fa-solid fa-envelope hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Vincularme en otra organizacion</span>
+            </a> 
+            <a class="hc-navbar-item" href="../views/altaTransporte.html">
+                <i class="fa-solid fa-bus hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Alta de Transportes</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/altaTrayecto.html">
+                <i class="fa-solid fa-road hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Alta de Trayectos</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/CalculadoraHCMiembro.html">
+                <i class="fa-solid fa-road hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Ejecutar calculadora HC</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/ReportesMiembro.html">
+                <i class="fa-solid fa-road hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Reportes</span>
+            </a>
+            <a class="hc-navbar-item" href="../views/MiembroLogin.html">
+                <i class="fa-solid fa-arrow-right-from-bracket hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Salir</span>
+            </a>
+        </div>
+    </nav>
+
     <p>Nombre: {{miembro.nombre}}</p>
     <p>Apellido: {{miembro.apellido}}</p>
     <p>Tipo Documento: {{miembro.tipoDoc}}</p>
     <p>Documento: {{miembro.documento}}</p>
+
+
 
 {{/partial}}
 {{> base.hbs}}
