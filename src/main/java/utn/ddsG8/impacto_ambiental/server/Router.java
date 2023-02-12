@@ -31,7 +31,7 @@ public class Router {
         loginConfig();
         prohibidoConfig();
         miembroConfig();
-        trayectoConfig();
+//        trayectoConfig();
         orgConfig();
     }
 
@@ -51,13 +51,13 @@ public class Router {
         });
     }
 
-    private static void trayectoConfig() {
-        Spark.path("/createTrayecto", () -> {
-            Spark.before("", AuthMiddleware::authenticateSession);
-            Spark.get("",  TrayectoController::crearTrayectoView, engine);
-
-        });
-    }
+//    private static void trayectoConfig() {
+//        Spark.path("/createTrayecto", () -> {
+//            Spark.before("", AuthMiddleware::authenticateSession);
+//            Spark.get("",  TrayectoController::crearTrayectoView, engine);
+//
+//        });
+//    }
 
     private static void orgConfig() {
         Spark.path("/createOrg", () -> {
@@ -98,6 +98,7 @@ public class Router {
             Spark.get("/:id/trayectos", TrayectoController::mostrarTrayectosMiembro, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
             Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);
+            Spark.get("/:id/createTrayecto", TrayectoController::crearTrayectoView, engine);
         });
     }
 
