@@ -4,6 +4,10 @@ body {
   background-size: cover;
 }
 
+.clickeable-element {
+    cursor: pointer;
+}
+
 .hc-navbar {
     display: flex;
     height:6rem;
@@ -48,7 +52,7 @@ body {
 }
 
 .hc-navbar-item-text {
-    font-size: 1rem;
+    font-size: 0.85rem;
 }
  
 .hc-content {
