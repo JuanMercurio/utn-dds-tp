@@ -1,6 +1,216 @@
 {{# partial "memberHeader"}}
 
-    <form method="post">
+   <div class="hc-content">
+        <div class="hc-card">
+            <div class="hc-card-header">
+                <span class="hc-card-title">
+                    Crear trayecto
+                </span>
+            </div>
+            <div class="hc-card-body" id="nuevaParadaDiv">
+                <form action="" class="alta-form" id="nuevaParadaForm">
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="tipo_transporte">
+                                Transporte
+                            </label>
+                            <select class="form-control" id="tipo_transporte">
+                                <option value="camioneta">Camion</option>
+                                <option value="auto">Auto</option>
+                                <option value="moto">Moto</option>
+                                <option value="bici">Bici</option>
+                                <option value="pie">Pie</option>
+                                <option value="servicio_Contratado">ServicioContratado</option>
+                                <option value="tren">Tren</option>
+                                <option value="colectivo">Colectivo</option>
+                                <option value="subte">Subte</option>
+                            </select>                          
+                        </div>
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Línea
+                            </label>
+                            <select class="form-control" id="transporte_publico" name="transporte_publico">
+                                {{#each transportesPublicos}}
+                                <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>                          
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Parada inicial
+                            </label>
+                            <select class="form-control" id="parada-inicial" name="parada-inicial">
+                                {{#each paradas}}
+                                <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Parada final
+                            </label>
+                            <select class="form-control" id="parada-final" name="parada-final">
+                                {{#each paradas}}
+                                <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Localidad inicial
+                            </label>
+                            <select class="form-control" id="localidad-inicial" name="localidad-inicial">
+                                {{#each localidades}}
+                                    <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Calle
+                            </label>
+                            <input type="text" class="form-control" id="calle" name="calle">                
+                        </div>
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Altura
+                            </label>
+                            <input type="number" class="form-control" id="altura" name="altura">                
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreParada">
+                                Localidad final
+                            </label>
+                            <select class="form-control" id="localidad-final" name="localidad-final">
+                                {{#each localidades}}
+                                    <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Calle
+                            </label>
+                            <input type="text" class="form-control" id="calle" name="calle">                
+                        </div>
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Altura
+                            </label>
+                            <input type="number" class="form-control" id="altura" name="altura">                
+                        </div>
+                    </div>
+                 
+                    <div class="alta-form-row">
+                        <button type="submit" class="alta-button" value="Crear trayecto">
+                            Crear trayecto
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="hc-card-body d-none" id="nuevaLineaDiv">
+                <form action="" class="alta-form" id="nuevaLineaForm">
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="transporteSelect">
+                                Transporte
+                            </label>
+                            <select class="form-control" id="transporteSelect">
+                                <option value="0">Colectivo</option>
+                            </select>                          
+                        </div>
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="nombreLinea">
+                                Nombre de la Línea
+                            </label>
+                            <input type="text" class="form-control" id="nombreLinea" placeholder="">                                                 
+                        </div>
+                    </div>
+                    <div class="alta-paradas">
+                        <span class="alta-paradas-title">
+                            Paradas
+                        </span>
+                        <div class="form-group">
+                            <label class="alta-form-group-name">
+                                Importar Archivo
+                            </label>
+                            <input class="form-control" type="file" id="formFile">                        
+                        </div>
+                        <div class="alta-paradas-table">
+                            <span class="alta-paradas-subtitle">
+                                Agregar Parada
+                            </span>
+                            <div class="alta-paradas-control">
+                                <div class="form-group alta-numero-parada">
+                                    <label class="alta-form-group-name" for="numeroParada">
+                                        #
+                                    </label>
+                                    <input type="number" class="form-control" id="numeroParada" value="1" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="alta-form-group-name">
+                                        Nombre de la Parada
+                                    </label>
+                                    <input type="text" class="form-control" id="nombreParada">
+                                </div>
+                                <div class="form-group">
+                                    <label class="alta-form-group-name">
+                                        Dirección de la Parada
+                                    </label>
+                                    <input type="text" class="form-control" id="nombreParada">
+                                </div>
+                                <button class="agregar-parada-button" id="agregarParadaButton" type="button">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <button type="submit" class="alta-button">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="hc-card-body d-none" id="nuevoTransportePrivadoDiv">
+                <form action="" class="alta-form" id="nuevoTransportePrivadoForm">
+                    <div class="alta-form-row">
+                        <div class="form-group">
+                            <label class="alta-form-group-name" for="transporteSelect">
+                                Nombre de Nuevo Servicio
+                            </label>
+                            <input type="text" class="form-control" id="nombreTransportePrivado" placeholder="">                                                 
+                        
+                        </div>
+                    </div>
+                    <div class="alta-form-row">
+                        <button type="submit" class="alta-button">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{{!-- NOTA: dejo esto aca abajo como referencia nomas. Si no sirve despues lo borro --}}
+
+{{!-- <form method="post">
         <label for="tipo_transporte">Transporte</label>
         <select id="tipo_transporte" name="tipo_transporte">
             <option value="camioneta">Camion</option>
@@ -15,7 +225,7 @@
         </select>
         <br>
 
-        <value>Transporte Publico</value>
+        <value>Linea</value>
          <select id="transporte_publico" name="transporte_publico">
              {{#each transportesPublicos}}
                  <option value="{{id}}">{{nombre}}</option>
@@ -78,7 +288,7 @@
         <br>
 
         <input type="submit" value="Crear Trayecto">
-    </form>
+    </form> --}}
 
 {{/partial}}
 {{> memberHeader.hbs}}
