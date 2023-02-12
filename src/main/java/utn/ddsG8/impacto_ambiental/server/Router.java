@@ -1,5 +1,6 @@
 package utn.ddsG8.impacto_ambiental.server;
 
+import spark.ResponseTransformer;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.*;
@@ -91,7 +92,7 @@ public class Router {
 
         Spark.path("/miembro", () -> {
             Spark.before("/*", AuthMiddleware::authenticateSession);
-            Spark.before("/:id",  AuthMiddleware::authenticateId);
+            Spark.before("/:id/*",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", MiembroController::show, engine);
             Spark.get("/:id/trayectos", TrayectoController::mostrarTrayectosMiembro, engine);
