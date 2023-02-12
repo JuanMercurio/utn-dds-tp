@@ -1,5 +1,12 @@
 {{# partial "contenido"}}
 
+<script>
+    if(!sessionStorage.getItem("memberPath")){
+        sessionStorage.setItem("memberPath", document.URL);
+        console.log("Seteado");
+    }
+</script>
+
 <nav class="hc-navbar">
   <div class="hc-navbar-img">
     <img class="hc-navbar-img-huellas" 
@@ -8,13 +15,13 @@
   <div class="hc-navbar-items">
     <a
       class="hc-navbar-item"
-      onclick="redirectTo('/unirseAOrg')"
+      onclick="redirectMemberTo('/unirseAOrg')"
     >
       <i class="fa-solid fa-envelope hc-navbar-item-icon"></i>
       <span class="hc-navbar-item-text">Vincularme en otra organizacion</span>
     </a>
-    <a class="hc-navbar-item" onclick="redirectTo('/createTrayecto')"
-      onclick="redirectTo('/unirseAOrg')"
+    <a class="hc-navbar-item" onclick="redirectMemberTo('/createTrayecto')"
+      onclick="redirectMemberTo('/unirseAOrg')"
     >
       <i class="fa-solid fa-bus hc-navbar-item-icon"></i>
       <span class="hc-navbar-item-text">Crear trayecto</span>
@@ -23,12 +30,16 @@
       <i class="fa-solid fa-road hc-navbar-item-icon"></i>
       <span class="hc-navbar-item-text">Reportes</span>
     </a>
-    <a class="hc-navbar-item" href="/login">
+    <a class="hc-navbar-item" href="/login" onclick="cleanStorage()">
       <i class="fa-solid fa-arrow-right-from-bracket hc-navbar-item-icon"></i>
       <span class="hc-navbar-item-text">Salir</span>
     </a>
   </div>
 </nav>
+
+<button class="" >Click</button>
+          <button type="submit" class="btn btn-success">Iniciar sesion</button>
+
 
 <p>Nombre: {{miembro.nombre}}</p>
 <p>Apellido: {{miembro.apellido}}</p>
