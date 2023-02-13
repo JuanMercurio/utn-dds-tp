@@ -12,7 +12,6 @@ public class Logistica extends Medicion{
 
         }*/
 
-
         public double getDistancia() {
                 return distancia;
         }

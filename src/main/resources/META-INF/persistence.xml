@@ -14,10 +14,10 @@
             <property name="hibernate.archive.autodetection" value="class"/>
 
 <!--            Settings para conectarse a local (juan)-->
-<!--            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />-->
-<!--            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/dds" />-->
-<!--            <property name="hibernate.connection.username" value="root" />-->
-<!--            <property name="hibernate.connection.password" value="root" />-->
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/dds" />
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.password" value="root" />
 
 <!--        Settings para conectarse a base de datos remota AWS   -->
 <!--            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />-->
@@ -26,10 +26,10 @@
 <!--            <property name="hibernate.connection.password" value="***REMOVED***" />-->
 
 <!--            Settings Azure-->
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://dds.mysql.database.azure.com/tp" />
-            <property name="hibernate.connection.username" value="dds" />
-            <property name="hibernate.connection.password" value="***REMOVED***" />
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://dds.mysql.database.azure.com/tp" />-->
+<!--            <property name="hibernate.connection.username" value="dds" />-->
+<!--            <property name="hibernate.connection.password" value="***REMOVED***" />-->
 
 <!--            FreeMySQLHosting -->
 <!--                <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />-->

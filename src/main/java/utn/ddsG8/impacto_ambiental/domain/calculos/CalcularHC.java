@@ -1,6 +1,8 @@
 package utn.ddsG8.impacto_ambiental.domain.calculos;
 
 
+import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
+import lombok.Getter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
@@ -17,19 +19,21 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// SINGLETON
+// singleton Class
 
 public class CalcularHC {
+
     private static CalcularHC instancia = null;
     private double K;
-    private List<FE> factoresDeEmision;
+
+    @Getter
 
     private Repositorio<Direccion> repoDireccion = FactoryRepositorio.get(Direccion.class);
     private Repositorio<Trayecto> repoTrayecto = FactoryRepositorio.get(Trayecto.class);
     private Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
+    private Repositorio<FE> factoresDeEmision = FactoryRepositorio.get(FE.class);
 
     public CalcularHC() {
-    factoresDeEmision = new ArrayList<>();
         this.K = 2;
     }
 
@@ -45,12 +49,12 @@ public class CalcularHC {
     // TODO: CALCULAR HUELLAD E CARBONO DE LOGISTICA.
     // DE DONDE SALE EL fe?
     public void cargarFactorEmision (FE fe){
-        this.factoresDeEmision.add(fe);
+        this.factoresDeEmision.agregar(fe);
 
     }
 
     public void modificarFE (String actividad, String tipoConsumo, double valorEmision){
-        for (FE fe: factoresDeEmision) {
+        for (FE fe: factoresDeEmision.buscarTodos()) {
             if(fe.getNombre() == actividad && fe.getTipo() == tipoConsumo){
                 fe.setValor(valorEmision);
             }
@@ -59,7 +63,7 @@ public class CalcularHC {
     }
     // si lo encuentra lo devuelve. si no devuelve -1.
     public double buscarFactorEmision ( String actividad, String tipoConsumo){
-        for (FE fe: factoresDeEmision) {
+        for (FE fe: factoresDeEmision.buscarTodos()) {
             if(fe.getNombre().contains(actividad) && fe.getTipo().contains(tipoConsumo)){
                 return fe.getValor();
             }
@@ -124,6 +128,7 @@ public class CalcularHC {
         }
         return medicionAcum;
     }
+
     //public void ExisteLogistica()
     public double calcularFeMedicion (Medicion med){
         Double fe;
@@ -133,6 +138,7 @@ public class CalcularHC {
         }
         return 0;
     }
+
     public double CalcularFEActividadesMensual (List<Medicion> mediciones, int mes, int anio){
        //todo HACER HOY MENSUAL Y ANUAL
         double medicionAcum = 0;
@@ -255,6 +261,7 @@ public class CalcularHC {
 
 
     }
+
     public double CalcularFEActividadesTOTAL(List<Medicion> mediciones){
 
         double medicionAcum = 0;
@@ -285,14 +292,15 @@ public class CalcularHC {
                     }
                     else if(med.getTipoConsumo().contains("Medio Transporte")){
                         //System.out.println("ENTRO 4");
-                        logistica.setMedioTransporte(med.getValor());
+                        logistica.setMedioTransporte(med.getValor().toLowerCase());
                         cont++;
                     }
                     else if(med.getTipoConsumo().contains("Producto Transportado")){
                         //System.out.println("ENTRO 5");
-                        logistica.setProductoTransportado(med.getValor());
+                        logistica.setProductoTransportado(med.getValor().toLowerCase());
                         cont++;
                     }
+
                     if( cont == 4){
                         comenzoLogistica = false;
                         cont = 0;
@@ -317,17 +325,11 @@ public class CalcularHC {
 
     }
     public double buscarFactorEmisionTransporte(String nombre){
-        for (FE act:factoresDeEmision){
-            if(act.getNombre().contains(nombre)){
-                return act.getValor();
-            }
-        }
-        return 0.0;
+        return factoresDeEmision.buscarTodos().stream().filter(f ->  f.getNombre().equals(nombre)).collect(Collectors.toList()).get(0).getValor();
     }
 
     public double obtenerHCOrganizacion(Organizacion org) {
-        // todo ES LA SUMA DE LOS TRAYECTOS Y LOS DA
-        return org.calcularHC();
+        return obtenerHCTrayectosOrganizacion(org) + CalcularFEActividadesTOTAL(org.getMediciones());
     }
 
     public double obtenerHCSector(Sector sector) {
@@ -339,13 +341,8 @@ public class CalcularHC {
     }
 
     public List<Trayecto> obtenerTrayectos(Sector sector) {
-        Set<Trayecto> trayectos = new HashSet<>();
-        sector.getMiembros().forEach(m -> m.getTrayectos().forEach(t -> {
-            if (t.getOrganizaciones().contains(sector.getOrganizacion())) trayectos.add(t);
-        }));
-        return trayectos.stream().collect(Collectors.toList());
+        return sector.getOrganizacion().getTrayectos().stream().collect(Collectors.toList());
     }
-
 
 
     public double obtenerHCMiembroDeOrg(Miembro miembro, Organizacion organizacion) {
