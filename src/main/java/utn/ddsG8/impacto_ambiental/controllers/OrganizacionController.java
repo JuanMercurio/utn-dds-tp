@@ -129,7 +129,7 @@ public class OrganizacionController {
     public static String subirActividades(Request request, Response response) {
         List<Medicion>  mediciones = administrarArchivoActividades(request, response);
         Organizacion org = OrganizacionHelper.getOrg(request);
-        org.cargarMediciones(mediciones);
+        org.getMediciones().addAll(mediciones);
         organizaciones.modificar(org);
 
         return "cargamos las nuevasmediciones perro";
