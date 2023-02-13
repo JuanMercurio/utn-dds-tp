@@ -1,0 +1,39 @@
+{{# partial "contenido"}}
+
+<nav class="hc-navbar">
+  <div class="hc-navbar-img">
+    <img class="hc-navbar-img-huellas" 
+    src= '/images/huellas.jpeg'>
+  </div>
+  <div class="hc-navbar-items">
+    <a
+      class="hc-navbar-item clickeable-element"
+      onclick="redirectMemberTo('/unirseAOrg')"
+    >
+      <i class="fa-solid fa-envelope hc-navbar-item-icon"></i>
+      <span class="hc-navbar-item-text">Vincularme en otra organizacion</span>
+    </a>
+    <a class="hc-navbar-item clickeable-element" onclick="redirectMemberTo('/createTrayecto')"
+    >
+      <i class="fa-solid fa-bus hc-navbar-item-icon"></i>
+      <span class="hc-navbar-item-text">Crear trayecto</span>
+    </a>
+    <a class="hc-navbar-item clickeable-element" onclick="redirecMemberTo('/reportes')">
+      <i class="fa-solid fa-road hc-navbar-item-icon"></i>
+      <span class="hc-navbar-item-text">Reportes</span>
+    </a>
+    <a class="hc-navbar-item clickeable-element" onclick="redirectMemberTo('')">
+      <i class="fa fa-user-circle hc-navbar-item-icon" aria-hidden="true"></i>
+      <span class="hc-navbar-item-text">Mi organizacion</span>
+    </a>
+    <a class="hc-navbar-item clickeable-element" href="/login">
+      <i class="fa-solid fa-arrow-right-from-bracket hc-navbar-item-icon"></i>
+      <span class="hc-navbar-item-text">Salir</span>
+    </a>
+  </div>
+</nav>
+
+{{#block "organizationHeader"}} {{/block}}
+
+{{/partial}}
+{{> base.hbs}}
