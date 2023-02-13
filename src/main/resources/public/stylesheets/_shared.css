@@ -80,12 +80,9 @@ body {
 }
 
 .hc-card {
+    padding: 1rem;
     border: 1px solid #CED4DA;
     border-radius: 15px;
-}
-
-.hc-card-header {
-    padding: 1rem;
 }
 
 .hc-card-title {
@@ -94,7 +91,6 @@ body {
 }
 
 .hc-card-body {
-    padding: 1rem;
     display: flex;
     gap: 2rem;
 }

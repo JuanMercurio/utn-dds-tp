@@ -1,6 +1,39 @@
 {{# partial "memberHeader"}}
 
-        {{#each organizaciones}}
+
+    <div class="hc-content">
+<div class="hc-card">
+            <div class="mb-3">
+                <span class="hc-card-title">
+                    Vinculación a nuevas organizaciones
+                </span>
+            </div>
+            <span>Seleccione las organizaciones y sectores a los cuales les desea enviar una solicitud de vinculacion </span>
+            <div class="hc-card-body mt-3" id="nuevaParadaDiv">
+                {{#each organizaciones}}
+                    <form class="alta-form" method="post">
+                        <div class="alta-form-row">
+                            <div class="form-group">
+                                <input type="hidden" name="org" value="{{this.id}}">
+                                <input type="hidden" name="miembro" value="{{miembro.id}}">
+                                <label class="alta-form-group-name">
+                                    {{this.razonSocial}}
+                                </label>
+                                <select class="form-control" name="sector">
+                                    {{#each sectores}}
+                                    <option value="{{this.id}}">Sector - {{this.id}}</option>
+                                    {{/each}}
+                                </select>
+                            <button type="submit" class="btn btn-success">Enviar solicitud</button>
+                            </div>
+                        </div>
+                    </form>
+                {{/each}}
+            </div>
+            </div>
+            </div>
+
+        {{!-- {{#each organizaciones}}
             <form method="post">
             <p>Me quiero unir a la organizacion: {{this.razonSocial}}</p>
             <input type="hidden" name="org" value="{{this.id}}">
@@ -12,7 +45,7 @@
                 </select>
             <input type="submit">Unirse</input>
             </form>
-        {{/each}}
+        {{/each}} --}}
 
 {{/partial}}
 {{> memberHeader.hbs}}
