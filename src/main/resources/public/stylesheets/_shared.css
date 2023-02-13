@@ -90,6 +90,11 @@ body {
     font-weight: 700;
 }
 
+.hc-card-title2 {
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
 .hc-card-body {
     display: flex;
     gap: 2rem;
