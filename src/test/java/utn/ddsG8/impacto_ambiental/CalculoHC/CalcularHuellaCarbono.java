@@ -1,15 +1,22 @@
 package utn.ddsG8.impacto_ambiental.CalculoHC;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
+import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
+import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
+import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.io.IOException;
 import java.util.List;
 
 public class CalcularHuellaCarbono {
+
+    private final Repositorio<FE> repoFE = FactoryRepositorio.get(FE.class);
+    private final Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
 
     @Test
     public void crearFeYBuscar () throws IOException {
@@ -44,6 +51,8 @@ public class CalcularHuellaCarbono {
         fe = new FE("Logística de productos y residuos","","",3.44);
         calcular.cargarFactorEmision(fe);
 
+
+
         fe = new FE("Camion","","",3.44);
         calcular.cargarFactorEmision(fe);
 
@@ -62,8 +71,13 @@ public class CalcularHuellaCarbono {
         double hc = calcular.CalcularFEActividades(mediciones);
         Assertions.assertTrue(hc != 0);
         System.out.println(hc);
-
-
     }
 
+    @Test
+    // TODO
+    public void probarHuellaOrg() {
+        Organizacion org = repoOrganizacion.buscar(3);
+        System.out.println(CalcularHC.getInstancia().CalcularFEActividadesTOTAL(org.getMediciones()));
+        System.out.println(CalcularHC.getInstancia().obtenerHCOrganizacion(org));
+    }
 }

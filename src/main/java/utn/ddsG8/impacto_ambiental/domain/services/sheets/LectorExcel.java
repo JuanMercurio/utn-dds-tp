@@ -52,6 +52,7 @@ public class LectorExcel {
 
         List<Medicion> mediciones = new ArrayList<Medicion>();
         XSSFWorkbook workbook = null;
+
         try {
             workbook = new XSSFWorkbook(stream);
         } catch (IOException e) {
