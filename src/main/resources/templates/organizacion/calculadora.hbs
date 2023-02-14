@@ -1,13 +1,21 @@
+{{# partial "organizationHeader"}}
 
-<html>
-<h1>jejejeje</h1>
+        <div class="hc-content">
+        <div class="hc-card">
+            <div class="mb-3">
+                <span class="hc-card-title2">
+                    Calculadora / huella
+                </span>
+            </div>
 
-    saturno
+        {{#each sectores}}
+            <h1> {{sectores.nombre}} </h1>
+            <h1> {{sectores.cantidadMiembros}} </h1>
+            <h1> {{sectores.huella}} </h1>
+        {{/each}}
 
-    {{#each sectores}}
-        <h1> {{sectores.nombre}} </h1>
-        <h1> {{sectores.cantidadMiembros}} </h1>
-        <h1> {{sectores.huella}} </h1>
-    {{/each}}
+        </div>
+    </div>
 
-    </html>
+{{/partial}}
+{{> headers/organizationHeader.hbs}}
