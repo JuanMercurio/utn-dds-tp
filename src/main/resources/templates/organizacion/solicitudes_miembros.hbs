@@ -1,13 +1,10 @@
+{{# partial "organizationHeader"  }}
 
-<html>
-    <head></head>
-    <body>
-    <form method="post">
-        </form>
+    <h1>Solicitudes miembros</h1>
+    {{!-- <form method="post"> --}}
             {{#each solicitud}}
                 <tr>
                     <form method="post" class="form=inline">
-
                         <!-- hidden = cosas para el back -->
                         <input type="hidden"  name="id_solicitud" value="{{this.id}}">
 
@@ -15,12 +12,12 @@
 <!--                                <div readonly class="form-control-plaintext" value="{{this.solicitante.tipoDoc}}">{{this.solicitante.nombre}}</div>-->
 <!--                                <div readonly  class="form-control-plaintext" value="{{this.solicitante.documento}}">{{this.solicitante.nombre}}</div>-->
 <!--                                <div readonly class="form-control-plaintext" value="{{this.sector.nombre}}">{{this.solicitante.nombre}}</div>-->
-
                         <button type="submit" class="btn btn-success" id="estado" value="aceptado">Aceptado</button>
                         <button type="submit" class="btn btn-danger" id="estado" value="rechazado">Rechazado</button>
                     </form>
-                </tr>
+                {{!-- </tr> --}}
         {{/each}}
-    </body>
-</html>
+        {{!-- </form> --}}
 
+{{/partial}}
+{{> headers/organizationHeader.hbs}}

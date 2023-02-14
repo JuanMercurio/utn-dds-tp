@@ -1,5 +1,11 @@
 {{# partial "organizationHeader"}}
 
+    <script>
+        if(!sessionStorage.getItem("savedPath")){
+            sessionStorage.setItem("savedPath", document.URL);
+        }
+    </script>
+
     <p>Razon Social: {{organizacion.razonSocial}}</p>
     <p>Numero identificador: {{organizacion.id}}</p>
     <p>Clasificacion: {{organizacion.clasificacion}}</p>
