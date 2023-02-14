@@ -5,6 +5,9 @@
         sessionStorage.setItem("savedPath", document.URL);
     }
 </script>
+<br>
+<br>
+
 
     <div class="hc-content">
         <div class="hc-card">
@@ -20,10 +23,14 @@
                             Datos personales - Mi perfil
                         </span>
                     </div>
-                    <p>Nombre: {{miembro.nombre}}</p>
-                    <p>Apellido: {{miembro.apellido}}</p>
-                    <p>Tipo de documento: {{miembro.tipoDoc}}</p>
-                    <p>Documento: {{miembro.documento}}</p>
+                    <div class="card">
+                        <div class="card-header">  <b>Nombre: </b>{{miembro.nombre}}
+                        </div>
+                        <div class="card-header">  <b>Apellido: </b>{{miembro.apellido}}
+                        </div>
+                        <div class="card-body"> <b>Tipo Documento:</b> {{miembro.tipoDoc}}</div>
+                        <div class="card-footer"><b>Documento:</b>  {{miembro.documento}}</div>
+                    </div>
                 </div>
             </div>
         </div>
