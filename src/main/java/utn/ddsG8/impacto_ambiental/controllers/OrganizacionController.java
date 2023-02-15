@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import spark.template.freemarker.FreeMarkerEngine;
 
 public class OrganizacionController {
     private final static Repositorio<Organizacion> repoOrg = FactoryRepositorio.get(Organizacion.class);
@@ -94,7 +95,7 @@ public class OrganizacionController {
         return null;
     }
 
-    public static ModelAndView administrarSolicitud(Request request, Response response) {
+    public static Response administrarSolicitud(Request request, Response response) {
        int idSolicitud = Integer.parseInt(request.queryParams("id_solicitud"));
        SolicitudMiembro solicitud = solicitudesPendientes.buscar(idSolicitud);
        solicitudesPendientes.eliminar(solicitud);
@@ -107,7 +108,14 @@ public class OrganizacionController {
 
        }
 
-       return solicitudes(request, response);
+       response.redirect("solicitudes");
+       return response;
+    }
+
+    public static Response actualizandoSoli (Request request, Response response) {
+        solicitudesPendientes.buscarTodos();
+        response.redirect("solicitudes");
+        return response;
     }
 
     public static ModelAndView subirActividadesView(Request request, Response response) {
