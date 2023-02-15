@@ -1,7 +1,7 @@
 {{# partial "organizationHeader"  }}
 
 <div class="hc-content">
-    <form class="form" method="post">
+
       <h1>Solicitudes de miembros</h1>
       <hr />
       <table class="table">
@@ -23,27 +23,31 @@
         </thead>
         <tbody class="table-body">
             {{#each solicitud}}
-          <tr>
-            <th class="text-center" scope="row">
-              <div type="text" class="mt-2" value="{{this.solicitante.nombre}}">{{this.solicitante.nombre}}</div>
-            </th>
-            <td class="text-center">
-              <div type="text" class="mt-2" value="{{this.solicitante.tipoDoc}}">{{this.solicitante.tipoDoc}}</div>
-            </td>
-            <td class="text-center">
-              <div type="text" class="mt-2" value="{{this.solicitante.documento}}">{{this.solicitante.documento}}</div>
-            </td>
-            <td class="text-center">
-              <div type="text" class="mt-2" value="{{this.sector.nombre}}">{{this.sector.nombre}}</div>
-            </td>
-            <td class="text-end"><button type="submit" class="btn btn-success" id="estado" value="aceptado">Aceptar</button></td>
-            <td class="text-center"><button type="submit" class="btn btn-danger" id="estado" value="rechazado">Rechazar</button></td>
-          </tr>
-          <tr>
+                <form method="post" class="form=inline">
+                    <!-- hidden = cosas para el back -->
+                    <input type="hidden"  name="id_solicitud" value="{{this.id}}">
+                  <tr>
+                    <th class="text-center" scope="row">
+                      <div type="text" class="mt-2" value="{{this.solicitante.nombre}}">{{this.solicitante.nombre}}</div>
+                    </th>
+                    <td class="text-center">
+                      <div type="text" class="mt-2" value="{{this.solicitante.tipoDoc}}">{{this.solicitante.tipoDoc}}</div>
+                    </td>
+                    <td class="text-center">
+                      <div type="text" class="mt-2" value="{{this.solicitante.documento}}">{{this.solicitante.documento}}</div>
+                    </td>
+                    <td class="text-center">
+                      <div type="text" class="mt-2" value="{{this.sector.nombre}}">{{this.sector.nombre}}</div>
+                    </td>
+                    <td class="text-end"><button type="submit" class="btn btn-success" id="estado" value="aceptado">Aceptar</button></td>
+                    <td class="text-center"><button type="submit" class="btn btn-danger" id="estado" value="rechazado">Rechazar</button></td>
+                  </tr>
+                  <tr>
+                </form>
             {{/each}}
         </tbody>
       </table>
-    </form>
+
   </div>  
 
 
