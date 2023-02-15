@@ -17,8 +17,8 @@ import java.util.List;
 
 public class MiembroController {
 
-    private static Repositorio<Miembro>  miembros = FactoryRepositorio.get(Miembro.class);
-    private static Repositorio<Organizacion>  repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
+    private static Repositorio<Miembro> miembros = FactoryRepositorio.get(Miembro.class);
+    private static Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
 
     public static ModelAndView createView(Request request, Response respose) {
         return new ModelAndView(null, "/miembro/newMiembro.hbs");
@@ -51,7 +51,7 @@ public class MiembroController {
 
     public static ModelAndView show(Request request, Response response) {
         Miembro miembro = miembros.buscar(new Integer(request.params("id")));
-        return new ModelAndView(new HashMap<String, Object>(){{
+        return new ModelAndView(new HashMap<String, Object>() {{
             put("miembro", miembro);
         }}, "/miembro/miembro.hbs");
     }
@@ -59,7 +59,7 @@ public class MiembroController {
     public static ModelAndView organizacionesParaUnirse(Request request, Response response) {
         //TODO falta poner los sectores
         List<Organizacion> orgs = repoOrganizacion.buscarTodos();
-        return new ModelAndView(new HashMap<String, Object>(){{
+        return new ModelAndView(new HashMap<String, Object>() {{
             put("organizaciones", orgs);
         }}, "/miembro/solicitarUnirseAOrg.hbs");
     }
@@ -71,7 +71,13 @@ public class MiembroController {
         miembro.unirseAOrg(org, sector);
         repoOrganizacion.modificar(org);
         // TODO falta mandar un alert o algo como que ya lo solicito
+        response.redirect("actualizar");
         return response;
     }
 
+    public static Response actualizandome(Request request, Response response) {
+        repoOrganizacion.buscarTodos();
+        response.redirect("unirseAOrg");
+        return response;
+    }
 }
