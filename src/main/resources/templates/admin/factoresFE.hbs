@@ -1,8 +1,53 @@
 {{# partial "adminHeader"}}
-    <h1>Factores</h1>
 
 <!--    TODO no esta en el controller -->
+<div class="hc-content">
+    <div class="hc-card">
+        <div class="mb-3">
+            <h1 class="bg-success text-white p-3">Factores de emision (FE)</h1>
+        </div>
+
     <form method="post">
+    <label for="nombre-nuevo-fe valor-nuevo-fe" class="hc-card-title2 d-block mb-2 mt-2">Agregar un FE</label>
+    <div class="row mt-2">
+        <div class="col-6">
+            <input type="text" required placeholder="Nombre FE" name="nombre-nuevo-fe" class="form-control">
+        </div>
+        <div class="col-6">
+            <input type="numeric" required placeholder="Valor FE" name="valor-nuevo-fe" class="form-control">
+            <input type="hidden" name="form" value="nuevo-FE">
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn btn-success mt-2">Agregar</button>
+        </div>
+    </div>
+    </form>
+
+    {{#each factores}}
+    <h2 class="bg-success text-white p-2 mt-2">{{this.nombre}}</h2>
+    <form method="post">
+    <label for="{{this.nombre}}" class="alta-form-group-name">
+    Cambiar el valor anterior:
+    </label>
+    <div class="row mt-2">
+        <div class="col-6">
+            <input type="number" placeholder="{{this.valor}}" name="valor" id="{{this.nombre}}" class="form-control">
+            <input type="hidden"  name="id" value="{{this.id}}">
+            <input type="hidden" name="form" value="editar-FE">
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn btn-success">Agregar</button>
+        </div>
+    </div>
+    </form>
+    {{/each}}
+
+    </div>
+</div>
+
+{{!-- Dejo esto por si rompo algo con los estilos --}}
+
+    {{!-- <form method="post">
         <label for="nombre-nuevo-fe valor-nuevo-fe">Agregar un FE</label>
         <input type="text" required placeholder="Nombre FE" name="nombre-nuevo-fe">
         <input type="text" required placeholder="Valor FE" name="valor-nuevo-fe">
@@ -19,7 +64,8 @@
             <input type="hidden" name="form" value="editar-FE">
             <input type="submit">
         </form>
-    {{/each}}
+    {{/each}} --}}
+
 
 {{/partial}}
 {{> headers/adminHeader.hbs}}
