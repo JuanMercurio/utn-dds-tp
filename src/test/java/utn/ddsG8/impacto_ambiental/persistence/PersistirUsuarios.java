@@ -1,4 +1,4 @@
-package persistence;
+package utn.ddsG8.impacto_ambiental.persistence;
 
 import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
@@ -11,7 +11,6 @@ import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PersistirUsuarios {
 

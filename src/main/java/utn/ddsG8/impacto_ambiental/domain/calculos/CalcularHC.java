@@ -1,22 +1,16 @@
 package utn.ddsG8.impacto_ambiental.domain.calculos;
 
 
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import lombok.Getter;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Municipio;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 // singleton Class
@@ -44,13 +38,8 @@ public class CalcularHC {
         return instancia;
     }
 
-
-    // TODO: CALCULAR HUELAL DE CARBONO DEL EXCEL
-    // TODO: CALCULAR HUELLAD E CARBONO DE LOGISTICA.
-    // DE DONDE SALE EL fe?
     public void cargarFactorEmision (FE fe){
         this.factoresDeEmision.agregar(fe);
-
     }
 
     public void modificarFE (String actividad, String tipoConsumo, double valorEmision){
@@ -59,8 +48,8 @@ public class CalcularHC {
                 fe.setValor(valorEmision);
             }
         }
-
     }
+
     // si lo encuentra lo devuelve. si no devuelve -1.
     public double buscarFactorEmision ( String actividad, String tipoConsumo){
         for (FE fe: factoresDeEmision.buscarTodos()) {
@@ -329,7 +318,10 @@ public class CalcularHC {
     }
 
     public double obtenerHCOrganizacion(Organizacion org) {
-        return obtenerHCTrayectosOrganizacion(org) + CalcularFEActividadesTOTAL(org.getMediciones());
+        double a = obtenerHCTrayectosOrganizacion(org);
+        double b = CalcularFEActividadesTOTAL(org.getMediciones());
+        double c  = a + b;
+        return c;
     }
 
     public double obtenerHCSector(Sector sector) {
@@ -365,6 +357,27 @@ public class CalcularHC {
     public double obtenerHCSectorTerritorial(SectorTerritorial sectorTerritorial) {
         List<Organizacion> listOrganizacion = repoOrganizacion.buscarTodos().stream().filter(o -> o.perteneceASector(sectorTerritorial)).collect(Collectors.toList());
         return listOrganizacion.stream().mapToDouble(o -> o.calcularHC()).sum();
+    }
+
+    public double obtenerHCTipoDeOrg(Clasificacion clasificacion) {
+        List<Organizacion> orgs = repoOrganizacion.buscarTodos().stream().filter(o -> o.getClasificacion().equals(clasificacion)).collect(Collectors.toList());
+        return orgs.stream().mapToDouble(o -> o.calcularHC()).sum();
+    }
+
+    public double obtenerPorcentajeHCdeOrgEnSectorTerritorial(Organizacion org, SectorTerritorial sec) {
+        return (obtenerHCOrganizacion(org) / obtenerHCSectorTerritorial(sec)) * 100;
+    }
+
+    public double porcentajeHCMunicipioEnPais(Municipio muni) {
+        return (obtenerHCSectorTerritorial(muni) / obtenerHCPais()) * 100;
+    }
+
+    private double obtenerHCPais() {
+        return repoOrganizacion.buscarTodos().stream().mapToDouble(o -> o.calcularHC()).sum();
+    }
+
+    public double pocentajeHCSectorEnOrg(Sector sec) {
+        return (obtenerHCSector(sec) / obtenerHCTrayectosOrganizacion(sec.getOrganizacion())) * 100;
     }
 
 }

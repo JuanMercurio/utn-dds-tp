@@ -1,4 +1,4 @@
-package persistence;
+package utn.ddsG8.impacto_ambiental.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;

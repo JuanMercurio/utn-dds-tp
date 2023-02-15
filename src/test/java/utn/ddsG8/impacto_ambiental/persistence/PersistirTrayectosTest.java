@@ -1,4 +1,4 @@
-package persistence;
+package utn.ddsG8.impacto_ambiental.persistence;
 
 
 import org.junit.jupiter.api.Test;
@@ -69,6 +69,7 @@ public class PersistirTrayectosTest {
         return tramos;
     }
 
+    @Test
     public void agregarOrganizacionesATrayectos() {
         List<Miembro> miembrosList = repoMiembro.buscarTodos();
         for (Miembro m : miembrosList) {
