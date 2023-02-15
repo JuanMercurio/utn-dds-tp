@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.domain.Notificaciones.Contacto;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
@@ -60,6 +61,10 @@ public class Organizacion {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "organizacion", referencedColumnName = "id")
     private List<Contacto> contactos;
+
+    @OneToMany()
+    @JoinColumn(name = "organizacion", referencedColumnName = "id")
+    public List<Huella> huellas;
 
     public Organizacion() {}
     public Organizacion(String razonSocial, OrgTipo tipo, Clasificacion clasificacion,

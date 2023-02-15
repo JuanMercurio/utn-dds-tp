@@ -5,13 +5,18 @@ import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalcularHuellaCarbono {
 
@@ -51,8 +56,6 @@ public class CalcularHuellaCarbono {
         fe = new FE("Logística de productos y residuos","","",3.44);
         calcular.cargarFactorEmision(fe);
 
-
-
         fe = new FE("Camion","","",3.44);
         calcular.cargarFactorEmision(fe);
 
@@ -74,10 +77,6 @@ public class CalcularHuellaCarbono {
     }
 
     @Test
-    // TODO
-    public void probarHuellaOrg() {
-        Organizacion org = repoOrganizacion.buscar(3);
-        System.out.println(CalcularHC.getInstancia().CalcularFEActividadesTOTAL(org.getMediciones()));
-        System.out.println(CalcularHC.getInstancia().obtenerHCOrganizacion(org));
+    public void test() {
     }
 }

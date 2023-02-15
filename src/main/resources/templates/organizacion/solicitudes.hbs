@@ -1,11 +1,9 @@
 {{# partial "organizationHeader"  }}
 
-    <h1>Solicitudes</h1>
-
     {{#each solicitud}}
         <h1> {{this.solicitante.id}} </h1>
     {{/each}}
 
 {{/partial}}
 
-{{> headers/organizationHeader.hbs}}
+{{> base.hbs}}

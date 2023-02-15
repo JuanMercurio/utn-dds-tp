@@ -1,6 +1,5 @@
-package persistence;
+package utn.ddsG8.impacto_ambiental.persistence;
 
-import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.*;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.combustibles.CombustibleE;

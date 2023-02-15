@@ -1,4 +1,4 @@
-package persistence;
+package utn.ddsG8.impacto_ambiental.persistence;
 
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;

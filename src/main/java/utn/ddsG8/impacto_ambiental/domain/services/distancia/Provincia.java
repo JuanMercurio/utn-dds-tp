@@ -2,17 +2,19 @@ package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
 import lombok.Getter;
 import lombok.Setter;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @DiscriminatorValue("provincia")
-public class Provincia extends SectorTerritorial {
+public class Provincia extends SectorTerritorial implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "pais", referencedColumnName = "id")
@@ -26,26 +28,9 @@ public class Provincia extends SectorTerritorial {
 
     public Provincia(){}
 
-    public double CalcularHCProvincia (List<Organizacion> organizaciones){
-        double hc = 0;
-        for (Organizacion org: organizaciones) {
-
-            if(org.getDireccion().getLocalidad().municipio.provincia.nombre == this.nombre){
-                hc+= org.calcularHC();
-            }
-            //
-        }
-        return hc;
-    }
-
     @Override
     public SectorTerritorial getPadre() {
         return null;
-    }
-
-    @Override
-    public void CalcularHC() {
-
     }
 
     @Override

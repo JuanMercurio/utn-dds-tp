@@ -1,4 +1,4 @@
-package session;
+package utn.ddsG8.impacto_ambiental.session;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

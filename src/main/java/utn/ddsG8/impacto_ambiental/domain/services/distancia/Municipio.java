@@ -6,13 +6,14 @@ import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @DiscriminatorValue("municipio")
-public class Municipio extends SectorTerritorial {
+public class Municipio extends SectorTerritorial implements Serializable {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,26 +27,9 @@ public class Municipio extends SectorTerritorial {
         this.provincia = provincia;
     }
 
-    public double CalcularHCMunicipio (List<Organizacion> organizaciones){
-        double hc = 0;
-        for (Organizacion org: organizaciones) {
-
-            if(org.getDireccion().getLocalidad().municipio.nombre == this.nombre){
-                hc+= org.calcularHC();
-            }
-            //
-        }
-        return hc;
-    }
-
     @Override
     public SectorTerritorial getPadre() {
         return this.provincia;
-    }
-
-    @Override
-    public void CalcularHC() {
-
     }
 
     @Override

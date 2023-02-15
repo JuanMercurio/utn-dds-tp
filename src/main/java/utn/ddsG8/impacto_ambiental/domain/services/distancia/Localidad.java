@@ -5,12 +5,13 @@ import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Setter
 @Getter
 @Entity
 @DiscriminatorValue("localidad")
-public class Localidad extends SectorTerritorial {
+public class Localidad extends SectorTerritorial implements Serializable {
 
     @Column
     public int codPostal;
@@ -27,19 +28,13 @@ public class Localidad extends SectorTerritorial {
         this.nombre = nombre;
     }
 
-
     public int getId() {
         return this.id;
     }
 
     @Override
     public SectorTerritorial getPadre() {
-        return this.municipio;
-    }
-
-    @Override
-    public void CalcularHC() {
-
+        return null;
     }
 
     @Override
