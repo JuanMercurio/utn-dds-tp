@@ -7,19 +7,17 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity(name = "agentesectorial")
 public class AgenteSectorial {
 
     @Id
-    @Setter
-    @Getter
     private int id;
 
-    @Getter
     @Column
     private String nombre;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "sectorTerritorial", referencedColumnName = "id_DB")
     SectorTerritorial sectorTerritorial;

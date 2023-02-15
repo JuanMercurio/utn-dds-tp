@@ -4,6 +4,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
@@ -21,18 +23,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class OrganizacionController {
-    private final static Repositorio<Organizacion> organizaciones = FactoryRepositorio.get(Organizacion.class);
+    private final static Repositorio<Organizacion> repoOrg = FactoryRepositorio.get(Organizacion.class);
     private final static Repositorio<SolicitudMiembro> solicitudesPendientes = FactoryRepositorio.get(SolicitudMiembro.class);
 
     // retorna una vista en la cual figuran todas las organizaciones
     public static ModelAndView showAll(Request request, Response response) {
-        List<Organizacion> orgs = organizaciones.buscarTodos();
+        List<Organizacion> orgs = repoOrg.buscarTodos();
         return null;
     }
 
     // retorna una vista en la cual figura la organizacion con el id elegido
     public static ModelAndView show(Request request, Response response) {
-        Organizacion org = organizaciones.buscar(new Integer(request.params("id")));
+        Organizacion org = repoOrg.buscar(new Integer(request.params("id")));
         return new ModelAndView(new HashMap<String, Object>(){{
             put("organizacion", org);
             put("huella", org.calcularHC());
@@ -62,7 +64,7 @@ public class OrganizacionController {
         Organizacion newOrg = new Organizacion(razonSocial, orgTipo, clasificacion, null);
         newOrg.setId(user.getId());
 
-        organizaciones.agregar(newOrg);
+        repoOrg.agregar(newOrg);
 
         response.redirect("/organizacion/" + newOrg.getId());
 
@@ -130,7 +132,7 @@ public class OrganizacionController {
         List<Medicion>  mediciones = administrarArchivoActividades(request, response);
         Organizacion org = OrganizacionHelper.getOrg(request);
         org.getMediciones().addAll(mediciones);
-        organizaciones.modificar(org);
+        repoOrg.modificar(org);
 
         return "cargamos las nuevasmediciones perro";
     }
@@ -141,5 +143,20 @@ public class OrganizacionController {
         return new ModelAndView(new HashMap<String, Object>(){{
             put("sectores", sectores);
         }}, "organizacion/calculadora.hbs");
+    }
+
+    public static Response persistirHuella(Request request, Response response) {
+        double valor = CalcularHC.getInstancia().obtenerHCOrganizacion(OrganizacionHelper.getOrg(request));
+
+        System.out.println(valor);
+        if (valor >= 0) {
+            response.status(200);
+            Organizacion org = OrganizacionHelper.getOrg(request);
+            org.getHuellas().add(new Huella(valor));
+            repoOrg.modificar(org);
+        }
+
+        else response.status(500);
+        return response;
     }
 }

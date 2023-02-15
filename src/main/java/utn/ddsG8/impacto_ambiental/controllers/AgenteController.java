@@ -3,6 +3,8 @@ package utn.ddsG8.impacto_ambiental.controllers;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.helpers.AgenteHelper;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
 import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
@@ -10,6 +12,7 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class AgenteController {
 
@@ -44,6 +47,16 @@ public class AgenteController {
         return new ModelAndView(new HashMap<String, Object>(){{
             put("agente", agente);
         }}, "agenteSectorial/agente.hbs");
+    }
+
+    //TODO falta agregar bastante aca
+    public static ModelAndView showReporteAgente(Request request, Response response) {
+        AgenteSectorial agente = AgenteHelper.getLoggerAgent(request);
+        double huella = CalcularHC.getInstancia().obtenerHCSectorTerritorial(agente.getSectorTerritorial());
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("agente", agente);
+        parametros.put("huella", huella);
+        return new ModelAndView(parametros, "agenteSectorial/sector.hbs");
     }
 }
 

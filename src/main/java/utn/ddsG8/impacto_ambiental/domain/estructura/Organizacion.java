@@ -62,7 +62,7 @@ public class Organizacion {
     @JoinColumn(name = "organizacion", referencedColumnName = "id")
     private List<Contacto> contactos;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "organizacion", referencedColumnName = "id")
     public List<Huella> huellas;
 
