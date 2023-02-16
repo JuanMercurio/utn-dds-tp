@@ -368,11 +368,11 @@ public class CalcularHC {
         return (obtenerHCOrganizacion(org) / obtenerHCSectorTerritorial(sec)) * 100;
     }
 
-    public double porcentajeHCMunicipioEnPais(Municipio muni) {
-        return (obtenerHCSectorTerritorial(muni) / obtenerHCPais()) * 100;
+    public double porcentajeHCSectorTerritorialEnPais(SectorTerritorial sec) {
+        return (obtenerHCSectorTerritorial(sec) / obtenerHCPais()) * 100;
     }
 
-    private double obtenerHCPais() {
+    public double obtenerHCPais() {
         return repoOrganizacion.buscarTodos().stream().mapToDouble(o -> o.calcularHC()).sum();
     }
 

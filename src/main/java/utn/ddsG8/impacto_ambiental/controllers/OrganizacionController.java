@@ -156,15 +156,14 @@ public class OrganizacionController {
     public static Response persistirHuella(Request request, Response response) {
         double valor = CalcularHC.getInstancia().obtenerHCOrganizacion(OrganizacionHelper.getOrg(request));
 
-        System.out.println(valor);
         if (valor >= 0) {
             response.status(200);
             Organizacion org = OrganizacionHelper.getOrg(request);
             org.getHuellas().add(new Huella(valor));
             repoOrg.modificar(org);
         }
-
         else response.status(500);
+
         return response;
     }
 }

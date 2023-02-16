@@ -2,6 +2,19 @@
 
     <p>Nombre: {{agente.nombre}}</p>
     <p>Huella: {{huella}}</p>
+    <p>Porcentaje sobre pais: {{porcentaje}} </p>
+
+    <h2>Evolucion de huella</h2>
+
+    <form method="post">
+        <!--        este boton persiste el hc -->
+        <button type="submit" class="btn btn-warning">Calcular HC</button>
+    </form>
+
+    {{#each huellas}}
+        <p>Fecha: {{this.fecha}}</p>
+        <p>Valor: {{this.valor}}</p>
+    {{/each}}
 
 {{/partial}}
 {{> base.hbs}}
