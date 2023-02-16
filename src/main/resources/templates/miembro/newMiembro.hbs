@@ -1,25 +1,49 @@
 {{# partial "registrationHeader"}}
-
-    <form method="post">
-        <input type="text" id="username" name="username" placeholder="Usuario"  required>
-        <input type="password" id="password" name="password" placeholder="Password"  required>
-        <input type="text" id="nombre" name="nombre" placeholder="nombre"  required>
-        <input type="text" id="apellido" name="apellido" placeholder="apellido"  required>
-        <input type="text" id="documento" name="documento" placeholder="documento"  required>
-
-        <label for="docTipo">Tipo Documento</label>
-        <select id="docTipo" name="docTipo">
-            <option value="DNI">DNI</option>
-            <option value="CI">CI</option>
-            <option value="LC">Lc</option>
-            <option value="LE">LE</option>
-            <option value="PASAPORTE">PASAPORTE</option>
-        </select>
-
-        <input type="submit" value="Log In">
-
-    </form>
-
+    <div class="container">
+        <div class="card border-success mb-3 mx-auto mt-5" style="max-width: 30rem;">
+            <div class="card-header bg-transparent border-success text-center">
+                <h2>Regístrate</h2>
+            </div>
+            <div class="card-body text-success">
+                <h5 class="card-title text-center mb-2">Por favor, completa los siguientes campos:</h5>
+                <form method="post">
+                    <div class="form-group mb-2">
+                        <label for="username">Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="documento">Documento</label>
+                        <input type="text" class="form-control" id="documento" name="documento" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="docTipo">Tipo Documento</label>
+                        <select id="docTipo" name="docTipo" class="form-control">
+                            <option value="DNI">DNI</option>
+                            <option value="CI">CI</option>
+                            <option value="LC">Lc</option>
+                            <option value="LE">LE</option>
+                            <option value="PASAPORTE">PASAPORTE</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success mt-3">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {{/partial}}
 {{> headers/registrationHeader.hbs}}
 
