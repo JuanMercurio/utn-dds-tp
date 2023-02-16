@@ -1,13 +1,50 @@
-{{# partial "contenido"}}
+{{# partial "registrationHeader"}}
 
-    <form method="post">
-        <input type="text" id="username" name="username" placeholder="Usuario"  required>
-        <input type="password" id="password" name="password" placeholder="Password"  required>
-        <input type="text" id="nombre" name="nombre" placeholder="nombre"  required>
+<div class="container">
+    <form class="form" method="post">
+        <div class="form-header">
+        </div>
 
-        <input type="submit" value="Log In">
+        <div class="form-floating mb-3">
+            <input
+                    class="form-control"
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Usuario"
+                    required
+            />
+            <label for="floatingInput">Nombre de usuario</label>
+        </div>
+        <div class="form-floating">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+            />
+            <label for="floatingPassword">Contraseña</label>
+        <div class="form-floating mt-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="nombre" 
+                    name="nombre"
+                    placeholder="nombre"
+                    required
+            />
+            <label for="floatingPassword">Nombre</label>
+        </div>
+        <!-- TODO: Cambiar el sig boton por uno que valide los formularios -->
+        <div class="col text-center mt-3">
+            <button type="submit" class="btn btn-success" value="Log In">Registrarse</button>
+            {{!-- si no funca cambiar el button por un input --}}
+        </div>
     </form>
+</div>
 
 
 {{/partial}}
-{{> base.hbs}}
+{{> headers/registrationHeader.hbs}}
