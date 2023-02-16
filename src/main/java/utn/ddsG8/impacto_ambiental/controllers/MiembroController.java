@@ -26,13 +26,8 @@ public class MiembroController {
 
     public static Response save(Request request, Response response) {
 
-        // TODO: Se puede separar esta parte como esta en figma pero por ahora va todo en un request
-        User user = UserController.create(request, response);
+        User user = UserController.crearUsuario(request, response);
         if (user == null) return response;
-
-        user.setRole(RoleHelper.getRole("miembro"));
-        Repositorio<User> users = FactoryRepositorio.get(User.class);
-        users.modificar(user);
 
         String nombre = request.queryParams("nombre");
         String apellido = request.queryParams("apellido");
@@ -41,10 +36,7 @@ public class MiembroController {
 
         Miembro nuevoMiembro = new Miembro(nombre, apellido, tipodoc, documento);
         nuevoMiembro.setId(user.getId());
-
         miembros.agregar(nuevoMiembro);
-
-        response.redirect("/miembro/" + nuevoMiembro.getId());
 
         return response;
     }

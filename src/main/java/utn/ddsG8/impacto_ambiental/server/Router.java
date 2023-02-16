@@ -62,7 +62,7 @@ public class Router {
 //    }
 
     private static void orgConfig() {
-        Spark.path("/createOrg", () -> {
+        Spark.path("/createOrganizacion", () -> {
             Spark.get("", OrganizacionController::createView, engine);
             Spark.post("", OrganizacionController::save);
         });

@@ -14,6 +14,7 @@ import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AgenteController {
@@ -30,20 +31,14 @@ public class AgenteController {
 
     public static Response save(Request request, Response response) {
 
-        User user = UserController.create(request, response);
+        User user = UserController.crearUsuario(request, response);
         if (user == null) return response;
-
-        user.setRole(RoleHelper.getRole("agente"));
-        Repositorio<User> users = FactoryRepositorio.get(User.class);
-        users.modificar(user);
 
         SectorTerritorial sector = FactoryRepositorio.get(SectorTerritorial.class).buscar(Integer.valueOf(request.queryParams("sector")));
         AgenteSectorial newAgente = new AgenteSectorial(request.queryParams("nombre"));
         newAgente.setSectorTerritorial(sector);
         newAgente.setId(user.getId());
         agentes.agregar(newAgente);
-
-        response.redirect("/agente/" + user.getId());
 
         return response;
     }
