@@ -18,7 +18,7 @@ public class AgenteSectorial {
     @Column
     private String nombre;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sectorTerritorial", referencedColumnName = "id_DB")
     SectorTerritorial sectorTerritorial;
 

@@ -1,7 +1,6 @@
 package utn.ddsG8.impacto_ambiental.server;
 
 import spark.ModelAndView;
-import spark.ResponseTransformer;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.*;
@@ -49,6 +48,8 @@ public class Router {
             Spark.before("/:id",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", AgenteController::show, engine);
+            Spark.get("/:id/sector", AgenteController::showReporteAgente, engine);
+            Spark.post("/:id/sector", AgenteController::nuevoHC);
         });
     }
 
@@ -81,6 +82,7 @@ public class Router {
             Spark.get("/:id/solicitudes", OrganizacionController::solicitudes, engine);
             Spark.post("/:id/solicitudes", OrganizacionController::administrarSolicitud);
             Spark.get("/:id/huella", OrganizacionController::vistaCalculadora, engine);
+            Spark.post("/:id/huella", OrganizacionController::persistirHuella);
 //            Spark.post("/remove", orgController::remove);
         });
     }

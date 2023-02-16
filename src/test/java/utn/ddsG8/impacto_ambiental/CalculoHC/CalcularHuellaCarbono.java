@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
+import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
@@ -22,6 +24,7 @@ public class CalcularHuellaCarbono {
 
     private final Repositorio<FE> repoFE = FactoryRepositorio.get(FE.class);
     private final Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
+    private final Repositorio<SectorTerritorial> repoSectorTerritorial = FactoryRepositorio.get(SectorTerritorial.class);
 
     @Test
     public void crearFeYBuscar () throws IOException {
@@ -78,5 +81,13 @@ public class CalcularHuellaCarbono {
 
     @Test
     public void test() {
+        Repositorio<AgenteSectorial> repoAgente = FactoryRepositorio.get(AgenteSectorial.class);
+        AgenteSectorial agente = repoAgente.buscar(2);
+        agente.getSectorTerritorial().persistirHC();
+        Organizacion org = repoOrganizacion.buscar(3);
+        org.getHuellas().add(new Huella(org.calcularHC()));
+        repoOrganizacion.modificar(org);
+
     }
+
 }

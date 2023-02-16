@@ -28,8 +28,8 @@ public abstract class SectorTerritorial {
     @OneToMany(mappedBy = "sectorTerritorial")
     public List<AgenteSectorial> agentes;
 
-    @OneToMany()
-    @JoinColumn(name = "sector_territorial", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sec", referencedColumnName = "id_db")
     public List<Huella> huellas;
 
     public  double calcularHC() {
@@ -37,7 +37,9 @@ public abstract class SectorTerritorial {
     }
 
     public void persistirHC() {
-        FactoryRepositorio.get(Huella.class).agregar(new Huella(this.calcularHC()));
+        Huella huella = new Huella(calcularHC());
+        this.huellas.add(huella);
+        FactoryRepositorio.get(SectorTerritorial.class).modificar(this);
     }
 
     public abstract SectorTerritorial getPadre();
