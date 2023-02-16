@@ -50,24 +50,16 @@ public class OrganizacionController {
     // instancia una nueva org y lo guarda en la db
     public static Response save(Request request, Response response) {
 
-        User user = UserController.create(request, response);
+        User user = UserController.crearUsuario(request, response);
         if (user == null) return response;
-
-        user.setRole(RoleHelper.getRole("organizacion"));
-        Repositorio<User> users = FactoryRepositorio.get(User.class);
-        users.modificar(user);
 
         // todo falta la direccion. ver si lo hace despues el usuario o ahora
         String razonSocial = request.queryParams("razonSocial");
         OrgTipo orgTipo = OrgTipo.valueOf(request.queryParams("orgTipo"));
         Clasificacion clasificacion = Clasificacion.valueOf(request.queryParams("clasificacion"));
-
         Organizacion newOrg = new Organizacion(razonSocial, orgTipo, clasificacion, null);
         newOrg.setId(user.getId());
-
         repoOrg.agregar(newOrg);
-
-        response.redirect("/organizacion/" + newOrg.getId());
 
         return response;
     }

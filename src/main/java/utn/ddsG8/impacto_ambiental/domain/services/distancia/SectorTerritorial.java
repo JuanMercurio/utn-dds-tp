@@ -9,6 +9,7 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
 @Entity(name = "sectorTerritorial")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
