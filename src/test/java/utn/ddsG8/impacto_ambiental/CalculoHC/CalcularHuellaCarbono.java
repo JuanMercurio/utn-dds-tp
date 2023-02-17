@@ -81,13 +81,8 @@ public class CalcularHuellaCarbono {
 
     @Test
     public void test() {
-        Repositorio<AgenteSectorial> repoAgente = FactoryRepositorio.get(AgenteSectorial.class);
-        AgenteSectorial agente = repoAgente.buscar(2);
-        agente.getSectorTerritorial().persistirHC();
-        Organizacion org = repoOrganizacion.buscar(3);
-        org.getHuellas().add(new Huella(org.calcularHC()));
-        repoOrganizacion.modificar(org);
-
+        Organizacion org = repoOrganizacion.buscar(102);
+        int a= 1;
     }
 
 }
