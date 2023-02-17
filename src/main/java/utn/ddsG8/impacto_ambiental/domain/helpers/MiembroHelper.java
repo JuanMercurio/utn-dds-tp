@@ -10,7 +10,7 @@ public class MiembroHelper {
 
     public static Repositorio<Miembro> repositoryMiembros = FactoryRepositorio.get(Miembro.class);
 
-    public static Miembro getCurrentMiembroInURL(Request request) {
+    public static Miembro getCurrentMiembro(Request request) {
         return repositoryMiembros.buscar(UserHelper.loggedUser(request).getId());
     }
 }

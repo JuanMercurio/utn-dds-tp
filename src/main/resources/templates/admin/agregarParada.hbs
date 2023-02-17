@@ -1,0 +1,24 @@
+
+    <h1>Agregar Parada</h1>
+    <form method="post" action="agregarParada">
+        <input type="text" name="nombre-parada" placeholder="Nombre">
+        <input type="number" name="numero-parada" placeholder="Numero parada">
+        <input type="number" name="distancia-anterior-parada" placeholder="Numero parada">
+        <input type="number" name="distancia-proxima-parada" placeholder="Numero parada">
+        <label for="transporte">Transporte</label>
+        <select name="transporte" id="transporte">
+            {{#each transporte}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+        <label for="localidad">Localidad</label>
+        <select name="localidad" id="localidad">
+            {{#each localidad}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+        <input type="text" name="calle" placeholder="Calle">
+        <input type="text" name="altura" placeholder="Altura">
+        <input type="submit">
+    </form>
+
