@@ -1,0 +1,10 @@
+{{# partial "contenido"  }}
+
+    <h1>Trayecto {{trayecto.id}} tiene los siguientes tramos</h1>
+
+    {{#each trayecto.tramos}}
+        <h1> El id del tramo es: {{this.id}}   </h1>
+    {{/each}}
+
+{{/partial}}
+{{> base.hbs}}
