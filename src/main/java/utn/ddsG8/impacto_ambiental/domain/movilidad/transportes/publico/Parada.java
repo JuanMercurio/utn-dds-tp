@@ -22,7 +22,7 @@ public class Parada extends Persistable {
     @JoinColumn(name = "parada_anterior", referencedColumnName = "id")
     private Parada anteriorParada;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "direccion", referencedColumnName = "id")
     private Direccion direccion;
 

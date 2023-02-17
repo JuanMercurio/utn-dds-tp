@@ -6,7 +6,6 @@ import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
 import utn.ddsG8.impacto_ambiental.domain.helpers.OrganizacionHelper;
-import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
 import utn.ddsG8.impacto_ambiental.domain.helpers.SectorHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
@@ -58,7 +57,7 @@ public class MiembroController {
 
     public static Response unirseAOrg(Request request, Response response) {
         Organizacion org = OrganizacionHelper.getOrg(new Integer(request.queryParams("org")));
-        Miembro miembro = MiembroHelper.getCurrentMiembroInURL(request);
+        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
         Sector sector = SectorHelper.getSector(new Integer(request.queryParams("sector")));
         miembro.unirseAOrg(org, sector);
         repoOrganizacion.modificar(org);

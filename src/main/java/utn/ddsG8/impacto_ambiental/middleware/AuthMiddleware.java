@@ -4,6 +4,7 @@ package utn.ddsG8.impacto_ambiental.middleware;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
 import utn.ddsG8.impacto_ambiental.domain.helpers.UserHelper;
 
 public class AuthMiddleware {
@@ -32,4 +33,15 @@ public class AuthMiddleware {
         return response;
     }
 
+    public static Response isMiembro(Request request, Response response) {
+        if (!UserHelper.loggedUser(request).getRole().getName().equals("miembro")) {
+            response.redirect("/prohibido");
+        }
+        return response;
+    }
+
+    //todo
+    public static Response trayectoEsDeMiembro(Request request, Response response) {
+        return response;
+    }
 }

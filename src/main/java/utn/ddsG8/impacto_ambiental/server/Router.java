@@ -31,8 +31,25 @@ public class Router {
         loginConfig();
         prohibidoConfig();
         miembroConfig();
-//        trayectoConfig();
+        trayectoConfig();
         orgConfig();
+    }
+
+    private static void trayectoConfig() {
+        Spark.path("/trayecto", () -> {
+            Spark.before("/*", AuthMiddleware::authenticateSession);
+            Spark.before("",  AuthMiddleware::isMiembro);
+            Spark.before("/:id", AuthMiddleware::trayectoEsDeMiembro);
+
+
+
+            Spark.get("", TrayectoController::trayectosMiembroView, engine);
+            Spark.get("/:id/tramo/:id", TrayectoController::tramoView);
+            Spark.get("/:id/agregarTramo", TrayectoController::agregarTramoView);
+            Spark.post("/:id/agregarTramo", TrayectoController::agregarTramo);
+            Spark.get("/:id", TrayectoController::trayectoView);
+
+        });
     }
 
     private static void agenteConfig() {
@@ -98,11 +115,11 @@ public class Router {
             Spark.before("/:id/*",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", MiembroController::show, engine);
-            Spark.get("/:id/trayectos", TrayectoController::mostrarTrayectosMiembro, engine);
+            Spark.get("/:id/trayectos", TrayectoController::trayectosMiembroView, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
             Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);
-            Spark.get("/:id/createTrayecto", TrayectoController::crearTrayectoView, engine);
         });
+
     }
 
     private static void prohibidoConfig() {
@@ -121,11 +138,12 @@ public class Router {
             Spark.before("", AuthMiddleware::isAdmin);
             Spark.before("/*", AuthMiddleware::isAdmin);
 
-            Spark.get("", (request, response) ->{ return new ModelAndView(null,"admin/admin.hbs");},engine);
+            Spark.get("", (request, response) -> new ModelAndView(null,"admin/admin.hbs"),engine);
             Spark.get("/factoresFE", AdminController::mostrarFactores, engine);
             Spark.post("/factoresFE", AdminController::editarFactor);
             Spark.post("/factoresFE", AdminController::editarFactor);
-
+            Spark.get("/paradas", AdminController::agregarParadaView, engine);
+            Spark.post("/agregarParada", AdminController::agregarParada);
             Spark.get("/actualizarFE", AdminController::actualizarFE);
 
             Spark.get("/:id", (request, response) -> {
