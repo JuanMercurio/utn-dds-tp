@@ -1,5 +1,6 @@
 package utn.ddsG8.impacto_ambiental.domain.movilidad.transportes;
 
+import lombok.NoArgsConstructor;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
@@ -13,6 +14,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("servicio_contratado")
+@NoArgsConstructor
 public class ServicioContratado extends Transporte {
 
     public ServicioContratado(String nombre, String nombreFE) {
