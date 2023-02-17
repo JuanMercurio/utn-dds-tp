@@ -1,9 +1,6 @@
 {{# partial "organizationHeader"}}
 
-    <form method="post">
-<!--        este boton persiste el hc -->
-        <button type="submit" class="btn btn-warning">Calcular HC</button>
-    </form>
+
 
         <div class="hc-content">
         <div class="hc-card">
@@ -11,8 +8,12 @@
                 <span class="hc-card-title2">
                     Calculadora / huella
                 </span>
-            </div>
 
+            </div>
+            <form method="post">
+                <!--        este boton persiste el hc -->
+                <button type="submit" class="btn btn-warning">Calcular HC</button>
+            </form>
         {{#each sectores}}
             <h1> {{sectores.nombre}} </h1>
             <h1> {{sectores.cantidadMiembros}} </h1>
