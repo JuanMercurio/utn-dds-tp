@@ -12,7 +12,11 @@ public class DistanciaConverter implements AttributeConverter<Distancia, String>
 
     @Override
     public Distancia convertToEntityAttribute(String s) {
-        String strings[] = s.split(" ");
-        return new Distancia(Double.parseDouble(strings[0]), strings[1]);
+        if( s !=null){
+            String strings[] = s.split(" ");
+            return new Distancia(Double.parseDouble(strings[0]), strings[1]);
+        } else {
+            return null;
+        }
     }
 }

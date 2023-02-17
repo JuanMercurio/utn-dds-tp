@@ -5,6 +5,7 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.TrayectoHelper;
 import utn.ddsG8.impacto_ambiental.domain.helpers.UserHelper;
 
 public class AuthMiddleware {
@@ -37,11 +38,14 @@ public class AuthMiddleware {
         if (!UserHelper.loggedUser(request).getRole().getName().equals("miembro")) {
             response.redirect("/prohibido");
         }
+
         return response;
     }
 
-    //todo
     public static Response trayectoEsDeMiembro(Request request, Response response) {
+        if (!TrayectoHelper.getTrayecto(request).getMiembros().contains(MiembroHelper.getCurrentMiembro(request))) {
+            response.redirect("/prohibido");
+        }
         return response;
     }
 }

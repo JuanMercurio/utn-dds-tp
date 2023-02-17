@@ -1,6 +1,7 @@
 package utn.ddsG8.impacto_ambiental.domain.movilidad;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import utn.ddsG8.impacto_ambiental.db.converters.DistanciaConverter;
@@ -18,6 +19,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "trayecto")
 public class Trayecto extends Persistable {
 

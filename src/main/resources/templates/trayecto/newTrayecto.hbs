@@ -42,9 +42,9 @@
                             <label class="alta-form-group-name" for="nombreParada">
                                 Parada inicial
                             </label>
-                            <select class="form-control" id="parada-inicial" name="parada-inicial">
+                            <select class="form-control" id="parada-inicial" name="direccion-inicial">
                                 {{#each paradas}}
-                                <option value="{{id}}">{{nombre}}</option>
+                                <option value="{{direccion.id}}">{{nombre}}</option>
                                 {{/each}}
                             </select> 
                         </div>
@@ -54,9 +54,9 @@
                             <label class="alta-form-group-name" for="nombreParada">
                                 Parada final
                             </label>
-                            <select class="form-control" id="parada-final" name="parada-final">
+                            <select class="form-control" id="parada-final" name="direccion-final">
                                 {{#each paradas}}
-                                <option value="{{id}}">{{nombre}}</option>
+                                <option value="{{direccion.id}}">{{nombre}}</option>
                                 {{/each}}
                             </select> 
                         </div>
@@ -66,7 +66,7 @@
                             <label class="alta-form-group-name" for="nombreParada">
                                 Localidad inicial
                             </label>
-                            <select class="form-control" id="localidad-inicial" name="localidad-inicial">
+                            <select class="form-control" id="localidad-inicial" name="localidad-direccion-inicial">
                                 {{#each localidades}}
                                     <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
                                 {{/each}}
@@ -92,7 +92,7 @@
                             <label class="alta-form-group-name" for="nombreParada">
                                 Localidad final
                             </label>
-                            <select class="form-control" id="localidad-final" name="localidad-final">
+                            <select class="form-control" id="localidad-final" name="localidad-direccion-final">
                                 {{#each localidades}}
                                     <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
                                 {{/each}}
