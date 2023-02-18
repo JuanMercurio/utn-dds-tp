@@ -5,7 +5,6 @@ import lombok.Getter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
-import utn.ddsG8.impacto_ambiental.domain.services.distancia.Municipio;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
@@ -314,8 +313,17 @@ public class CalcularHC {
 
     }
     public double buscarFactorEmisionTransporte(String nombre){
-        return factoresDeEmision.buscarTodos().stream().filter(f ->  f.getNombre().equals(nombre)).collect(Collectors.toList()).get(0).getValor();
+//        return factoresDeEmision.buscarTodos().stream().filter(f ->  f.getNombre().equals(nombre)).collect(Collectors.toList()).get(0).getValor();
+        for (FE fe : factoresDeEmision.buscarTodos()) {
+            System.out.println("buscando " + nombre);
+            if (fe.getNombre().equals(nombre)) {
+                return fe.getValor();
+            }
+        }
+
+        return -1;
     }
+
 
     public double obtenerHCOrganizacion(Organizacion org) {
         double a = obtenerHCTrayectosOrganizacion(org);
@@ -325,11 +333,11 @@ public class CalcularHC {
     }
 
     public double obtenerHCSector(Sector sector) {
-        return obtenerTrayectos(sector).stream().mapToDouble(t -> t.CalcularHCTrayecto()).sum();
+        return obtenerTrayectos(sector).stream().mapToDouble(t -> t.calcularHCTrayecto()).sum();
     }
 
     public double obtenerHCTrayectosOrganizacion(Organizacion organizacion) {
-        return  organizacion.getTrayectos().stream().mapToDouble(t -> t.CalcularHCTrayecto()).sum();
+        return  organizacion.getTrayectos().stream().mapToDouble(t -> t.calcularHCTrayecto()).sum();
     }
 
     public List<Trayecto> obtenerTrayectos(Sector sector) {
@@ -346,7 +354,7 @@ public class CalcularHC {
     }
 
     public double obtenerHCTrayecto(Trayecto trayecto) {
-        return trayecto.CalcularHCTrayecto();
+        return trayecto.calcularHCTrayecto();
     }
 
 

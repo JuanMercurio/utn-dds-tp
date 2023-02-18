@@ -1,5 +1,8 @@
 package utn.ddsG8.impacto_ambiental.domain.services.distancia;
 
+import lombok.Getter;
+
+@Getter
 public class Distancia {
     public double valor;
     public String unidad;

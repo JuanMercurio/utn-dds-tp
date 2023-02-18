@@ -41,15 +41,18 @@ public class Router {
             Spark.before("/*", AuthMiddleware::authenticateSession);
             Spark.before("",  AuthMiddleware::isMiembro);
 
-
-
-            Spark.get("/:idTrayecto/tramo/:idtramo", TrayectoController::tramoView);
+            Spark.post("/:idTrayecto/eliminar", TrayectoController::eliminarTrayecto);
             Spark.get("/:idTrayecto/agregarTramo", TrayectoController::agregarTramoView, engine);
             Spark.post("/:idTrayecto/agregarTramo", TrayectoController::agregarTramo);
+            Spark.get("/:idTrayecto/tramo/:idtramo", TrayectoController::tramoView);
             Spark.get("/:idTrayecto", TrayectoController::trayectoView, engine);
             Spark.get("", TrayectoController::trayectosMiembroView, engine);
             Spark.post("", TrayectoController::crearTrayecto);
 
+        });
+
+        Spark.path("trayectos", () -> {
+            Spark.get("/actualizar", TrayectoController::actualizarTrayectos);
         });
     }
 
@@ -141,7 +144,6 @@ public class Router {
 
             Spark.get("", (request, response) -> new ModelAndView(null,"admin/admin.hbs"),engine);
             Spark.get("/factoresFE", AdminController::mostrarFactores, engine);
-            Spark.post("/factoresFE", AdminController::editarFactor);
             Spark.post("/factoresFE", AdminController::editarFactor);
             Spark.get("/paradas", AdminController::agregarParadaView, engine);
             Spark.post("/agregarParada", AdminController::agregarParada);

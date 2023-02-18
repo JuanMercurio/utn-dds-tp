@@ -5,13 +5,14 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import utn.ddsG8.impacto_ambiental.db.converters.DistanciaConverter;
-import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.db.converters.LocalTimeAttributeConverter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,10 @@ import java.util.stream.Stream;
 @Table(name = "trayecto")
 public class Trayecto extends Persistable {
 
-    @Getter
+    @Column(name = "fecha")
+    @Convert(converter = LocalTimeAttributeConverter.class)
+    protected LocalDate fecha;
+
     @ManyToMany()
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(
@@ -34,7 +38,6 @@ public class Trayecto extends Persistable {
     )
     private List<Miembro> miembros;
 
-    @Getter
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
             name = "trayecto_org",
@@ -44,7 +47,6 @@ public class Trayecto extends Persistable {
     private Set<Organizacion> organizaciones;
 
     // es la forma fea de hacer u one-to-many unidireccional
-    @Getter
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "trayecto", referencedColumnName = "id")
     private List<Tramo> tramos;
@@ -57,6 +59,7 @@ public class Trayecto extends Persistable {
         this.miembros = new ArrayList<Miembro>() ;
         this.organizaciones = new HashSet<>();
         this.tramos = new ArrayList<Tramo>() ;
+        this.fecha = LocalDate.now();
     }
 
     public Distancia getDistancia() {
@@ -92,7 +95,11 @@ public class Trayecto extends Persistable {
         miembros.add(miembro);
     }
 
-    public double CalcularHCTrayecto(){
+    public double getHuella() {
+        return calcularHCTrayecto();
+    }
+
+    public double calcularHCTrayecto(){
         double hc = 0;
 
         for ( Tramo tramo: tramos) {
@@ -101,6 +108,7 @@ public class Trayecto extends Persistable {
         return hc;
 
     }
+
 
 //    public double CalcularHCTrayectoMensual(CalcularHC calculador, int mes, int anio){
 //        double hc = 0;

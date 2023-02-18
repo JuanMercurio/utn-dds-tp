@@ -3,11 +3,18 @@
     <h1>Trayectos</h1>
 
     <form method="post">
-        <input type="submit">
+        <button type="submit">Crear Trayecto</button>
     </form>
 
-    {{#each miembro.trayectos}}
-            <h1> El id del trayecto es: {{this.id}}   </h1>
+    {{#each trayectos}}
+            <div>
+                <h1> El id del trayecto es: {{this.id}}   </h1>
+                <button type="submit" onclick="window.location.href = window.location.href + '/{{this.id}}'">Ver</button>
+                <form method="post" action="trayecto/{{this.id}}/eliminar">
+                    <input type="hidden" name="trayecto" value="{{this.id}}">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </div>
     {{/each}}
 
 {{/partial}}

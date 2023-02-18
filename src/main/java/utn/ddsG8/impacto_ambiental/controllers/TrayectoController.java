@@ -3,6 +3,7 @@ package utn.ddsG8.impacto_ambiental.controllers;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
@@ -20,10 +21,7 @@ import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TrayectoController {
@@ -38,16 +36,21 @@ public class TrayectoController {
     private final static Repositorio<ServicioContratado> repoServicioContratado = FactoryRepositorio.get(ServicioContratado.class);
 
     public static ModelAndView trayectosMiembroView(Request request, Response response) {
+        repoTrayecto.buscarTodos();
         Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        List<Trayecto> trayectos = miembro.getTrayectos().stream().sorted(Comparator.comparing(Trayecto::getFecha)).collect(Collectors.toList());
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("miembro", miembro);
+        parametros.put("trayectos", trayectos);
         return new ModelAndView(parametros, "trayecto/trayectosMiembro.hbs");
     }
 
     public static ModelAndView trayectoView(Request request, Response response) {
         Trayecto trayecto = TrayectoHelper.getTrayecto(request);
         Map<String, Object> parametros = new HashMap<>();
+        double huella = trayecto.getHuella();
         parametros.put("trayecto", trayecto);
+        parametros.put("huella", (double) Math.round(huella*100.0)/100);
         return new ModelAndView(parametros, "trayecto/trayecto.hbs");
     }
 
@@ -70,19 +73,22 @@ public class TrayectoController {
         parametros.put("noContaminantes", noContaminantes);
         parametros.put("orgs", orgs);
 
-        return new ModelAndView(parametros, "/trayecto/newTrayecto.hbs");
+        return new ModelAndView(parametros, "/trayecto/newTramo.hbs");
     }
 
     //todo
     public static String tramoView(Request request, Response response) {
-        return "esto es un tramo";
+        return "To be developed";
     }
 
     public static Response agregarTramo(Request request, Response response) {
 
         Transporte transporte = repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte")));
-        System.out.println("El id del trayecto es igual a " + request.params("idTrayecto"));
         Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
+        if (trayecto == null) {
+            System.out.println("rompio todo");
+            Spark.halt();
+        }
 
         Tramo tramo = new Tramo(transporte,
                 determinarDireccion(request, "direccion-inicial"),
@@ -107,10 +113,10 @@ public class TrayectoController {
 
     private static void agregarOrganizaciones(Request request, Trayecto trayecto) {
         Miembro miembro = MiembroHelper.getCurrentMiembro(request);
-        int cantidad = miembro.getSectores().stream().map(Sector::getOrganizacion).collect(Collectors.toSet()).size();
+        int cantidad = (int) miembro.getSectores().stream().map(Sector::getOrganizacion).count();
         for(int i=0; i<cantidad; i++) {
             if (request.queryParams("org"+i) != null) {
-                Organizacion org = FactoryRepositorio.get(Organizacion.class).buscar(Integer.parseInt(request.queryParams("org" + i)));
+                Organizacion org = FactoryRepositorio.get(Organizacion.class).buscar(Integer.parseInt(request.queryParams("org"+i)));
                 trayecto.agregarOrganizacion(org);
             }
         }
@@ -142,4 +148,19 @@ public class TrayectoController {
         }
     }
 
+
+    public static Response eliminarTrayecto(Request request, Response response) {
+        Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.queryParams("trayecto")));
+        repoTrayecto.eliminar(trayecto);
+
+        response.redirect("/trayectos/actualizar");
+//        response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+        return response;
+    }
+
+    public static Response actualizarTrayectos(Request request, Response response) {
+        repoTrayecto.buscarTodos();
+        response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+        return response;
+    }
 }

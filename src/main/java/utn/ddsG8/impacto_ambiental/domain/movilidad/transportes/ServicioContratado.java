@@ -8,6 +8,7 @@ import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.calculadores.Cal
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.calculadores.CalculadorDistanciaTramo;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.DistanciaServicio;
+import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class ServicioContratado extends Transporte {
     }
 
     public double FEvalor() {
-        return CalcularHC.getInstancia().buscarFactorEmisionTransporte(nombreFE);
+        return FactoryRepositorio.get(FE.class).query("FROM factor_emision where nombre = '" + this.nombreFE + "'").get(0).getValor();
     }
 
     public void calcularDistanciaDeTramo(Tramo tramo) {

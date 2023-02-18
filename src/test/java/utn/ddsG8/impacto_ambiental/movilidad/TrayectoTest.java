@@ -8,7 +8,6 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Distancia;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
@@ -106,7 +105,7 @@ class TrayectoTest {
     public void distanciaDeTrayectoPrivadoYPublico() {
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramos(tramoTren1, tramoAuto, tramoTren2, tramoAuto);
-        double hc = trayecto.CalcularHCTrayecto();
+        double hc = trayecto.calcularHCTrayecto();
                 Assertions.assertTrue(trayecto.getDistancia().valor > 0);
         Assertions.assertTrue(hc > 0);
         System.out.println(hc);
