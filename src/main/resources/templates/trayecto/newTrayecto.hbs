@@ -30,8 +30,8 @@
                         {{/each}}
                 </select>
 
-                <input type="text" placeholder="Calle Inicial" name="calle-inicial">
-                <input type="text" placeholder="Altura Inicial" name="altura-inicial">
+                <input type="text" placeholder="Calle Inicial" name="calle-direccion-inicial">
+                <input type="text" placeholder="Altura Inicial" name="altura-direccion-inicial">
 
                 <select id="localidad-final" name="localidad-direccion-final">
                         {{#each localidades}}
@@ -39,8 +39,8 @@
                         {{/each}}
                 </select>
 
-                <input  type="text" placeholder="Calle Final" name="calle-final">
-                <input type="text" placeholder="Altura Final" name="altura-final">
+                <input  type="text" placeholder="Calle Final" name="calle-direccion-final">
+                <input type="text" placeholder="Altura Final" name="altura-direccion-final">
 
                 <br>
                 <h3>Que organizaciones participan de este tramo?</h3>
@@ -68,8 +68,8 @@
                     {{/each}}
                 </select>
 
-                <input type="text" placeholder="Calle Inicial" name="calle-inicial">
-                <input type="text" placeholder="Altura Inicial" name="altura-inicial">
+                <input type="text" placeholder="Calle Inicial" name="calle-direccion-inicial">
+                <input type="text" placeholder="Altura Inicial" name="altura-direccion-inicial">
 
                 <select id="localidad-final" name="localidad-direccion-final">
                     {{#each localidades}}
@@ -77,8 +77,8 @@
                     {{/each}}
                 </select>
 
-                <input  type="text" placeholder="Calle Final" name="calle-final">
-                <input type="text" placeholder="Altura Final" name="altura-final">
+                <input  type="text" placeholder="Calle Final" name="calle-direccion-final">
+                <input type="text" placeholder="Altura Final" name="altura-direccion-final">
 
                 <h3>Que organizaciones participan de este tramo?</h3>
                 {{#each orgs}}
@@ -91,7 +91,7 @@
 
             <div id="contratado" class="inv">
                 <form method="post">
-                <select name="trasnporte">
+                <select name="transporte">
                     {{#each contratados}}
                         <option value="{{id}}">{{nombre}}</option>
                     {{/each}}
@@ -103,8 +103,8 @@
                     {{/each}}
                 </select>
 
-                <input type="text" placeholder="Calle Inicial" name="calle-inicial">
-                <input type="text" placeholder="Altura Inicial" name="altura-inicial">
+                <input type="text" placeholder="Calle Inicial" name="calle-direccion-inicial">
+                <input type="text" placeholder="Altura Inicial" name="altura-direccion-inicial">
 
                 <select id="localidad-final" name="localidad-direccion-final">
                     {{#each localidades}}
@@ -112,8 +112,8 @@
                     {{/each}}
                 </select>
 
-                <input  type="text" placeholder="Calle Final" name="calle-final">
-                <input type="text" placeholder="Altura Final" name="altura-final">
+                <input  type="text" placeholder="Calle Final" name="calle-direccion-final">
+                <input type="text" placeholder="Altura Final" name="altura-direccion-final">
                 <h3>Que organizaciones participan de este tramo?</h3>
                 {{#each orgs}}
                     <input type="checkbox" id="org{{@index}}" name="org{{@index}}" value="{{id}}">
@@ -150,6 +150,8 @@
                 <input type="submit">
                 </form>
             </div>
+<!--            todo tendria que ir a la vista del trayecto-->
+            <button>Terminar</button>
 
             <script>
             document

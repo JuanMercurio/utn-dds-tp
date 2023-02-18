@@ -21,7 +21,7 @@ import java.util.List;
 public class TransportePublico extends  Transporte {
 
     // esta forma es fea. Lo mejor es tener el transporte en la parada directamente
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "transporte", referencedColumnName = "id")
     protected List<Parada> paradas;
 
@@ -77,7 +77,7 @@ public class TransportePublico extends  Transporte {
     }
 
     @Override
-    public void setCalculadorDistanciaTramo(Tramo tramo) {
-        tramo.setCalculadorTramo(new CalculadorDistanciaParadas());
+    public void calcularDistancia(Tramo tramo) {
+        new CalculadorDistanciaParadas().calcularDistanciaTramo(tramo);
     }
 }

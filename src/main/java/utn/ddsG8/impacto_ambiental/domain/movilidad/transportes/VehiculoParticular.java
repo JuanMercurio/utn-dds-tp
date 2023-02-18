@@ -57,8 +57,8 @@ public class VehiculoParticular extends Transporte {
     }
 
     @Override
-    public void setCalculadorDistanciaTramo(Tramo tramo) {
-        tramo.setCalculadorTramo(new CalculadorDistanciaCalles());
+    public void calcularDistancia(Tramo tramo) {
+        new CalculadorDistanciaCalles().calcularDistanciaTramo(tramo);
     }
 
 }
