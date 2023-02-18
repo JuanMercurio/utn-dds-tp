@@ -21,9 +21,6 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "tipo_tramo")
 public class Tramo extends Persistable {
 
-    @Column(name = "fecha")
-    @Convert(converter = LocalTimeAttributeConverter.class)
-    protected LocalDate fecha;
 
     @Column(name = "distancia")
     @Convert(converter = DistanciaConverter.class)
@@ -46,7 +43,6 @@ public class Tramo extends Persistable {
         this.transporte = transporte;
         this.inicio = inicio;
         this.fin = fin;
-        this.fecha = LocalDate.now();
         this.transporte.calcularDistancia(this);
     }
 

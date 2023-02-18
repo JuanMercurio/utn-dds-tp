@@ -11,6 +11,7 @@ import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
@@ -19,9 +20,8 @@ import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CalcularHuellaCarbono {
 
@@ -87,14 +87,9 @@ public class CalcularHuellaCarbono {
 
     @Test
     public void test() {
-        int altura =8037;
-        String calle = "Calle195";
-        List<Direccion> dir = repoDireccion.query(
-                "from direccion where altura= " +altura + " and calle = '" + calle + "' and localidad = 496"
-        );
-        System.out.println(dir.size());
-
-        int a=4;
+        List<Trayecto> trayectos = FactoryRepositorio.get(Trayecto.class).buscarTodos();
+        trayectos.forEach(t -> t.setFecha(LocalDate.now()));
+        trayectos.forEach(t -> FactoryRepositorio.get(Trayecto.class).agregar(t));
     }
 
 }

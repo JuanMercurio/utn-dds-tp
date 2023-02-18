@@ -48,4 +48,8 @@ public class AuthMiddleware {
         }
         return response;
     }
+
+    public static void publico(Request request, Response response) {
+
+    }
 }
