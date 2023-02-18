@@ -40,5 +40,5 @@ public abstract class Transporte extends Persistable {
 
     public abstract Boolean esPublico();
 
-    public abstract void setCalculadorDistanciaTramo(Tramo tramo);
+    public abstract void calcularDistancia(Tramo tramo);
 }

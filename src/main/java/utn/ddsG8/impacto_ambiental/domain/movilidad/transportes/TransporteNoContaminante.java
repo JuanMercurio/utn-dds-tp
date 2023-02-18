@@ -40,11 +40,8 @@ public class TransporteNoContaminante extends Transporte {
         return false;
     }
 
-    public void setCalculadorDistanciaTramo(Tramo tramo) {
-        tramo.setCalculadorTramo(new CalculadorDistanciaCalles());
+    public void calcularDistancia(Tramo tramo) {
+        new CalculadorDistanciaCalles().calcularDistanciaTramo(tramo);
     }
 
-    public void calcularDistanciaDeTramo(Tramo tramo) {
-        tramo.setDistancia(new Distancia(0, "KM"));
-    }
 }

@@ -41,29 +41,17 @@ public class Tramo extends Persistable {
     @JoinColumn(name = "direccion_fin", referencedColumnName = "id")
     private Direccion fin;
 
-    // consultarle a pablo (tener en cuenta tambien las otra soluciones como la suma con 0s, cargarlo 2 veces, etc)
-    // no se como no repetir codigo. El dile es como hacer en este caso es como hacer para no repetir codigo en las
-    // clases que hacen lo mismo (sin una subclase mas). Hay solo 1 subclase de transporte que no hace lo mismo
-    // consultar la mejor solucion
-    @Transient
-    private CalculadorDistanciaTramo calculadorTramo;
-
     public Tramo() {}
     public Tramo(Transporte transporte, Direccion inicio, Direccion fin) {
         this.transporte = transporte;
         this.inicio = inicio;
         this.fin = fin;
         this.fecha = LocalDate.now();
-        this.transporte.setCalculadorDistanciaTramo(this);
-        this.calcularDistancia();;
+        this.transporte.calcularDistancia(this);
     }
 
     public Double calcularHC() {
         return transporte.calcularHCTramo(this);
-    }
-
-    public void calcularDistancia() {
-        calculadorTramo.calcularDistanciaTramo(this);
     }
 
 }

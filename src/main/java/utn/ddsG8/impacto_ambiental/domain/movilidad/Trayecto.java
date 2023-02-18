@@ -69,7 +69,7 @@ public class Trayecto extends Persistable {
     }
 
     private void setDistancia() {
-        double valor = (double) tramos.stream().mapToDouble(t -> t.getDistancia().valor) .sum();
+        double valor = tramos.stream().mapToDouble(t -> t.getDistancia().valor) .sum();
         final String unidad = tramos.get(0).getDistancia().unidad;
         this.distancia = new Distancia(valor, unidad);
     }

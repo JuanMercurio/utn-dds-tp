@@ -7,9 +7,12 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
@@ -23,6 +26,9 @@ import java.util.stream.Collectors;
 public class CalcularHuellaCarbono {
 
     private final Repositorio<FE> repoFE = FactoryRepositorio.get(FE.class);
+    private final Repositorio<Localidad> repoLocalidad = FactoryRepositorio.get(Localidad.class);
+    private final Repositorio<Direccion> repoDireccion = FactoryRepositorio.get(Direccion.class);
+    private final Repositorio<Tramo> repoTramo = FactoryRepositorio.get(Tramo.class);
     private final Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
     private final Repositorio<SectorTerritorial> repoSectorTerritorial = FactoryRepositorio.get(SectorTerritorial.class);
 
@@ -81,8 +87,14 @@ public class CalcularHuellaCarbono {
 
     @Test
     public void test() {
-        Organizacion org = repoOrganizacion.buscar(102);
-        int a= 1;
+        int altura =8037;
+        String calle = "Calle195";
+        List<Direccion> dir = repoDireccion.query(
+                "from direccion where altura= " +altura + " and calle = '" + calle + "' and localidad = 496"
+        );
+        System.out.println(dir.size());
+
+        int a=4;
     }
 
 }
