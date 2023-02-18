@@ -139,9 +139,9 @@ public class OrganizacionController {
 
     public static ModelAndView vistaCalculadora(Request request, Response response) {
 
-        List<Sector> sectores = OrganizacionHelper.getOrg(request).getSectores();
+        Organizacion org = OrganizacionHelper.getOrg(request);
         return new ModelAndView(new HashMap<String, Object>(){{
-            put("sectores", sectores);
+            put("org", org);
         }}, "organizacion/calculadora.hbs");
     }
 

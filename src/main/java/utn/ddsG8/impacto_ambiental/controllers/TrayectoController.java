@@ -36,12 +36,13 @@ public class TrayectoController {
     private final static Repositorio<ServicioContratado> repoServicioContratado = FactoryRepositorio.get(ServicioContratado.class);
 
     public static ModelAndView trayectosMiembroView(Request request, Response response) {
-        repoTrayecto.buscarTodos();
+//        repoTrayecto.buscarTodos();
         Miembro miembro = MiembroHelper.getCurrentMiembro(request);
         List<Trayecto> trayectos = miembro.getTrayectos().stream().sorted(Comparator.comparing(Trayecto::getFecha)).collect(Collectors.toList());
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("miembro", miembro);
         parametros.put("trayectos", trayectos);
+        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
         return new ModelAndView(parametros, "trayecto/trayectosMiembro.hbs");
     }
 
@@ -154,13 +155,14 @@ public class TrayectoController {
         repoTrayecto.eliminar(trayecto);
 
         response.redirect("/trayectos/actualizar");
-//        response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
         return response;
     }
 
     public static Response actualizarTrayectos(Request request, Response response) {
         repoTrayecto.buscarTodos();
         response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
         return response;
     }
 }

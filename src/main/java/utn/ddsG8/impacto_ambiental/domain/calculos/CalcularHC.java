@@ -20,7 +20,6 @@ public class CalcularHC {
     private double K;
 
     @Getter
-
     private Repositorio<Direccion> repoDireccion = FactoryRepositorio.get(Direccion.class);
     private Repositorio<Trayecto> repoTrayecto = FactoryRepositorio.get(Trayecto.class);
     private Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
@@ -315,7 +314,6 @@ public class CalcularHC {
     public double buscarFactorEmisionTransporte(String nombre){
 //        return factoresDeEmision.buscarTodos().stream().filter(f ->  f.getNombre().equals(nombre)).collect(Collectors.toList()).get(0).getValor();
         for (FE fe : factoresDeEmision.buscarTodos()) {
-            System.out.println("buscando " + nombre);
             if (fe.getNombre().equals(nombre)) {
                 return fe.getValor();
             }
