@@ -1,12 +1,41 @@
 {{# partial "memberHeader" }}
 
-    <h1>Trayecto {{trayecto.id}} tiene los siguientes tramos</h1>
-
-    {{#each trayecto.tramos }}
-        <h1> Transporte: {{transporte.tipoDeTransporte}} - Distancia: {{distancia.valor}} {{distancia.unidad}} </h1>
-    {{/each}}
-    <h1> El total de hc es de: {{huella}}</h1>
-
+<div class="hc-content">
+   <div class="hc-card">
+      <div class="mb-3">
+         <span class="hc-card-title">
+         Información del trayecto con id: {{trayecto.id}}
+         </span>
+      </div>
+      <hr />
+      {{#if trayecto.tramos}} 
+      <p>El trayecto {{trayecto.id}} tiene los siguientes tramos:</p>
+      <div class="paradas-card w-100">
+         <table class="paradas-table w-100">
+            <thead>
+               <tr>
+                  <td>Tipo de transporte</td>
+                  <td>Distancia</td>
+               </tr>
+            </thead>
+            <tbody>
+               {{#each trayecto.tramos }}
+               <tr>
+                  <td>{{transporte.tipoDeTransporte}}</td>
+                  <td>{{distancia.valor}} {{distancia.unidad}}</td>
+               </tr>
+               {{/each}}
+            </tbody>
+         </table>
+      </div>
+      {{else}}
+      <p>El trayecto {{trayecto.id}} no tiene tramos hasta el momento.</p>
+      {{/if}}
+      <div class="alert alert-success" role="alert">
+         <p class="m-0"> El total de HC calculado es de: {{huella}}</p>
+      </div>
+   </div>
+</div>
 
 {{/partial}}
 {{> headers/memberHeader.hbs}}
