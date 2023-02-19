@@ -1,4 +1,4 @@
-
+{{# partial "adminHeader"}}
     <h1>Agregar Parada</h1>
     <form method="post" action="agregarParada">
         <input type="text" name="nombre-parada" placeholder="Nombre">
@@ -21,4 +21,5 @@
         <input type="text" name="altura" placeholder="Altura">
         <input type="submit">
     </form>
-
+{{/partial}}
+{{> headers/adminHeader.hbs}}

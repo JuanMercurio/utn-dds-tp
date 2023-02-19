@@ -25,7 +25,8 @@
                 </select>
 
                 <select id="localidad-inicial" name="localidad-direccion-inicial">
-                        {{#each localidades}}
+
+                    {{#each localidades}}
                         <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
                         {{/each}}
                 </select>
@@ -35,7 +36,7 @@
 
                 <select id="localidad-final" name="localidad-direccion-final">
                         {{#each localidades}}
-                        <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+                        <option  value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
                         {{/each}}
                 </select>
 
@@ -64,7 +65,7 @@
 
                 <select id="localidad-inicial" name="localidad-direccion-inicial">
                     {{#each localidades}}
-                        <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+                        <option class = "{{id}}" value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
                     {{/each}}
                 </select>
 
@@ -73,7 +74,7 @@
 
                 <select id="localidad-final" name="localidad-direccion-final">
                     {{#each localidades}}
-                        <option value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
+                        <option class = "{{id}}" value="{{id}}">{{municipio.provincia.nombre}} - {{municipio.nombre}} - {{nombre}}</option>
                     {{/each}}
                 </select>
 
@@ -125,21 +126,22 @@
 
             <div id="publico" class="inv">
                 <form method="post">
-                <select name="transporte">
+                <select name="transporte" id="transporte">
                     {{#each publicos}}
                         <option value="{{id}}">{{nombre}}</option>
                     {{/each}}
                 </select>
 
-                <select id="parada-inicial" name="direccion-inicial">
+                <select id="parada-inicial" name="direccion-inicial"  style="display: none;">
+
                     {{#each paradas}}
-                        <option value="{{direccion.id}}">{{nombre}}</option>
+                        <option class="elemento {{direccion.id}}" style="display: none;" data-parent= "{{nombre}}" value="{{direccion.id}}">{{direccion.id}} {{nombre}}</option>
                     {{/each}}
                 </select>
 
                 <select id="parada-final" name="direccion-final">
                     {{#each paradas}}
-                        <option value="{{direccion.id}}">{{nombre}}</option>
+                        <option class="elemento {{direccion.id}}" style="display: none;" data-parent= "{{nombre}}" value="{{direccion.id}}">{{direccion.id}} {{nombre}}</option>
                     {{/each}}
                 </select>
                 <h3>Que organizaciones participan de este tramo?</h3>
@@ -167,6 +169,63 @@
                         target.className = 'vis';
                     }
             });
+            const filtro = document.getElementById('transporte');
+            const elementos = document.querySelectorAll('.elemento');
+
+
+
+
+        const select1 = document.getElementById('transporte');
+        const select2 = document.getElementById('parada-inicial');
+        const select3 = document.getElementById('parada-final');
+        const opciones = select2.getElementsByTagName('option');
+        const opciones3 = select3.getElementsByTagName('option');
+         document.addEventListener("DOMContentLoaded", function(event) {
+             select2.style.display='block';
+            select1.value = select1.getElementsByTagName('option')[0];
+      });
+
+        select1.addEventListener('change', function() {
+
+                const select = document.getElementById('transporte');
+                const opcioness = select.options;
+                const indiceSeleccionado = select.selectedIndex;
+                const opcionSeleccionada = opcioness.item(indiceSeleccionado);
+                const nombreOpcion  = opcionSeleccionada.textContent;
+                console.log(nombreOpcion);
+                select2.style.display='block';
+                console.log("ESTOY FUNCIONANDOOOO");
+
+                    const valorSeleccionado = select1.value;
+                    for (let i = 0; i < opciones.length; i++) {
+                        console.log("ADENTRO DEL FOR");
+                        const opcion = opciones[i];
+                        const padres = opcion.getAttribute('data-parent');
+                        if(padres.includes(opcionSeleccionada.textContent) == true){
+                            opcion.style.display = 'block';
+                            console.log("ADENTRO DEL IF");
+                        }else{
+                            opcion.style.display = 'none';
+                            console.log("ADENTRO DEL else IF");
+                        }
+
+                    }
+                     for (let i = 0; i < opciones3.length; i++) {
+                        console.log("ADENTRO DEL FOR");
+                        const opcion = opciones3[i];
+                        const padres = opcion.getAttribute('data-parent');
+                        if(padres.includes(opcionSeleccionada.textContent) == true){
+                            opcion.style.display = 'block';
+                            console.log("ADENTRO DEL IF");
+                        }else{
+                            opcion.style.display = 'none';
+                            console.log("ADENTRO DEL else IF");
+                        }
+
+                    }
+
+        });
+
         </script>
 
      <!--     </div>-->
