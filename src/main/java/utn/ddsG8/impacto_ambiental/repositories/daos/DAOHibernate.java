@@ -19,12 +19,16 @@ public class DAOHibernate<T> implements DAO<T> {
         CriteriaQuery<T> critera = builder.createQuery(this.type);
         critera.from(type);
         List<T> entities = EntityManagerHelper.getEntityManager().createQuery(critera).getResultList();
+        EntityManagerHelper.closeEntityManager();
+
         return entities;
     }
 
     @Override
     public T buscar(int id) {
-        return EntityManagerHelper.getEntityManager().find(type, id);
+        T t =  EntityManagerHelper.getEntityManager().find(type, id);
+        EntityManagerHelper.closeEntityManager();
+        return t;
     }
 
     @Override
@@ -32,6 +36,7 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().persist(unObjeto);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -39,12 +44,16 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().merge(unObjeto);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
     public void eliminar(Object unObjeto) {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
-        EntityManagerHelper.getEntityManager().remove(unObjeto);
+        // esto lo hace porqu el objeto esta detached al parecer
+        Object reattached = EntityManagerHelper.getEntityManager().merge(unObjeto);
+        EntityManagerHelper.getEntityManager().remove(reattached);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 }

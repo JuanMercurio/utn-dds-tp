@@ -41,11 +41,12 @@ public class AdminController {
             factores.modificar(fe);
         }
         response.redirect("/admin/actualizarFE");
+//        response.redirect("/admin/factoresFE");
         return response;
     }
 
     public static Response actualizarFE(Request req, Response res) {
-        factores.buscarTodos();
+//        factores.buscarTodos();
         res.redirect("/admin/factoresFE");
         return res;
     }

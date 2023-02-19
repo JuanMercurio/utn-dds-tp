@@ -37,9 +37,9 @@ public class Router {
 
     private static void trayectoConfig() {
         Spark.path("/miembro/:id/trayecto", () -> {
-            Spark.before("/:idTrayecto", AuthMiddleware::trayectoEsDeMiembro);
-            Spark.before("/*", AuthMiddleware::authenticateSession);
-            Spark.before("",  AuthMiddleware::isMiembro);
+//            Spark.before("/:idTrayecto", AuthMiddleware::trayectoEsDeMiembro);
+//            Spark.before("/*", AuthMiddleware::authenticateSession);
+//            Spark.before("",  AuthMiddleware::isMiembro);
 
             Spark.post("/:idTrayecto/eliminar", TrayectoController::eliminarTrayecto);
             Spark.get("/:idTrayecto/agregarTramo", TrayectoController::agregarTramoView, engine);
@@ -51,9 +51,9 @@ public class Router {
 
         });
 
-        Spark.path("trayectos", () -> {
-            Spark.get("/actualizar", TrayectoController::actualizarTrayectos);
-        });
+//        Spark.path("trayectos", () -> {
+//            Spark.get("/actualizar", TrayectoController::actualizarTrayectos);
+//        });
     }
 
     private static void agenteConfig() {

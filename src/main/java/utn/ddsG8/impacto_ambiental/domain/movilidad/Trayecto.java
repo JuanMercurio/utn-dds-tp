@@ -29,8 +29,7 @@ public class Trayecto extends Persistable {
     @Convert(converter = LocalTimeAttributeConverter.class)
     protected LocalDate fecha;
 
-    @ManyToMany()
-    @Fetch(FetchMode.SUBSELECT)
+    @ManyToMany
     @JoinTable(
             name = "trayecto_miembro",
             joinColumns = @JoinColumn(name = "trayecto_id"),
