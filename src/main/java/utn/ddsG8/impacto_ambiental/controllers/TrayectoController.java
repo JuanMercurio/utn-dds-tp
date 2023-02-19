@@ -1,14 +1,11 @@
 package utn.ddsG8.impacto_ambiental.controllers;
 
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Spark;
+import spark.*;
+import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
-import utn.ddsG8.impacto_ambiental.domain.helpers.TrayectoHelper;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.ServicioContratado;
@@ -16,7 +13,6 @@ import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.TransporteNoContaminante;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
-import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
@@ -27,6 +23,7 @@ import java.util.stream.Collectors;
 public class TrayectoController {
 
     private final static Repositorio<Parada> repoParada = FactoryRepositorio.get(Parada.class);
+    private final static Repositorio<Miembro> repoMiembro = FactoryRepositorio.get(Miembro.class);
     private final static Repositorio<TransportePublico> repoTransportePublico = FactoryRepositorio.get(TransportePublico.class);
     private final static Repositorio<Transporte> repoTransporte = FactoryRepositorio.get(Transporte.class);
     private final static Repositorio<Trayecto> repoTrayecto = FactoryRepositorio.get(Trayecto.class);
@@ -36,18 +33,17 @@ public class TrayectoController {
     private final static Repositorio<ServicioContratado> repoServicioContratado = FactoryRepositorio.get(ServicioContratado.class);
 
     public static ModelAndView trayectosMiembroView(Request request, Response response) {
-//        repoTrayecto.buscarTodos();
-        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
-        List<Trayecto> trayectos = miembro.getTrayectos().stream().sorted(Comparator.comparing(Trayecto::getFecha)).collect(Collectors.toList());
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("miembro", miembro);
-        parametros.put("trayectos", trayectos);
-        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
-        return new ModelAndView(parametros, "trayecto/trayectosMiembro.hbs");
+        Miembro miembro = repoMiembro.buscar(request.session().attribute("id"));
+        response.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+        response.header("Pragma", "no-cache");
+        return new ModelAndView(new HashMap<String, Object>(){{
+                put("miembro", miembro);
+        }}, "trayecto/trayectosMiembro.hbs");
     }
 
     public static ModelAndView trayectoView(Request request, Response response) {
-        Trayecto trayecto = TrayectoHelper.getTrayecto(request);
+
+        Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.queryParams("idTrayecto")));
         Map<String, Object> parametros = new HashMap<>();
         double huella = trayecto.getHuella();
         parametros.put("trayecto", trayecto);
@@ -56,7 +52,7 @@ public class TrayectoController {
     }
 
     public static ModelAndView agregarTramoView(Request request, Response response) {
-        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        Miembro miembro = repoMiembro.buscar(request.session().attribute("id"));
 
         List<Transporte> transportesDeMiembro = repoTransporte.query("from transporte where duenio = " + miembro.getId());
         List<TransportePublico> tpublicos = repoTransportePublico.buscarTodos();
@@ -86,8 +82,9 @@ public class TrayectoController {
 
         Transporte transporte = repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte")));
         Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
+
         if (trayecto == null) {
-            System.out.println("rompio todo");
+            System.out.println("rompio todo el id del trayecto esa: "+ request.params("idTrayecto"));
             Spark.halt();
         }
 
@@ -106,14 +103,15 @@ public class TrayectoController {
 
     public static Response crearTrayecto(Request request, Response response) {
         Trayecto trayecto = new Trayecto();
-        trayecto.getMiembros().add(MiembroHelper.getCurrentMiembro(request));
+        Miembro miembro = repoMiembro.buscar(request.session().attribute("id"));
+        trayecto.getMiembros().add(miembro);
         repoTrayecto.agregar(trayecto);
         response.redirect("trayecto/" + trayecto.getId() + "/agregarTramo");
         return response;
     }
 
     private static void agregarOrganizaciones(Request request, Trayecto trayecto) {
-        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        Miembro miembro = repoMiembro.buscar(request.session().attribute("id"));
         int cantidad = (int) miembro.getSectores().stream().map(Sector::getOrganizacion).count();
         for(int i=0; i<cantidad; i++) {
             if (request.queryParams("org"+i) != null) {
@@ -151,18 +149,16 @@ public class TrayectoController {
 
 
     public static Response eliminarTrayecto(Request request, Response response) {
-        Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.queryParams("trayecto")));
-        repoTrayecto.eliminar(trayecto);
-
-        response.redirect("/trayectos/actualizar");
-        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
-        return response;
-    }
-
-    public static Response actualizarTrayectos(Request request, Response response) {
-        repoTrayecto.buscarTodos();
+        Trayecto trayectoEliminar = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
+        repoTrayecto.eliminar(trayectoEliminar);
         response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
-        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
         return response;
     }
+
+//    public static Response actualizarTrayectos(Request request, Response response) {
+//        repoTrayecto.buscarTodos();
+//        response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+//        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
+//        return response;
+//    }
 }

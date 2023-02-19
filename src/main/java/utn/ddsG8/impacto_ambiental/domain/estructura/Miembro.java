@@ -37,7 +37,8 @@ public class Miembro   {
     @ManyToMany(mappedBy = "miembros", fetch = FetchType.LAZY)
     private List<Sector> sectores;
 
-    @ManyToMany(mappedBy = "miembros")
+
+    @ManyToMany(mappedBy = "miembros", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     // TODO duda. cuando persistimos trayectos con miembros, se insertan filas duplicadas, debe ser por el tipo de
     // persistencia y eso. El resultado para eso fue poner un Set. Pero en un futuro deberia solucionarse de raiz
     private Set<Trayecto> trayectos;

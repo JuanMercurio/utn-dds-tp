@@ -1,15 +1,14 @@
 package utn.ddsG8.impacto_ambiental.CalculoHC;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
@@ -22,10 +21,13 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalcularHuellaCarbono {
 
     private final Repositorio<FE> repoFE = FactoryRepositorio.get(FE.class);
+    private final Repositorio<Trayecto> repoTrayecto = FactoryRepositorio.get(Trayecto.class);
+    private final Repositorio<Miembro> repoMiembro = FactoryRepositorio.get(Miembro.class);
     private final Repositorio<Localidad> repoLocalidad = FactoryRepositorio.get(Localidad.class);
     private final Repositorio<Direccion> repoDireccion = FactoryRepositorio.get(Direccion.class);
     private final Repositorio<Tramo> repoTramo = FactoryRepositorio.get(Tramo.class);
@@ -87,9 +89,12 @@ public class CalcularHuellaCarbono {
 
     @Test
     public void test() {
-        List<Trayecto> trayectos = FactoryRepositorio.get(Trayecto.class).buscarTodos();
-        trayectos.forEach(t -> t.setFecha(LocalDate.now()));
-        trayectos.forEach(t -> FactoryRepositorio.get(Trayecto.class).agregar(t));
+
+        while (true ) {
+            Miembro miembro = repoMiembro.buscar(1);
+            List<Trayecto> trayectos = repoTrayecto.buscarTodos().stream().filter(t -> t.getMiembros().contains(miembro)).collect(Collectors.toList());
+            System.out.println(trayectos.size());
+        }
     }
 
 }

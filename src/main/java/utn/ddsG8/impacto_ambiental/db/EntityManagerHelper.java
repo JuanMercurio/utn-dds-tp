@@ -57,7 +57,6 @@ public class EntityManagerHelper {
         if(tx.isActive()){
             tx.commit();
         }
-
     }
 
     public static void rollback(){
