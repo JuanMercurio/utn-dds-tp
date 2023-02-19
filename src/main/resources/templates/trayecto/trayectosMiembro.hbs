@@ -1,8 +1,40 @@
-{{# partial "contenido"  }}
+{{# partial "memberHeader" }}
 
-    <h1>Trayectos</h1>
+  <div class="hc-content">
+    <form class="form" method="post">
+      <h1>Trayectos</h1>
+      <hr />
+      <button type="submit" class="btn btn-success">Crear nuevo trayecto</button>
+      <hr />
+    </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col"> <h4 class="fw-bold"> ID del trayecto </h4> </th>
+            <th class="text-center" scope="col"></th>
+            <th class="text-center" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+         {{#each trayectos}}
+          <tr>
+            <th class="text-center" scope="row">
+              <div class="mt-2"> <h4 class="fw-bold"> {{this.id}} </h4> </div>
+            </th>
+            <td class="text-end"><button type="submit" class="btn btn-success" onclick="window.location.href = window.location.href + '/{{this.id}}'">Ver</button></td>
+            <form method="post" action="trayecto/{{this.id}}/eliminar">
+                <td class="text-center">
+                    <input type="hidden" name="trayecto" value="{{this.id}}">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </td>
+            </form>
+          </tr>
+            {{/each}}
+        </tbody>
+      </table>
+  </div>  
 
-    <form method="post">
+    {{!-- <form method="post">
         <button type="submit">Crear Trayecto</button>
     </form>
 
@@ -16,7 +48,8 @@
                 </form>
             </div>
     {{/each}}
+    --}}
 
 {{/partial}}
 
-{{> base.hbs}}
+{{> headers/memberHeader.hbs}}
