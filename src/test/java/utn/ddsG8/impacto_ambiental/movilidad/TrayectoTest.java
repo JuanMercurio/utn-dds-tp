@@ -105,7 +105,7 @@ class TrayectoTest {
     public void distanciaDeTrayectoPrivadoYPublico() {
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramos(tramoTren1, tramoAuto, tramoTren2, tramoAuto);
-        double hc = trayecto.calcularHCTrayecto();
+        double hc = trayecto.calcularHC();
                 Assertions.assertTrue(trayecto.getDistancia().valor > 0);
         Assertions.assertTrue(hc > 0);
         System.out.println(hc);

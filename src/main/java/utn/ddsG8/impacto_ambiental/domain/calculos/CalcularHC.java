@@ -331,11 +331,11 @@ public class CalcularHC {
     }
 
     public double obtenerHCSector(Sector sector) {
-        return obtenerTrayectos(sector).stream().mapToDouble(t -> t.calcularHCTrayecto()).sum();
+        return obtenerTrayectos(sector).stream().mapToDouble(t -> t.calcularHC()).sum();
     }
 
     public double obtenerHCTrayectosOrganizacion(Organizacion organizacion) {
-        return  organizacion.getTrayectos().stream().mapToDouble(t -> t.calcularHCTrayecto()).sum();
+        return  organizacion.getTrayectos().stream().mapToDouble(t -> t.calcularHC()).sum();
     }
 
     public List<Trayecto> obtenerTrayectos(Sector sector) {
@@ -352,7 +352,7 @@ public class CalcularHC {
     }
 
     public double obtenerHCTrayecto(Trayecto trayecto) {
-        return trayecto.calcularHCTrayecto();
+        return trayecto.calcularHC();
     }
 
 

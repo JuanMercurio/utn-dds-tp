@@ -2,8 +2,6 @@ package utn.ddsG8.impacto_ambiental.domain.movilidad;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import utn.ddsG8.impacto_ambiental.db.converters.DistanciaConverter;
 import utn.ddsG8.impacto_ambiental.db.converters.LocalTimeAttributeConverter;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
@@ -54,6 +52,10 @@ public class Trayecto extends Persistable {
     @Convert(converter = DistanciaConverter.class)
     private Distancia distancia;
 
+
+    @Column(name = "huella")
+    private double huella;
+
     public Trayecto() {
         this.miembros = new ArrayList<Miembro>() ;
         this.organizaciones = new HashSet<>();
@@ -69,6 +71,8 @@ public class Trayecto extends Persistable {
     public Distancia getDistanciaDeTramo(int index) {
         return tramos.get(index).getDistancia();
     }
+
+
 
     private void setDistancia() {
         if (tramos.size() == 0) setDistancia(new Distancia(0, "KM"));
@@ -98,17 +102,22 @@ public class Trayecto extends Persistable {
     }
 
     public double getHuella() {
-        return calcularHCTrayecto();
+        return calcularHC();
     }
 
-    public double calcularHCTrayecto(){
+    public void setHuella() {
+        this.tramos.forEach(Tramo::setHuella);
+        this.huella = calcularHC();
+    }
+
+    public double calcularHC(){
         double hc = 0;
 
         for ( Tramo tramo: tramos) {
             hc += tramo.calcularHC();
         }
-        return hc;
-
+        this.huella = (double) Math.round(hc*100)/100;
+        return this.huella;
     }
 
 
