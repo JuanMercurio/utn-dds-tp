@@ -36,6 +36,7 @@ public class TrayectoController {
         Miembro miembro = repoMiembro.buscar(request.session().attribute("id"));
         response.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
         response.header("Pragma", "no-cache");
+        miembro.setTrayectos(miembro.getTrayectos().stream().sorted(Comparator.comparing(Trayecto::getFecha).reversed()).collect(Collectors.toCollection(LinkedHashSet::new)));
         return new ModelAndView(new HashMap<String, Object>(){{
                 put("miembro", miembro);
         }}, "trayecto/trayectosMiembro.hbs");

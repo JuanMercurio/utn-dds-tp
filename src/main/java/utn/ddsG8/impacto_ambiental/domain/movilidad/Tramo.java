@@ -38,16 +38,25 @@ public class Tramo extends Persistable {
     @JoinColumn(name = "direccion_fin", referencedColumnName = "id")
     private Direccion fin;
 
+    @Column(name = "huella")
+    private double huella;
+
     public Tramo() {}
     public Tramo(Transporte transporte, Direccion inicio, Direccion fin) {
         this.transporte = transporte;
         this.inicio = inicio;
         this.fin = fin;
         this.transporte.calcularDistancia(this);
+        this.setHuella();
     }
 
     public Double calcularHC() {
-        return transporte.calcularHCTramo(this);
+        this.huella = Math.round(transporte.calcularHCTramo(this)*100)/100;
+        return this.huella;
+    }
+
+    public void setHuella() {
+        this.huella = (double) Math.round(calcularHC()*100)/100;
     }
 
 }

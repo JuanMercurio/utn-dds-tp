@@ -15,7 +15,7 @@ public class CalculadorHCTrayectosTest {
         trayectoList.forEach(t -> {
             t.getTramos().forEach(tramo -> System.out.println(tramo.calcularHC()+ tramo.getTransporte().getNombreFE() + " ID " + tramo.getId()));
 
-            System.out.println("El trayecto con id-" +t.getId()+ " HC = "  + t.calcularHCTrayecto());
+            System.out.println("El trayecto con id-" +t.getId()+ " HC = "  + t.calcularHC());
         });
     }
 }

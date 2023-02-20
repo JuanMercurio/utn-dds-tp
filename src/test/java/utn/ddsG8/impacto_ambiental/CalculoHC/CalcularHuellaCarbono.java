@@ -1,8 +1,11 @@
 package utn.ddsG8.impacto_ambiental.CalculoHC;
 
+import jdk.jfr.internal.Options;
 import org.apache.poi.ss.formula.functions.T;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
@@ -20,7 +23,9 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CalcularHuellaCarbono {
@@ -90,11 +95,11 @@ public class CalcularHuellaCarbono {
     @Test
     public void test() {
 
-        while (true ) {
-            Miembro miembro = repoMiembro.buscar(1);
-            List<Trayecto> trayectos = repoTrayecto.buscarTodos().stream().filter(t -> t.getMiembros().contains(miembro)).collect(Collectors.toList());
-            System.out.println(trayectos.size());
-        }
+
+    List<Trayecto> trayectos =  repoTrayecto.buscarTodos();
+    trayectos.forEach(Trayecto::setHuella);
+    trayectos.forEach(t -> repoTrayecto.modificar(t));
+
     }
 
 }
