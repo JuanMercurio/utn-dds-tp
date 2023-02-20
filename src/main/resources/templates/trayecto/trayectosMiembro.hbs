@@ -1,23 +1,56 @@
 {{# partial "memberHeader" }}
 
-  <div class="hc-content">
-      <h1>Trayectos</h1>
-      <hr />
+    <div style="display: flex; width: 100%; justify-content: center; align-items: center; height: 5rem;">
     <form method="post">
-      <button type="submit" class="btn btn-success">Crear nuevo trayecto</button>
+      <button type="submit" class="btn btn-success" style="height: 3rem; width:22rem; background-color: #048404; border-color: #048404; font-size: 1.3rem; border-radius: 1rem">Crear Nuevo Trayecto</button>
     </form>
+    </div>
 
-    {{#each miembro.trayectos}}
-            <div>
-                <h1> El id del trayecto es: {{id}}   </h1>
-                <button type="submit" onclick="window.location.href = window.location.href + '/{{id}}'">Ver</button>
-                <form method="post" action="trayecto/{{id}}/eliminar">
-                    <input type="hidden" name="trayecto" value="{{id}}">
-                    <button type="submit">Eliminar</button>
-                </form>
-            </div>
-    {{/each}}
+      <div class="hc-content" style="margin-top: 0px; padding-top:0 ;">
+          <div class="hc-card">
+              <div class="mb-3">
+         <span class="hc-card-title">
+             Tiene los siguientes trayectos:
+         </span>
+              </div>
+              <hr />
+              {{#if miembro.trayectos}}
+                  <div class="paradas-card w-100">
+                      <table class="paradas-table w-100">
+                          <thead>
+                          <tr>
+                              <td>Fecha</td>
+                              <td>Distancia</td>
+                              <td>Acciones</td>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {{#each miembro.trayectos }}
+                              <tr>
+                                  <td>{{fecha}}</td>
+                                  <td>{{distancia.valor}} {{distancia.unidad}}</td>
+                                  <td>
+                                      <div style="display: flex;">
+                                      <button class="btn btn-primary" style="background-color:#579d57; border-color:#579d57; margin-right:0.5rem; " type="submit" onclick="window.location.href = window.location.href + '/{{id}}'"><i class="far fa-eye"></i></button>
 
+                                      <form method="post" action="trayecto/{{id}}/eliminar">
+                                          <input type="hidden" name="trayecto" value="{{id}}">
+                                          <button class="btn btn-danger"  type="submit"><i class="far fa-trash-alt"></i></button>
+                                      </form>
+                                      </div>
+                                  </td>
+                              </tr>
+                          {{/each}}
+                          </tbody>
+                      </table>
+                  </div>
+              {{else}}
+                  <p>No tiene Trayectos hasta el momento.</p>
+              {{/if}}
+              <div class="alert alert-success" role="alert">
+              </div>
+          </div>
+      </div>
 <!--      <hr />-->
 <!--      <table class="table">-->
 <!--        <thead>-->

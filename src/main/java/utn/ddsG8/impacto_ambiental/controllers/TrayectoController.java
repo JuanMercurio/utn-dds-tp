@@ -43,7 +43,7 @@ public class TrayectoController {
 
     public static ModelAndView trayectoView(Request request, Response response) {
 
-        Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.queryParams("idTrayecto")));
+        Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
         Map<String, Object> parametros = new HashMap<>();
         double huella = trayecto.getHuella();
         parametros.put("trayecto", trayecto);
