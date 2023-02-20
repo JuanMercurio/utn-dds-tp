@@ -2,6 +2,7 @@ package utn.ddsG8.impacto_ambiental.domain.estructura;
 
 import lombok.Getter;
 import lombok.Setter;
+import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 
@@ -86,5 +87,9 @@ public class Miembro   {
 
     public void agregarATrayecto(Trayecto trayecto) {
         trayecto.agregarMiembro(this);
+    }
+
+    public double calcularHC() {
+        return CalcularHC.getInstancia().obtenerHCMiembro(this);
     }
 }
