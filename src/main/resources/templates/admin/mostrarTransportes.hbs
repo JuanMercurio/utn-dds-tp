@@ -2,7 +2,8 @@
     <h1>Transportes</h1>
 
     <h2>Transportes vigentes</h2>
-<table class="table">
+
+<table class="table" border="groove">
     <thead>
     <tr>
         <th class="text-center" scope="col">Nombre del Transporte</th>
@@ -33,16 +34,21 @@
             <th class="text-center" scope="row">
                 <div type="text" class="mt-2" value="{{nombreFE}}">{{nombreFE}}</div>
             </th>
-            <td class="text-end"><button type="submit" class="btn btn-primary" id="estado" name="estado"
-                                         value="modificar" >modificar</button></td>
-            <td class="text-end"  >
+
+            <td class="text-end">
                 <div id="{{tipoDeTransporte}}" style="display: none;">
-                <button type="submit" class="btn btn-success" id="estado" name="estado"
-                                         value="agregarParada" >Agregar Paradas</button></div></td>
+                    <button type="submit" class="btn btn-primary" id="estado" name="estado" value="ver" >Ver paradas</button>
+                </div>
+            </td>
+            <td class="text-end"  >
+                <div id="{{tipoDeTransporte}}s" style="display: none;">
+                    <button type="submit" class="btn btn-success" id="estado" name="estado" value="agregarParada" >Agregar Paradas</button>
+                </div>
+            </td>
             <td class="text-center"><button type="submit" class="btn btn-danger" id="estado" name="estado"
                                             value="eliminar" >Eliminar</button></td>
         </tr>
-        <tr>
+
     </form>
 {{/each}}
 </tbody>
@@ -52,6 +58,10 @@
          document.getElementById("colectivo").style.display = "block";
          document.getElementById("subte").style.display = "block";
          document.getElementById("tren").style.display = "block";
+         document.getElementById("colectivos").style.display = "block";
+         document.getElementById("subtes").style.display = "block";
+         document.getElementById("trens").style.display = "block";
+
       });
 
 

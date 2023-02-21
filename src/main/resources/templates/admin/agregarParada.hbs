@@ -42,27 +42,64 @@
     {{/each}}
     </tbody> -->
 
-    <h1>Agregar Parada</h1>
-    <form method="post" action="agregarParada">
-        <input type="text" name="nombre-parada" placeholder="Nombre">
-        <input type="number" name="numero-parada" placeholder="Numero parada">
-        <input type="number" name="distancia-anterior-parada" placeholder="distancia-anterior-parada">
-        <input type="number" name="distancia-proxima-parada" placeholder="distancia-proxima-parada">
-        <label for="transporte">Transporte</label>
-        <select name="transporte" id="transporte">
-            {{#each transporte}}
-                <option value="{{id}}">{{nombre}}</option>
-            {{/each}}
-        </select>
-        <label for="localidad">Localidad</label>
-        <select name="localidad" id="localidad">
-            {{#each localidad}}
-                <option value="{{id}}">{{nombre}}</option>
-            {{/each}}
-        </select>
-        <input type="text" name="calle" placeholder="Calle">
-        <input type="text" name="altura" placeholder="Altura">
-        <input type="submit">
-    </form>
+    <div class="container">
+    <div class="card border-success mb-5 mx-auto mt-7" style="max-width: 60rem; margin-top: -200px;">
+        <div class="card-header bg-transparent border-success text-center">
+            <h2>Agregar Parada</h2>
+        </div>
+    <div class="card-body text-success">
+        <h5 class="card-title text-center mb-2">Por favor, completa los siguientes campos:</h5>
+
+
+        <form method="post" action="agregarParada">
+            <div class="form-group mb-2">
+                <label for="nombre-parada">Nombre parada</label>
+                <input type="text" name="nombre-parada" id="nombre-parada" placeholder="Nombre">
+            </div>
+            <div class="form-group mb-2">
+                <label for="numero-parada">Numero parada</label>
+                <input type="number" name="numero-parada" id="numero-parada" placeholder="Numero parada">
+            </div>
+            <div class="form-group mb-2">
+                <label for="distancia-anterior-parada">Distancia con la parada anterior</label>
+                <input type="number" name="distancia-anterior-parada" id="distancia-anterior-parada" placeholder="distancia-anterior-parada">
+            </div>
+            <div class="form-group mb-2">
+                <label for="distancia-proxima-parada">Distancia proxima parada</label>
+                <input type="number" name="distancia-proxima-parada" id="distancia-proxima-parada" placeholder="distancia-proxima-parada">
+            </div>
+           <!-- <div class="form-group mb-2">
+
+                <label for="transporte">Transporte</label>
+                <select name="transporte" id="transporte">
+                    {{#each transporte}}
+                        <option value="{{id}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div> -->
+            <div class="form-group mb-2">
+                <label for="localidad">Localidad</label>
+                <select name="localidad" id="localidad">
+                    {{#each localidad}}
+                        <option value="{{id}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group mb-2">
+                <label for="calle">Calle</label>
+                <input type="text" name="calle" id="calle" placeholder="Calle">
+            </div>
+            <div class="form-group mb-2">
+                <label for="Altura">Altura</label>
+                <input type="text" name="altura" id="altura" placeholder="Altura">
+            </div>
+
+            <div class="text-center">
+            <input type="submit" class="btn btn-success mt-3">
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
 {{/partial}}
 {{> headers/adminHeader.hbs}}
