@@ -4,10 +4,12 @@ import lombok.Getter;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Entity(name = "sectorTerritorial")
@@ -45,4 +47,8 @@ public abstract class SectorTerritorial {
 
     public abstract SectorTerritorial getPadre();
     public abstract boolean tieneDireccion(Direccion direccion);
+
+    public List<Organizacion> getOrganizaciones() {
+       return  FactoryRepositorio.get(Organizacion.class).buscarTodos().stream().filter(o -> o.getDireccion().perteneceASectorTerritorial(this)).collect(Collectors.toList());
+    }
 }

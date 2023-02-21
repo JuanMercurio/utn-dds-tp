@@ -2,7 +2,7 @@
 
 
 
-        <div class="hc-content">
+    <div class="hc-content">
         <div class="hc-card">
             <div class="mb-3">
                 <span class="hc-card-title2">
@@ -14,11 +14,47 @@
                 <!--        este boton persiste el hc -->
                 <button type="submit" class="btn btn-warning">Calcular HC</button>
             </form>
-        {{#each org.sectores}}
-            <h1> {{nombre}} </h1>
-            <h1> {{cantidadMiembros}} </h1>
-            <h1> {{huella}} </h1>
-        {{/each}}
+
+
+            <table class="paradas-table w-100 mt-3">
+                <thead>
+                <tr>
+                    <td>Nombre Sector</td>
+                    <td>Cantidad de Miembros</td>
+                    <td>Huella del Sector</td>
+                    <td>HC / Miembros</td>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each org.sectores}}
+                    <tr>
+                        <td> {{nombre}} </td>
+                        <td> {{cantidadMiembros}} </td>
+                        <td> {{calcularHCSector this}} </td>
+                        <td> {{indicadorHCSector this}} </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+
+            <div class="mt-3">
+                <table class="paradas-table w-100">
+                    <thead>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Huella</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each org.huellas}}
+                        <tr>
+                            <td>{{this.fecha}}</td>
+                            <td>{{this.valor}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
 
         </div>
     </div>
