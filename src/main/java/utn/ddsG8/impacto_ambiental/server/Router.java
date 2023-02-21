@@ -145,8 +145,11 @@ public class Router {
             Spark.get("", (request, response) -> new ModelAndView(null,"admin/admin.hbs"),engine);
             Spark.get("/factoresFE", AdminController::mostrarFactores, engine);
             Spark.post("/factoresFE", AdminController::editarFactor);
-            Spark.get("/paradas", AdminController::agregarParadaView, engine);
-            Spark.post("/agregarParada", AdminController::agregarParada);
+            Spark.get("/mostrarTransportes", AdminController::mostrarTransporterPublicosView, engine);
+            Spark.post("/mostrarTransportes", AdminController::administrarTransportes);
+            Spark.post("/agregandoParada", AdminController::agregarParada);
+            Spark.get("/agregarParada", AdminController::agregarParadaView,engine);
+            //agregarParadaView
             Spark.get("/actualizarFE", AdminController::actualizarFE);
 
             Spark.get("/:id", (request, response) -> {
