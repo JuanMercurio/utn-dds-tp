@@ -7,7 +7,9 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
+import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -120,5 +122,9 @@ public class Organizacion {
 
     public double calcularHC() {
         return CalcularHC.getInstancia().obtenerHCOrganizacion(this);
+    }
+
+    public Localidad getLocalidad() {
+        return this.direccion.getLocalidad();
     }
 }

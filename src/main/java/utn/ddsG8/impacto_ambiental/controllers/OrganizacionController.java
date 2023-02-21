@@ -19,6 +19,8 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -38,7 +40,7 @@ public class OrganizacionController {
         Organizacion org = repoOrg.buscar(new Integer(request.params("id")));
         return new ModelAndView(new HashMap<String, Object>(){{
             put("organizacion", org);
-            put("huella", org.calcularHC());
+            put("huella", new BigDecimal(org.calcularHC()).setScale(2, RoundingMode.CEILING));
         }}, "organizacion/org.hbs");
     }
 
@@ -138,7 +140,6 @@ public class OrganizacionController {
     }
 
     public static ModelAndView vistaCalculadora(Request request, Response response) {
-
         Organizacion org = OrganizacionHelper.getOrg(request);
         return new ModelAndView(new HashMap<String, Object>(){{
             put("org", org);

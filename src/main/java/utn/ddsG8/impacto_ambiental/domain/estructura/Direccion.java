@@ -49,6 +49,6 @@ public class Direccion extends Persistable {
     }
 
     public boolean perteneceASectorTerritorial(SectorTerritorial sectorTerritorial) {
-        return sectorTerritorial == localidad || sectorTerritorial == localidad.getMunicipio() || sectorTerritorial == localidad.getMunicipio().getProvincia();
+        return sectorTerritorial.id_db == localidad.id_db || sectorTerritorial.id_db == localidad.getMunicipio().id_db || sectorTerritorial.id_db == localidad.getMunicipio().getProvincia().id_db;
     }
 }

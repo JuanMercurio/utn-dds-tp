@@ -1,7 +1,40 @@
 {{# partial "agenteHeader"}}
 
-    <p>Nombre: {{agente.nombre}}</p>
-    <h1>Nombre: {{agente.nombre}}</h1>
+
+    <div class="hc-content bg-white">
+        <div class="hc-card">
+            <h5>Bienvenido: {{agente.nombre}}</h5>
+            <h5>Tu sector a cargo es: {{agente.sectorTerritorial.nombre}} </h5>
+
+            <h6>Estas a cargo de las siguientes organizaciones</h6>
+            <table class="paradas-table w-100">
+                <thead>
+                <tr>
+                    <td>Razon Social</td>
+                    <td>Pais</td>
+                    <td>Provincia</td>
+                    <td>Municipio</td>
+                    <td>Localidad</td>
+                    <td>Calle</td>
+                    <td>Altura</td>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each orgs}}
+                    <tr>
+                        <td>{{this.razonSocial}}</td>
+                        <td>ARGENTINA</td>
+                        <td>{{this.direccion.localidad.municipio.provincia.nombre}}</td>
+                        <td>{{this.direccion.localidad.municipio.nombre}}</td>
+                        <td>{{this.direccion.localidad.nombre}}</td>
+                        <td>{{this.direccion.calle}}</td>
+                        <td>{{this.direccion.altura}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {{/partial}}
 {{> headers/agenteHeader.hbs}}

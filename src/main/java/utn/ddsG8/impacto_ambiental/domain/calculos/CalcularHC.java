@@ -9,6 +9,8 @@ import utn.ddsG8.impacto_ambiental.domain.services.distancia.SectorTerritorial;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -331,17 +333,12 @@ public class CalcularHC {
     }
 
     public double obtenerHCSector(Sector sector) {
-        return obtenerTrayectos(sector).stream().mapToDouble(t -> t.calcularHC()).sum();
+        return sector.getTrayectos().stream().mapToDouble(t -> t.calcularHC()).sum();
     }
 
     public double obtenerHCTrayectosOrganizacion(Organizacion organizacion) {
         return  organizacion.getTrayectos().stream().mapToDouble(t -> t.calcularHC()).sum();
     }
-
-    public List<Trayecto> obtenerTrayectos(Sector sector) {
-        return sector.getOrganizacion().getTrayectos().stream().collect(Collectors.toList());
-    }
-
 
     public double obtenerHCMiembroDeOrg(Miembro miembro, Organizacion organizacion) {
         return miembro.getTrayectos().stream().filter(t -> t.formaParte(organizacion)).mapToDouble(t -> obtenerHCTrayecto(t)).sum();
@@ -386,4 +383,8 @@ public class CalcularHC {
         return (obtenerHCSector(sec) / obtenerHCTrayectosOrganizacion(sec.getOrganizacion())) * 100;
     }
 
+    public double obtenerHC(SectorTerritorial sectorTerritorial, Clasificacion clasificacion) {
+        List<Organizacion> orgs = repoOrganizacion.buscarTodos().stream().filter(o -> o.perteneceASector(sectorTerritorial) && o.getClasificacion() == clasificacion).collect(Collectors.toList());
+        return orgs.stream().mapToDouble(o -> o.calcularHC()).sum();
+    }
 }
