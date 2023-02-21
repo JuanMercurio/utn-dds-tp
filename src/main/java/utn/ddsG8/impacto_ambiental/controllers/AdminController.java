@@ -6,6 +6,9 @@ import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.estructura.SolicitudMiembro;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
@@ -50,7 +53,13 @@ public class AdminController {
         res.redirect("/admin/factoresFE");
         return res;
     }
+    public static Response agregarTransporte(Request request, Response response){
 
+
+        response.redirect("admin/admin.hbs");
+        return null;
+
+    }
     public static Response agregarParada(Request request, Response response) {
 
         Direccion dir = new Direccion(
@@ -87,5 +96,47 @@ public class AdminController {
         parametros.put("localidad", localidades);
         parametros.put("transporte", transportes);
         return new ModelAndView(parametros, "/admin/agregarParada.hbs");
+    }
+    public static Response administrarTransportes(Request request, Response response) {
+        int idSolicitud = Integer.parseInt(request.queryParams("id_transporte"));
+
+        System.out.println("Entro a administrarTransportes");
+        // todo... hay que notificar?
+        /*if(request.queryParamsValues("agregarParada")[0] == "agregarParada"){
+            response.redirect("agregarParada");
+            System.out.println("Entro a agregar parada");
+
+        }*/
+        if (request.queryParams("estado").equals("agregarParada")) {
+            response.redirect("agregarParada");
+            System.out.println("Entro a agregar parada");
+
+        }
+        else if (request.queryParams("estado").equals("eliminar")){
+
+            response.redirect("mostrarTransportes");
+            System.out.println("Entro a eliminar");
+        }
+        else if (request.queryParams("estado").equals("modificar")){
+            response.redirect("mostrarTransportes");
+            System.out.println("Entro a modificar");
+        }
+        else {
+            System.out.println("Entro al else");
+            response.redirect("mostrarTransportes");
+
+        }
+
+
+        return response;
+    }
+    public static ModelAndView mostrarTransporterPublicosView(Request request, Response response) {
+        //List<TransportePublico> transportes = FactoryRepositorio.get(TransportePublico.class).buscarTodos();
+        List<Transporte> transportes = FactoryRepositorio.get(Transporte.class).buscarTodos();
+        List<Localidad> localidades = FactoryRepositorio.get(Localidad.class).buscarTodos();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("localidad", localidades);
+        parametros.put("transporte", transportes);
+        return new ModelAndView(parametros, "/admin/mostrarTransportes.hbs");
     }
 }
