@@ -1,20 +1,52 @@
 {{# partial "agenteHeader"}}
 
-    <p>Nombre: {{agente.nombre}}</p>
-    <p>Huella: {{huella}}</p>
-    <p>Porcentaje sobre pais: {{porcentaje}} </p>
 
-    <h2>Evolucion de huella</h2>
+    <div class="hc-content d-flex justify-content-center bg-white">
+        <div class="hc-card w-75">
+            <div class="d-flex justify-content-center w-100">
+                <h5>{{agente.sectorTerritorial.nombre}}</h5>
+            </div>
+            <h6>Huella de Carbono: {{huella}}</h6>
+            <h6>Porcentaje sobre pais: {{porcentajeSobrePais}} </h6>
 
-    <form method="post">
-        <!--        este boton persiste el hc -->
-        <button type="submit" class="btn btn-warning">Calcular HC</button>
-    </form>
+            <div class="mt-3">
+                <h6>Huella de carbono por tipo de organizacion</h6>
+                <div class="ms-2 mt-1" >
+                    <p>Ministerios: {{HCMinisterio}}</p>
+                    <p>Universidades: {{HCUniversidad}}</p>
+                    <p>Escuelas: {{HCEscuela}}</p>
+                    <p>Empresas del Sector Primario: {{HCEmpresa_del_Sector_Primario}}</p>
+                    <p>Empresas del Sector Secundario: {{HCEmpresa_del_Sector_Secundario}}</p>
+                </div>
+            </div>
 
-    {{#each huellas}}
-        <p>Fecha: {{this.fecha}}</p>
-        <p>Valor: {{this.valor}}</p>
-    {{/each}}
+            <h2>Evolucion de huella</h2>
+
+            <form method="post">
+                <!--        este boton persiste el hc -->
+                <button type="submit" class="btn btn-warning">Calcular HC</button>
+            </form>
+
+            <div class="mt-3">
+                <table class="paradas-table w-100">
+                    <thead>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Huella</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each huellas}}
+                        <tr>
+                            <td>{{this.fecha}}</td>
+                            <td>{{this.valor}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 {{/partial}}
 {{> headers/agenteHeader.hbs}}

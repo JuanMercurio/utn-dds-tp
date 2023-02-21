@@ -1,19 +1,11 @@
 package utn.ddsG8.impacto_ambiental.server;
 
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.*;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
-import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
-import utn.ddsG8.impacto_ambiental.domain.helpers.UserHelper;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
-import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.VehiculoParticular;
 import utn.ddsG8.impacto_ambiental.middleware.AuthMiddleware;
-import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
-import utn.ddsG8.impacto_ambiental.spark.utils.BooleanHelper;
-import utn.ddsG8.impacto_ambiental.spark.utils.HandlebarsTemplateEngineBuilder;
+import utn.ddsG8.impacto_ambiental.spark.utils.*;
 
 public class Router {
     private static HandlebarsTemplateEngine engine;
@@ -23,6 +15,11 @@ public class Router {
                 .create()
                 .withDefaultHelpers()
                 .withHelper("isTrue", BooleanHelper.isTrue)
+                .withHelper("calcularHCSector", new CalcularHCSector())
+                .withHelper("indicadorHCSector", new IndicadorHCSector())
+                .withHelper("calcularHCOrg", new CalcularHCOrg())
+                .withHelper("impactoMiembroSobreOrg", new ImpactoMiembroSobreOrg())
+                .withHelper("porcentajeHCMiembroOrg", new PorcentajeHCMiembroOrg())
                 .build();
     }
 
@@ -133,6 +130,7 @@ public class Router {
             Spark.before("/:id/*",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", MiembroController::show, engine);
+            Spark.get("/:id/reportes", MiembroController::reportes, engine);
             Spark.get("/:id/trayectos", TrayectoController::trayectosMiembroView, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
             Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);

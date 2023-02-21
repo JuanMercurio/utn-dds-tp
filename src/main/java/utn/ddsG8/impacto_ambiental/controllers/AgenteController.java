@@ -5,6 +5,8 @@ import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.helpers.AgenteHelper;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.*;
 import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
@@ -12,14 +14,15 @@ import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AgenteController {
 
     public final static Repositorio<AgenteSectorial> agentes = FactoryRepositorio.get(AgenteSectorial.class);
+    public final static Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
 
     public static ModelAndView createView(Request req, Response res) {
         Map<String, Object> parametros = new HashMap<>();
@@ -45,7 +48,9 @@ public class AgenteController {
 
     public static ModelAndView show(Request request, Response response) {
         AgenteSectorial agente = agentes.buscar(new Integer(request.params("id")));
+        List<Organizacion> orgs = repoOrganizacion.buscarTodos().stream().filter(o -> o.perteneceASector(agente.getSectorTerritorial())).collect(Collectors.toList());
         return new ModelAndView(new HashMap<String, Object>(){{
+            put("orgs", orgs);
             put("agente", agente);
         }}, "agenteSectorial/agente.hbs");
     }
@@ -54,13 +59,19 @@ public class AgenteController {
     public static ModelAndView showReporteAgente(Request request, Response response) {
         AgenteSectorial agente = AgenteHelper.getLoggerAgent(request);
         double huella = CalcularHC.getInstancia().obtenerHCSectorTerritorial(agente.getSectorTerritorial());
-        List<Huella> huellas = agente.getSectorTerritorial().huellas;
+        List<Huella> huellas = agente.getSectorTerritorial().huellas.stream().sorted(Comparator.comparing(Huella::getFecha).reversed()).collect(Collectors.toList());
         double porcentajeSobrePais = CalcularHC.getInstancia().porcentajeHCSectorTerritorialEnPais(agente.getSectorTerritorial());
 
         Map<String, Object> parametros = new HashMap<>();
+
+        for (Clasificacion clasificacion : Clasificacion.values()) {
+            double h = CalcularHC.getInstancia().obtenerHC(agente.getSectorTerritorial(), clasificacion);
+            parametros.put("HC" + clasificacion.name(),  new BigDecimal(h).setScale(2, RoundingMode.CEILING));
+        }
+
         parametros.put("agente", agente);
-        parametros.put("huella", (double) Math.round(huella*100.0)/100);
-        parametros.put("porcentaje", ((double) Math.round(porcentajeSobrePais*100)/100) + " %");
+        parametros.put("huella", new BigDecimal(huella).setScale(2, RoundingMode.CEILING));
+        parametros.put("porcentajeSobrePais", ((double) Math.round(porcentajeSobrePais*100)/100) + " %");
         parametros.put("huellas", huellas);
         return new ModelAndView(parametros, "agenteSectorial/sector.hbs");
     }

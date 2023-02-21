@@ -74,6 +74,7 @@ public class AdminController {
                 Integer.parseInt(request.queryParams("distancia-anterior-parada")));
 
         dir.setParada(newparada);
+        newparada.setDireccion(dir);
 
         TransportePublico tp = FactoryRepositorio.get(TransportePublico.class).buscar(Integer.parseInt(request.queryParams("transporte")));
         tp.agregarParada(newparada, Integer.parseInt(request.queryParams("numero-parada")));
