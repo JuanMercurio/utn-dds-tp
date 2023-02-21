@@ -13,6 +13,9 @@ import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MiembroController {
 
@@ -70,5 +73,14 @@ public class MiembroController {
         repoOrganizacion.buscarTodos();
         response.redirect("unirseAOrg");
         return response;
+    }
+
+    public static ModelAndView reportes(Request request, Response response) {
+        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        Map<String, Object> parametros = new HashMap<>();
+        Set<Organizacion> misOrgs = miembro.getSectores().stream().map(s -> s.getOrganizacion()).collect(Collectors.toSet());
+        parametros.put("miembro", miembro);
+        parametros.put("orgs", misOrgs);
+        return new ModelAndView(parametros, "/miembro/reportes.hbs");
     }
 }

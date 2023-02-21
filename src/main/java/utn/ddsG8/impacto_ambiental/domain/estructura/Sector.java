@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "sector")
@@ -61,6 +63,12 @@ public class Sector extends Persistable {
 
     public Integer cantidadMiembros() {
         return this.miembros.size();
+    }
+
+    public List<Trayecto> getTrayectos() {
+        return this.getOrganizacion().getTrayectos().stream().filter(t -> {
+            return t.getMiembros().stream().anyMatch(m -> m.getSectores().stream().anyMatch(s -> s.getId() == this.getId()));
+        }).collect(Collectors.toList());
     }
 
 }

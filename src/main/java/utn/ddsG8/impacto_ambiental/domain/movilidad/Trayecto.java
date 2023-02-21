@@ -141,6 +141,7 @@ public class Trayecto extends Persistable {
 //    }
 
     public boolean formaParte(Organizacion organizacion) {
-        return organizaciones.contains(organizacion);
+//        return organizaciones.contains(organizacion);
+        return organizaciones.stream().anyMatch(o -> o.getId() == organizacion.getId());
     }
 }
