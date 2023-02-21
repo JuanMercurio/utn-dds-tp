@@ -1,10 +1,17 @@
 package utn.ddsG8.impacto_ambiental.server;
 
+import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.ddsG8.impacto_ambiental.controllers.*;
+import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
+import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
+import utn.ddsG8.impacto_ambiental.domain.helpers.UserHelper;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.VehiculoParticular;
 import utn.ddsG8.impacto_ambiental.middleware.AuthMiddleware;
+import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.spark.utils.BooleanHelper;
 import utn.ddsG8.impacto_ambiental.spark.utils.HandlebarsTemplateEngineBuilder;
 
@@ -33,6 +40,7 @@ public class Router {
         miembroConfig();
         trayectoConfig();
         orgConfig();
+
     }
 
     private static void trayectoConfig() {
@@ -44,6 +52,11 @@ public class Router {
             Spark.post("/:idTrayecto/eliminar", TrayectoController::eliminarTrayecto);
             Spark.get("/:idTrayecto/agregarTramo", TrayectoController::agregarTramoView, engine);
             Spark.post("/:idTrayecto/agregarTramo", TrayectoController::agregarTramo);
+            Spark.post("/:idTrayecto/terminar", (request, response) -> {
+                response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+                System.out.println("saturno");
+                return response;
+            });
             Spark.get("/:idTrayecto/tramo/:idtramo", TrayectoController::tramoView);
             Spark.get("/:idTrayecto", TrayectoController::trayectoView, engine);
             Spark.get("", TrayectoController::trayectosMiembroView, engine);
@@ -51,9 +64,10 @@ public class Router {
 
         });
 
-//        Spark.path("trayectos", () -> {
-//            Spark.get("/actualizar", TrayectoController::actualizarTrayectos);
-//        });
+            Spark.get("/verTrayectos", TrayectoController::trayectosMiembroView, engine);
+        Spark.get("/vehiculos", TrayectoController::agregarVehiculoView, engine);
+        Spark.post("/agregarVehiculo", TrayectoController::agregarVehiculo);
+        Spark.post("eliminarVehiculo", TrayectoController::eliminarVehiculo);
     }
 
     private static void agenteConfig() {
