@@ -1,10 +1,53 @@
 {{# partial "adminHeader"}}
+    <!--  <h1>Agregar Transporte</h1>
+    <form method="post" action="agregarTransporte">
+        <select name="tipoTransporte" id="tipoTransporte">
+            <option value=""> ---- </option>
+            <option value="particular">Vehiculo Particular</option>
+            <option value="contratado">Servicio Contratado</option>
+            <option value="publico">Transporte Publico</option>
+            <option value="otro">Otro</option>
+        </select>
+        <input type="text" name="nombre-parada" placeholder="Nombre">
+        <input type="submit">
+    </form>
+    <h1>Modicar transporte publico</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-center" scope="col">Nombre</th>
+
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+        </tr>
+        </thead>
+    <tbody class="table-body">
+    {{#each transporte}}
+        <form method="post" class="form=inline">
+            <!-- hidden = cosas para el back -->
+            <!-- <input type="hidden"  name="id_transporte" value="{{id}}">
+            <tr>
+                <th class="text-center" scope="row">
+                    <div type="text" class="mt-2" value="{{nombre}}">{{nombre}}</div>
+                </th>
+
+                <td class="text-end"><button type="submit" class="btn btn-success" id="estado"
+                                             value="agregarParada" >Agregar Paradas</button></td>
+                <td class="text-center"><button type="submit" class="btn btn-danger" id="estado"
+                                                value="eliminar" >Eliminar</button></td>
+            </tr>
+            <tr>
+        </form>
+    {{/each}}
+    </tbody> -->
+
     <h1>Agregar Parada</h1>
     <form method="post" action="agregarParada">
         <input type="text" name="nombre-parada" placeholder="Nombre">
         <input type="number" name="numero-parada" placeholder="Numero parada">
-        <input type="number" name="distancia-anterior-parada" placeholder="Numero parada">
-        <input type="number" name="distancia-proxima-parada" placeholder="Numero parada">
+        <input type="number" name="distancia-anterior-parada" placeholder="distancia-anterior-parada">
+        <input type="number" name="distancia-proxima-parada" placeholder="distancia-proxima-parada">
         <label for="transporte">Transporte</label>
         <select name="transporte" id="transporte">
             {{#each transporte}}
