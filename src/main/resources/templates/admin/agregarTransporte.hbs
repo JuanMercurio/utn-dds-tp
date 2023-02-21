@@ -1,4 +1,15 @@
 {{# partial "adminHeader"}}
-
+    <h1>Agregar Transporte</h1>
+    <form method="post" action="agregarTransporte">
+        <select name="tipoTransporte" id="tipoTransporte">
+            <option value=""> ---- </option>
+            <option value="particular">Vehiculo Particular</option>
+            <option value="contratado">Servicio Contratado</option>
+            <option value="publico">Transporte Publico</option>
+            <option value="otro">Otro</option>
+        </select>
+        <input type="text" name="nombreTransporte" placeholder="Nombre">
+        <input type="submit">
+    </form>
 {{/partial}}
 {{> headers/adminHeader.hbs}}

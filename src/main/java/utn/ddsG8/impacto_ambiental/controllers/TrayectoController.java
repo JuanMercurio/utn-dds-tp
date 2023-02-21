@@ -86,7 +86,14 @@ public class TrayectoController {
 
     public static Response agregarTramo(Request request, Response response) {
 
-        Transporte transporte = repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte")));
+        Transporte transporte;
+        try {
+            transporte = repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte")));
+        } catch (Exception e) {
+            transporte = repoTransporte.buscar(Integer.parseInt(request.queryParams("transportePublico")));
+        }
+
+
         Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
 
         if (trayecto == null) {
