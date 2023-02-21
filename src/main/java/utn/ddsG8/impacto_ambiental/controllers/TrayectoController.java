@@ -6,11 +6,14 @@ import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
+import utn.ddsG8.impacto_ambiental.domain.helpers.MiembroHelper;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Trayecto;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.ServicioContratado;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.TransporteNoContaminante;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.VehiculoParticular;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.combustibles.CombustibleE;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
@@ -155,6 +158,37 @@ public class TrayectoController {
         Trayecto trayectoEliminar = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
         repoTrayecto.eliminar(trayectoEliminar);
         response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
+        return response;
+    }
+
+    public static ModelAndView agregarVehiculoView(Request request, Response response) {
+        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        List<Transporte> vehiculos = repoTransporte.query("from transporte where duenio = " + miembro.getId());
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("vehiculos", vehiculos);
+        return new ModelAndView(parametros, "trayecto/vehiculos.hbs");
+    }
+
+    public static Response agregarVehiculo(Request request, Response response) {
+
+        VehiculoParticular v = new VehiculoParticular(
+                request.queryParams("nombre"),
+                request.queryParams("tipo-transporte"),
+                request.queryParams("tipo-transporte"),
+                CombustibleE.valueOf(request.queryParams("combustible").toUpperCase()),
+                Double.parseDouble(request.queryParams("consumo"))
+        );
+        v.setDuenio(MiembroHelper.getCurrentMiembro(request));
+
+        FactoryRepositorio.get(VehiculoParticular.class).agregar(v);
+        response.redirect("/vehiculos");
+        return response;
+    }
+
+    public static Response eliminarVehiculo(Request request, Response response) {
+        Transporte t = repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte")));
+        repoTransporte.eliminar(t);
+        response.redirect("vehiculos");
         return response;
     }
 

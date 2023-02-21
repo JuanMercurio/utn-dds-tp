@@ -1,0 +1,90 @@
+{{# partial "memberHeader"}}
+
+
+    <div class="hc-content d-flex justify-content-center">
+        <div class="hc-card w-50 d-flex justify-content-center flex-column">
+            <div>
+                <h5>Agregar Vehiculo</h5>
+            </div>
+            <form method="post" action="/agregarVehiculo">
+                <div class="mt-2">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" id="nombre" name="nombre">
+                </div>
+                <div class="mt-2">
+                    <label for="tipo-transporte">Nombre</label>
+                    <select class="form-control" id="tipo-transporte" name="tipo-transporte">
+                        <option>Auto</option>
+                        <option>Camioneta</option>
+                        <option>Camion</option>
+                        <option>Moto</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label for="nombre">Combustible</label>
+                    <select class="form-control" name="combustible">
+                        <option>GNC</option>
+                        <option>Nafta</option>
+                        <option>Electrico</option>
+                        <option>Gasoil</option>
+
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label for="consumo">Consumo por KM</label>
+                    <input class="form-control" id="consumo" name="consumo">
+                </div>
+                <button class="btn btn-primary mt-3" type="submit">Agregar Vehiculo</button>
+            </form>
+        </div>
+
+        <div class="hc-content" style="margin-top: 0px; padding-top:0 ;">
+            <div class="hc-card" style="background-color: white"  >
+                <div class="mb-3">
+         <span class="hc-card-title">
+             Tiene los siguientes Vehiculos:
+         </span>
+                </div>
+                <hr />
+                {{#if vehiculos}}
+                    <div class="paradas-card w-100">
+                        <table class="paradas-table w-100">
+                            <thead>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Tipo</td>
+                                <td>Combustible</td>
+                                <td>Consumo Por KM</td>
+                                <td>Acciones</td>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each vehiculos}}
+                                <tr>
+                                    <td>{{nombre}}</td>
+                                    <td>{{tipoDeTransporte}}</td>
+                                    <td>{{combustible}}</td>
+                                    <td>{{cantidadCombustiblePorKm}}</td>
+                                    <td>
+                                        <div style="display: flex;">
+
+                                            <form method="post" action="/eliminarVehiculo">
+                                                <input type="hidden" name="transporte" value="{{id}}">
+                                                <button class="btn btn-danger"  name="accion" value="eliminar" type="submit"><i class="far fa-trash-alt"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                {{else}}
+                    <p>No tiene Vehiculos hasta el momento.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+{{/partial}}
+{{> headers/memberHeader.hbs}}
