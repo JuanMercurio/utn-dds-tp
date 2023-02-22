@@ -150,6 +150,11 @@ public class Router {
     }
 
     private static void adminConfig() {
+        Spark.path("/createAdmin", () -> {
+            Spark.get("", AdminController::createView, engine);
+            Spark.post("", AdminController::save);
+        });
+
         Spark.path("/admin", () -> {
             Spark.before("", AuthMiddleware::isAdmin);
             Spark.before("/*", AuthMiddleware::isAdmin);
