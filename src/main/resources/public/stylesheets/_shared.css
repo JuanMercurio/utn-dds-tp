@@ -221,3 +221,8 @@ body {
     place-items: center;
     padding: 0.5rem;
 }
+
+.buttons-group > a{
+    max-width:300px;
+    padding: 0.7rem 0rem 0rem 0rem;
+}

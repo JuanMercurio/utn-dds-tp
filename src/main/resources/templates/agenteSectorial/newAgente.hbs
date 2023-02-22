@@ -3,6 +3,7 @@
 <div class="container">
     <form class="form" method="post">
         <div class="form-header">
+            <h1>Registrarse como agente</h1>
         </div>
 
         <div class="form-floating mb-3">
@@ -39,9 +40,8 @@
         </div>
 
             <div class="form-floating mt-3">
-                <label for="sector">Sector Territorial</label>
-<!--                Aca tal vez se puede agregar un filtro para localidades municipio y demas-->
-                <select id="sector" name="sector">
+                <select class="form-select" id="sector" name="sector">
+                    <option selected>Seleccionar</option>
                     {{#each provincias}}
                         <option value="{{id_db}}">{{nombre}}</option>
                     {{/each}}
@@ -52,7 +52,10 @@
                         <option value="{{id_db}}">{{nombre}}</option>
                     {{/each}}
                 </select>
+                <label for="sector">Sector territorial</label>
             </div>
+
+
         <!-- TODO: Cambiar el sig boton por uno que valide los formularios -->
         <div class="col text-center mt-3">
             <button type="submit" class="btn btn-success" value="Log In">Registrarse</button>
