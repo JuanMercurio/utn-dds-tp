@@ -5,15 +5,14 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Sector;
-import utn.ddsG8.impacto_ambiental.domain.estructura.SolicitudMiembro;
+import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
+import utn.ddsG8.impacto_ambiental.sessions.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,5 +157,26 @@ public class AdminController {
         parametros.put("transporte", tran);
         parametros.put("paradas", paradasTransporte);
         return new ModelAndView(parametros, "/admin/verTransporte.hbs");
+    }
+
+    public static ModelAndView createView(Request request, Response respose) {
+        return new ModelAndView(null, "/admin/createAdmin.hbs");
+    }
+    public static Response save(Request request, Response response) {
+
+        /*COPIADO DE MIEMBRO...
+        User user = UserController.crearUsuario(request, response);
+        if (user == null) return response;
+
+        String nombre = request.queryParams("nombre");
+        String apellido = request.queryParams("apellido");
+        String documento = request.queryParams("documento");
+        TipoDoc tipodoc = TipoDoc.valueOf(request.queryParams("docTipo"));
+
+        Miembro nuevoMiembro = new Miembro(nombre, apellido, tipodoc, documento);
+        nuevoMiembro.setId(user.getId());
+        //miembros.agregar(nuevoMiembro);*/
+
+        return response;
     }
 }
