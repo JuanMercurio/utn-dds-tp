@@ -15,13 +15,17 @@ import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 
 public class AdminController {
 
     private static final Repositorio<FE> factores = FactoryRepositorio.get(FE.class);
+    private final static Repositorio<Parada> repoParada = FactoryRepositorio.get(Parada.class);
 
     public static ModelAndView mostrarFactores(Request request, Response response) {
         List<FE> factoresList = factores.buscarTodos();
@@ -61,7 +65,7 @@ public class AdminController {
 
     }
     public static Response agregarParada(Request request, Response response) {
-
+        System.out.println("LLEGO");
         Direccion dir = new Direccion(
                 request.queryParams("calle"),
                 Integer.parseInt(request.queryParams("altura")),
@@ -74,19 +78,19 @@ public class AdminController {
                 Integer.parseInt(request.queryParams("distancia-anterior-parada")));
 
         dir.setParada(newparada);
-        newparada.setDireccion(dir);
 
-        TransportePublico tp = FactoryRepositorio.get(TransportePublico.class).buscar(Integer.parseInt(request.queryParams("transporte")));
+        TransportePublico tp = FactoryRepositorio.get(TransportePublico.class).buscar(Integer.parseInt(request.params("idTransporte")));
         tp.agregarParada(newparada, Integer.parseInt(request.queryParams("numero-parada")));
 
         System.out.println(tp.getParadas().size() + " tamanio");
         tp.getParadas().forEach(p -> System.out.println(p.getNombre()));
 
-//        FactoryRepositorio.get(TransportePublico.class).modificar(tp);
+        //FactoryRepositorio.get(Direccion.class).agregar(dir);
+        FactoryRepositorio.get(TransportePublico.class).modificar(tp);
 
-//        FactoryRepositorio.get(Direccion.class).agregar(dir);
 
-        response.redirect("admin/admin.hbs");
+
+        response.redirect("/admin/mostrarTransportes");
         return null;
     }
 
@@ -98,28 +102,26 @@ public class AdminController {
         parametros.put("transporte", transportes);
         return new ModelAndView(parametros, "/admin/agregarParada.hbs");
     }
+
     public static Response administrarTransportes(Request request, Response response) {
-        int idSolicitud = Integer.parseInt(request.queryParams("id_transporte"));
+        int idTransporte = Integer.parseInt(request.queryParams("id_transporte"));
 
         System.out.println("Entro a administrarTransportes");
         // todo... hay que notificar?
-        /*if(request.queryParamsValues("agregarParada")[0] == "agregarParada"){
-            response.redirect("agregarParada");
-            System.out.println("Entro a agregar parada");
 
-        }*/
         if (request.queryParams("estado").equals("agregarParada")) {
-            response.redirect("agregarParada");
+            String id = request.params("idTransporte");
+            response.redirect("mostrarTransportes/"+idTransporte+"/agregarParada");
             System.out.println("Entro a agregar parada");
 
         }
         else if (request.queryParams("estado").equals("eliminar")){
-
+            String id = request.params("idTransporte");
             response.redirect("mostrarTransportes");
             System.out.println("Entro a eliminar");
         }
-        else if (request.queryParams("estado").equals("modificar")){
-            response.redirect("mostrarTransportes");
+        else if (request.queryParams("estado").equals("ver")){
+            response.redirect("mostrarTransportes/"+idTransporte+"/verTransporte");
             System.out.println("Entro a modificar");
         }
         else {
@@ -139,5 +141,22 @@ public class AdminController {
         parametros.put("localidad", localidades);
         parametros.put("transporte", transportes);
         return new ModelAndView(parametros, "/admin/mostrarTransportes.hbs");
+    }
+    public static ModelAndView verTransporterView(Request request, Response response) {
+        List<Transporte> transportes = FactoryRepositorio.get(Transporte.class).buscarTodos();
+        Transporte tran = transportes.stream().filter(t-> t.getId() == Integer.parseInt(request.params("idTransporte"))).collect(Collectors.toList()).get(0);
+        List<Parada> paradas = repoParada.buscarTodos();
+        List<Parada> paradasTransporte = new ArrayList<>();
+        for (Parada para: paradas) {
+            if( para.getNombre().contains(tran.getNombre())){
+                paradasTransporte.add(para);
+            }
+        }
+        // QUE FILTRE TU TRANSPORTE
+        //Integer.parseInt(request.params("idTransporte"))
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("transporte", tran);
+        parametros.put("paradas", paradasTransporte);
+        return new ModelAndView(parametros, "/admin/verTransporte.hbs");
     }
 }
