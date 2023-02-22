@@ -1,0 +1,47 @@
+{{# partial "adminHeader"}}
+    <h1>Transporte</h1>
+    <table class="table" border="groove">
+        <thead>
+        <tr>
+            <th class="text-center" scope="col">Nombre de la parada</th>
+            <th class="text-center" scope="col">Parada Proxima</th>
+            <th class="text-center" scope="col">Distancia con la Proxima</th>
+            <th class="text-center" scope="col">Parada anterior </th>
+            <th class="text-center" scope="col">Distancia con la anterior</th>
+            <th class="text-center" scope="col">Direccion</th>
+
+
+        </tr>
+        </thead>
+        <tbody class="table-body">
+        <script>
+
+        </script>
+
+        {{#each paradas}}
+            <tr>
+                <td class="text-center" scope="row">
+                    <div type="text" class="mt-2" value="{{nombre}}">{{nombre}}</div>
+                </td>
+                <td class="text-center" scope="row">
+                    <div type="text" class="mt-2" >{{proximaParada.nombre}}</div>
+                </td>
+                <td class="text-center" scope="row">
+                    <div type="text" class="mt-2" >{{distanciaProximaParada.valor}}</div>
+                </td>
+
+                <td class="text-center" scope="row">
+                    <div type="text" class="mt-2" >{{anteriorParada.nombre}}</div>
+                </td>
+                <td class="text-center" scope="row">
+                    <div type="text" class="mt-2" >{{distanciaAnteriorParada.valor}}</div>
+                </td>
+                <td class="text-center" scope="row">
+                    <div type="text" class="mt-2" >{{direccion.calle}} ,{{direccion.localidad.nombre}}</div>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{/partial}}
+{{> headers/adminHeader.hbs}}
