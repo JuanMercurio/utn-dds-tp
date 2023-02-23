@@ -77,18 +77,31 @@
         </dependency>
 
         <!-- Persistencia -->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.3.Final</version>
+        </dependency>
+
         <dependency>
             <groupId> org.uqbar-project </groupId>
             <artifactId> jpa-java8-extras </artifactId>
             <version> 1.0-alpha-1 </version>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>javassist</artifactId>-->
+<!--                    <groupId>org.javassist</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
         <dependency>
             <groupId> mysql </groupId>
             <artifactId> mysql-connector-java </artifactId>
-<!--            cuidado con esto, si el error de hibernate es driver#connect cambiar la version-->
+            <!--            cuidado con esto, si el error de hibernate es driver#connect cambiar la version-->
             <version>8.0.28</version>
-<!--            <version>5.1.46</version>-->
-<!--            <version>8.0.30</version>-->
+            <!--            <version>5.1.46</version>-->
+            <!--            <version>8.0.30</version>-->
         </dependency>
         <dependency>
             <groupId> org.hsqldb </groupId>
@@ -137,11 +150,30 @@
             <scope>test</scope>
         </dependency>
 
+
     </dependencies>
 
     <!-- Necesario para correr en consola (mvn test) -->
     <build>
         <plugins>
+            <!-- Para compilar tod o a un jar -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -155,5 +187,5 @@
         </plugins>
     </build>
 
-         
+
 </project>
