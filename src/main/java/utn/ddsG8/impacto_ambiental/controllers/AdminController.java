@@ -58,11 +58,16 @@ public class AdminController {
     }
     public static Response agregarTransporte(Request request, Response response){
 
-
-        response.redirect("admin/admin.hbs");
-        return null;
+        //System.out.println("Entro a agregar transporte");
+        //response.redirect("admin/admin.hbs");
+        //response.redirect("/agregarTransportes.hbs");
+        //verTransporterView(request,response);
+        //todo: agregar transporte
+        response.redirect("mostrarTransportes");
+        return response;
 
     }
+
     public static Response agregarParada(Request request, Response response) {
         System.out.println("LLEGO");
         Direccion dir = new Direccion(
@@ -132,6 +137,18 @@ public class AdminController {
 
         return response;
     }
+    public static ModelAndView mostrarAgregarTransporterView(Request request, Response response) {
+        //List<TransportePublico> transportes = FactoryRepositorio.get(TransportePublico.class).buscarTodos();
+       List<Transporte> transportes = FactoryRepositorio.get(Transporte.class).buscarTodos();
+        List<Localidad> localidades = FactoryRepositorio.get(Localidad.class).buscarTodos();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("localidad", localidades);
+        parametros.put("transporte", transportes);
+
+        return new ModelAndView(parametros, "/admin/agregarTransporte.hbs");
+    }
+
+
     public static ModelAndView mostrarTransporterPublicosView(Request request, Response response) {
         //List<TransportePublico> transportes = FactoryRepositorio.get(TransportePublico.class).buscarTodos();
         List<Transporte> transportes = FactoryRepositorio.get(Transporte.class).buscarTodos();
@@ -164,7 +181,7 @@ public class AdminController {
     }
     public static Response save(Request request, Response response) {
 
-        /*COPIADO DE MIEMBRO...
+        /*COPIADO DE MIEMBRO...*/
         User user = UserController.crearUsuario(request, response);
         if (user == null) return response;
 
@@ -175,7 +192,7 @@ public class AdminController {
 
         Miembro nuevoMiembro = new Miembro(nombre, apellido, tipodoc, documento);
         nuevoMiembro.setId(user.getId());
-        //miembros.agregar(nuevoMiembro);*/
+        //miembros.agregar(nuevoMiembro);
 
         return response;
     }
