@@ -170,6 +170,9 @@ public class Router {
             Spark.post("/mostrarTransportes/:idTransporte/agregarParada", AdminController::agregarParada);
             //agregarParadaView
             Spark.get("/actualizarFE", AdminController::actualizarFE);
+            Spark.get("/agregarTransporte", AdminController::mostrarAgregarTransporterView, engine);
+            Spark.post("/agregarTransporte", AdminController::agregarTransporte);
+            //agregarTransporte
 
             Spark.get("/:id", (request, response) -> {
                 response.redirect("/admin");
