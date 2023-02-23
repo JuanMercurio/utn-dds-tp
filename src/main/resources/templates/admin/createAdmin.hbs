@@ -1,5 +1,79 @@
 {{# partial "registrationHeader"}}
-<h1>HOOLIII</h1>
+
+<div class="container">
+    <form class="form" method="post">
+        <div class="form-header">
+            <h1>Registrarse como admin</h1>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="username" name="username" required>
+            <label for="username">Nombre de usuario</label>
+        </div>
+        <div class="form-floating">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+            />
+            <label for="floatingPassword">Contraseña</label>
+        <div class="form-floating mt-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="nombre" 
+                    name="nombre"
+                    placeholder="nombre"
+                    required
+            />
+            <label for="floatingPassword">Nombre</label>
+        </div>
+        <div class="form-floating mt-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="apellido" 
+                    name="apellido"
+                    placeholder="apellido"
+                    required
+            />
+            <label for="floatingPassword">Apellido</label>
+        </div>
+        <div class="form-floating mt-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="documento" 
+                    name="documento"
+                    placeholder="documento"
+                    required
+            />
+            <label for="floatingPassword">Documento</label>
+        </div>
+
+            <div class="form-floating mt-3">
+                <select class="form-select" id="docTipo" name="docTipo">
+                    <option value="DNI">DNI</option>
+                    <option value="CI">CI</option>
+                    <option value="LC">Lc</option>
+                    <option value="LE">LE</option>
+                    <option value="PASAPORTE">PASAPORTE</option>
+                </select>
+                <label for="docTipo">Tipo de documento</label>
+            </div>
+
+
+        <!-- TODO: Cambiar el sig boton por uno que valide los formularios -->
+        <div class="col text-center mt-3">
+            <button type="submit" class="btn btn-success" value="Log In">Registrarse</button>
+            {{!-- si no funca cambiar el button por un input --}}
+        </div>
+        </div>
+    </form>
+</div>
 
 
 {{/partial}}
