@@ -1,11 +1,13 @@
 package utn.ddsG8.impacto_ambiental.domain.Notificaciones;
 
+import lombok.Getter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@Getter
 @Entity
 @Table(name = "contacto")
 public class Contacto extends Persistable implements Notificable {

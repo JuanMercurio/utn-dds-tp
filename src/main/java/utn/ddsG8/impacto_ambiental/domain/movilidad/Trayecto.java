@@ -61,6 +61,7 @@ public class Trayecto extends Persistable {
         this.organizaciones = new HashSet<>();
         this.tramos = new ArrayList<Tramo>() ;
         this.fecha = LocalDate.now();
+        this.setDistancia();
     }
 
     public Distancia getDistancia() {
