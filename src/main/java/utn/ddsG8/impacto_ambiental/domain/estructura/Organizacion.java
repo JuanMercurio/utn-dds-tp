@@ -37,7 +37,7 @@ public class Organizacion {
     @Column(name = "clasificacion")
     private Clasificacion clasificacion;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // esta cascada es medio dudosa
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) // esta cascada es medio dudosa
     @JoinColumn(name = "direccion", referencedColumnName = "id")
     private Direccion direccion;
 
@@ -126,5 +126,9 @@ public class Organizacion {
 
     public Localidad getLocalidad() {
         return this.direccion.getLocalidad();
+    }
+
+    public void notificarContactos() {
+        this.contactos.forEach(c -> c.notificar());
     }
 }

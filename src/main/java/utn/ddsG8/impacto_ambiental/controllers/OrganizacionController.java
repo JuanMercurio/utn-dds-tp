@@ -8,9 +8,9 @@ import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
+import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
 import utn.ddsG8.impacto_ambiental.domain.services.sheets.LectorExcel;
 import utn.ddsG8.impacto_ambiental.domain.helpers.OrganizacionHelper;
-import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
@@ -23,11 +23,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
-import spark.template.freemarker.FreeMarkerEngine;
+import java.util.Map;
+
 
 public class OrganizacionController {
+
     private final static Repositorio<Organizacion> repoOrg = FactoryRepositorio.get(Organizacion.class);
     private final static Repositorio<SolicitudMiembro> solicitudesPendientes = FactoryRepositorio.get(SolicitudMiembro.class);
+    private final static Repositorio<Localidad> repoLocalidad = FactoryRepositorio.get(Localidad.class);
 
     // retorna una vista en la cual figuran todas las organizaciones
     public static ModelAndView showAll(Request request, Response response) {
@@ -46,7 +49,10 @@ public class OrganizacionController {
 
     // retorna una vista en la cual se crea una nueva organizacion
     public static ModelAndView createView(Request request, Response response) {
-        return new ModelAndView(null, "organizacion/newOrg.hbs");
+        List<Localidad> localidades = repoLocalidad.buscarTodos();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("localidades", localidades);
+        return new ModelAndView(parametros, "organizacion/newOrg.hbs");
     }
 
     // instancia una nueva org y lo guarda en la db
@@ -55,12 +61,18 @@ public class OrganizacionController {
         User user = UserController.crearUsuario(request, response);
         if (user == null) return response;
 
-        // todo falta la direccion. ver si lo hace despues el usuario o ahora
         String razonSocial = request.queryParams("razonSocial");
         OrgTipo orgTipo = OrgTipo.valueOf(request.queryParams("orgTipo"));
         Clasificacion clasificacion = Clasificacion.valueOf(request.queryParams("clasificacion"));
-        Organizacion newOrg = new Organizacion(razonSocial, orgTipo, clasificacion, null);
+
+        Direccion dir = new Direccion(
+                request.queryParams("calle"),
+                Integer.parseInt(request.queryParams("altura")),
+                repoLocalidad.buscar(Integer.parseInt(request.queryParams("localidad"))));
+
+        Organizacion newOrg = new Organizacion(razonSocial, orgTipo, clasificacion, dir);
         newOrg.setId(user.getId());
+
         repoOrg.agregar(newOrg);
 
         return response;
@@ -136,7 +148,7 @@ public class OrganizacionController {
         org.getMediciones().addAll(mediciones);
         repoOrg.modificar(org);
 
-        return "cargamos las nuevasmediciones perro";
+        return "cargamos las nuevas mediciones";
     }
 
     public static ModelAndView vistaCalculadora(Request request, Response response) {

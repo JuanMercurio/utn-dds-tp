@@ -4,10 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.contrasenia.PassHasher;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
-import utn.ddsG8.impacto_ambiental.domain.estructura.Referencia;
-import utn.ddsG8.impacto_ambiental.domain.services.distancia.AgenteSectorial;
 
 import javax.persistence.*;
 

@@ -1,9 +1,14 @@
 {{# partial "memberHeader" }}
 
-    <div style="display: flex; width: 100%; justify-content: center; align-items: center; height: 5rem;">
+    <div  style="display: flex; flex-direccion: column; width: 100%; justify-content: center; align-items: center; height: 5rem;">
     <form method="post">
-      <button type="submit" class="btn btn-warning" style="height: 3rem; width:22rem; font-size: 1.3rem; border-radius: 1rem">Crear Nuevo Trayecto</button>
+      <button type="submit" name="accion" value="crear" class="btn btn-warning m-2" style="height: 3rem; width:22rem; font-size: 1.3rem; border-radius: 1rem ">Crear Nuevo Trayecto</button>
     </form>
+        <button name="accion"  value="unirse" class="btn btn-warning -2"  style="height: 3rem; width:22rem; font-size: 1.3rem; border-radius: 1rem ">
+            <a href="unirseTrayecto" style="color: black">
+                Unirse a un Trayecto
+            </a>
+        </button>
     </div>
 
       <div class="hc-content" style="margin-top: 0px; padding-top:0 ;">
@@ -19,6 +24,7 @@
                       <table class="paradas-table w-100">
                           <thead>
                           <tr>
+                              <td>ID</td>
                               <td>Fecha</td>
                               <td>Distancia</td>
                               <td>HC</td>
@@ -28,6 +34,7 @@
                           <tbody>
                           {{#each miembro.trayectos }}
                               <tr>
+                                  <td>{{id}}</td>
                                   <td>{{fecha}}</td>
                                   <td>{{distancia.valor}} {{distancia.unidad}}</td>
                                   <td>{{huella}}</td>

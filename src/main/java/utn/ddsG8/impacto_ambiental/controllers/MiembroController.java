@@ -51,7 +51,6 @@ public class MiembroController {
     }
 
     public static ModelAndView organizacionesParaUnirse(Request request, Response response) {
-        //TODO falta poner los sectores
         List<Organizacion> orgs = repoOrganizacion.buscarTodos();
         return new ModelAndView(new HashMap<String, Object>() {{
             put("organizaciones", orgs);

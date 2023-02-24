@@ -8,6 +8,7 @@ import utn.ddsG8.impacto_ambiental.sessions.Role;
 import java.util.ArrayList;
 import java.util.List;
 
+// @Deprecated
 public class RolesYPermisos {
     private List<Role> roles;
 
@@ -30,7 +31,6 @@ public class RolesYPermisos {
         this.roles.add(administrador);
         this.roles.add(organizacion);
         this.roles.add(miembro);
-        // TODO: falta el agente sectorial
 
     }
 
