@@ -1,9 +1,7 @@
 {{# partial "registrationHeader"}}
 
-
-
-<div class="container">
-    <form class="form" method="post">
+<div class="orgContainer">
+    <form class="form orgForm" method="post">
         <div class="form-header">
             <h1>Registrarse como organizacion</h1>
         </div>
@@ -39,8 +37,172 @@
             />
             <label for="floatingPassword">Razon Social</label>
         </div>
+        <div class="form-floating mt-3">
+                <select class="form-select" id="pais" name="pais">
+                    <option value="Afganistán">Afganistán</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Alemania">Alemania</option>
+                    <option value="Andorra">Andorra</option>
+                    <option value="Angola">Angola</option>
+                    <option value="Antigua y Barbuda">Antigua y Barbuda</option>
+                    <option value="Arabia Saudita">Arabia Saudita</option>
+                    <option value="Argelia">Argelia</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Armenia">Armenia</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Azerbaiyán">Azerbaiyán</option>
+                    <option value="Bahamas">Bahamas</option>
+                    <option value="Bangladés">Bangladés</option>
+                    <option value="Barbados">Barbados</option>
+                    <option value="Baréin">Baréin</option>
+                    <option value="Bélgica">Bélgica</option>
+                    <option value="Belice">Belice</option>
+                    <option value="Benín">Benín</option>
+                    <option value="Bielorrusia">Bielorrusia</option>
+                    <option value="Birmania/Myanmar">Birmania/Myanmar</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
+                    <option value="Botsuana">Botsuana</option>
+                    <option value="Brasil">Brasil</option>
+                    <option value="Brunéi">Brunéi</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="Burkina Faso">Burkina Faso</option>
+                    <option value="Burundi">Burundi</option>
+                    <option value="Bután">Bután</option>
+                    <option value="Cabo Verde">Cabo Verde</option>
+                    <option value="Camboya">Camboya</option>
+                    <option value="Camerún">Camerún</option>
+                    <option value="Canadá">Canadá</option>
+                    <option value="Catar">Catar</option>
+                    <option value="Chad">Chad</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China">China</option>
+                    <option value="Chipre">Chipre</option>
+                    <option value="Ciudad del Vaticano">Ciudad del Vaticano</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Comoras">Comoras</option>
+                    <option value="Corea del Norte">Corea del Norte</option>
+                    <option value="Corea del Sur">Corea del Sur</option>
+                    <option value="Costa de Marfil">Costa de Marfil</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Croacia">Croacia</option>
+                    <option value="Cuba">Cuba</option>
+                    <option value="Dinamarca">Dinamarca</option>
+                </select>
+                <label for="pais">Pais</label>
+        </div>
+        <div class="form-floating mt-3">
+                <select class="form-select" id="provincia" name="provincia">
+                    <option value="Buenos Aires">Buenos Aires</option>
+                    <option value="Buenos Aires Capital">Buenos Aires Capital</option>
+                    <option value="Catamarca">Catamarca</option>
+                    <option value="Chaco">Chaco</option>
+                    <option value="Chubut">Chubut</option>
+                    <option value="Cordoba">Cordoba</option>
+                    <option value="Corrientes">Corrientes</option>
+                    <option value="Entre Rios">Entre Rios</option>
+                    <option value="Formosa">Formosa</option>
+                    <option value="Jujuy">Jujuy</option>
+                    <option value="La Pampa">La Pampa</option>
+                    <option value="La Rioja">La Rioja</option>
+                    <option value="Mendoza">Mendoza</option>
+                    <option value="Misiones">Misiones</option>
+                    <option value="Neuquen">Neuquen</option>
+                    <option value="Rio Negro">Rio Negro</option>
+                    <option value="Salta">Salta</option>
+                    <option value="San Juan">San Juan</option>
+                    <option value="San Luis">San Luis</option>
+                    <option value="Santa Cruz">Santa Cruz</option>
+                    <option value="Santa Fe">Santa Fe</option>
+                    <option value="Santiago del Estero">Santiago del Estero</option>
+                    <option value="Tierra del Fuego">Tierra del Fuego</option>
+                    <option value="Tucuman">Tucuman</option>
+                </select>
+                <label for="provincia">Provincia</label>
+        </div>
+        
 
-    // TODO falta la direccion
+        <div class="form-floating mt-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="municipio" 
+                    name="municipio"
+                    placeholder="Municipio"
+                    required
+            />
+            <label for="floatingPassword">Municipio</label>
+        </div>
+        <div class="form-floating mt-3">
+            <input
+                    type="number"
+                    class="form-control"
+                    id="codigoPostal" 
+                    name="codigoPostal"
+                    placeholder="CodigoPostal"
+                    required
+            />
+            <label for="floatingPassword">Codigo Postal</label>
+        </div>
+
+       <div class="form-floating mt-3">
+                <select class="form-select" id="localidad" name="localidad">
+                    <option value="">Selecciona una localidad</option>
+                    <option value="CABA">Ciudad Autónoma de Buenos Aires</option>
+                    <option value="La Plata">La Plata</option>
+                    <option value="Mar del Plata">Mar del Plata</option>
+                    <option value="Bahía Blanca">Bahía Blanca</option>
+                    <option value="Rosario">Rosario</option>
+                    <option value="Santa Fe">Santa Fe</option>
+                    <option value="Córdoba">Córdoba</option>
+                    <option value="San Juan">San Juan</option>
+                    <option value="Mendoza">Mendoza</option>
+                    <option value="San Luis">San Luis</option>
+                    <option value="Neuquén">Neuquén</option>
+                    <option value="Comodoro Rivadavia">Comodoro Rivadavia</option>
+                    <option value="Ushuaia">Ushuaia</option>
+                    <option value="Bariloche">Bariloche</option>
+                    <option value="Salta">Salta</option>
+                    <option value="Jujuy">Jujuy</option>
+                    <option value="Tucumán">Tucumán</option>
+                    <option value="Corrientes">Corrientes</option>
+                    <option value="Posadas">Posadas</option>
+                    <option value="Formosa">Formosa</option>
+                    <option value="Resistencia">Resistencia</option>
+                    <option value="Santiago del Estero">Santiago del Estero</option>
+                    <option value="Catamarca">Catamarca</option>
+                    <option value="La Rioja">La Rioja</option>
+                    <option value="San Salvador de Jujuy">San Salvador de Jujuy</option>
+                </select>
+                <label for="localidad">Localidad</label>
+        </div>
+
+
+        <div class="form-floating mt-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="calle" 
+                    name="calle"
+                    placeholder="Calle"
+                    required
+            />
+            <label for="floatingPassword">Calle</label>
+        </div>
+                <div class="form-floating mt-3">
+            <input
+                    type="number"
+                    class="form-control"
+                    id="altura" 
+                    name="altura"
+                    placeholder="Altura"
+                    required
+            />
+            <label for="floatingPassword">Altura</label>
+        </div>
+
+
             <div class="form-floating mt-3">
                 <select class="form-select" id="orgTipo" name="orgTipo">
                     <option value="Gubernamental">Gubernamental</option>
