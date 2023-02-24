@@ -7,6 +7,7 @@ import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.ServicioContratado;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.TransporteNoContaminante;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
@@ -58,27 +59,29 @@ public class AdminController {
 
         //System.out.println("Entro a agregar transporte");
         //response.redirect("admin/admin.hbs");
-        //response.redirect("/agregarTransportes.hbs");
-        //verTransporterView(request,response);
+
         //todo: agregar transporte
         System.out.println("Tipo transporte"+request.queryParams("tipoTransporte"));
         System.out.println("nombreTransporte "+request.queryParams("nombreTransporte"));
         System.out.println("nombreFE "+request.queryParams("nombreFE"));
         if(request.queryParams("tipoTransporte").equals("transportepublico")){
-            TransportePublico transporteNuevo = new TransportePublico(request.queryParams("nombreTransporte"),request.queryParams("tipoTransporte"),request.queryParams("nombreFE"));
-
+            TransportePublico transporteNuevo = new TransportePublico
+                    (request.queryParams("nombreTransporte"),request.queryParams("tipoTransporte"),request.queryParams("nombreFE"));
+            FactoryRepositorio.get(TransportePublico.class).agregar(transporteNuevo);
         }
         else if (request.queryParams("tipoTransporte").equals("otro")){
-            TransporteNoContaminante transporteNuevo = new TransporteNoContaminante(request.queryParams("nombreTransporte"),request.queryParams("nombreFE"));
-
-
+            TransporteNoContaminante transporteNuevo = new TransporteNoContaminante
+                    (request.queryParams("nombreTransporte"),request.queryParams("nombreFE"));
+            FactoryRepositorio.get(TransporteNoContaminante.class).agregar(transporteNuevo);
         }
-        /*if()
-        Transporte nuevoTransporte = new Transporte(
-                request.queryParams("nombreTransporte"),
-                request.queryParams("nombreFE"), request.queryParams("tipoTransporte")
+        else if(request.queryParams("tipoTransporte").equals("contratado")){
+            ServicioContratado transporteNuevo = new ServicioContratado
+                    (request.queryParams("nombreTransporte"),request.queryParams("nombreFE"));
+            FactoryRepositorio.get(ServicioContratado.class).agregar(transporteNuevo);
+        }
+       /* else if(request.queryParams("tipoTransporte").equals("particular")){
 
-        );*/
+        }*/
 
         response.redirect("mostrarTransportes");
         return response;
