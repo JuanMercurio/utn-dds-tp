@@ -56,6 +56,10 @@ public class MiembroController {
             put("organizaciones", orgs);
         }}, "/miembro/solicitarUnirseAOrg.hbs");
     }
+    public static ModelAndView mostrarRecomendaciones(Request request, Response response) {
+        List<Organizacion> orgs = repoOrganizacion.buscarTodos();
+        return new ModelAndView(null, "/miembro/recomendaciones.hbs");
+    }
 
     public static Response unirseAOrg(Request request, Response response) {
         Organizacion org = OrganizacionHelper.getOrg(new Integer(request.queryParams("org")));

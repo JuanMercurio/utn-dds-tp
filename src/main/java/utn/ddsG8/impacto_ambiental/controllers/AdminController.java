@@ -88,6 +88,11 @@ public class AdminController {
 
     }
 
+    public static ModelAndView mostrarRecomendaciones(Request request, Response response) {
+
+        return new ModelAndView(null, "/admin/recomendaciones.hbs");
+    }
+
     public static Response agregarParada(Request request, Response response) {
         System.out.println("LLEGO");
         Direccion dir = new Direccion(
@@ -158,6 +163,7 @@ public class AdminController {
         return response;
     }
     public static ModelAndView mostrarAgregarTransporterView(Request request, Response response) {
+
         //List<TransportePublico> transportes = FactoryRepositorio.get(TransportePublico.class).buscarTodos();
        List<Transporte> transportes = FactoryRepositorio.get(Transporte.class).buscarTodos();
         List<Localidad> localidades = FactoryRepositorio.get(Localidad.class).buscarTodos();

@@ -84,6 +84,9 @@ public class AgenteController {
         response.redirect(request.uri());
         return null;
     }
+    public static ModelAndView mostrarRecomendacionesView(Request request, Response respose) {
+        return new ModelAndView(null, "/agenteSectorial/recomendaciones.hbs");
+    }
 }
 
 

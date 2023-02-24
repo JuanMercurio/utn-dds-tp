@@ -81,7 +81,10 @@ public class Router {
 
             Spark.get("/:id", AgenteController::show, engine);
             Spark.get("/:id/sector", AgenteController::showReporteAgente, engine);
+            // POSIBLEMENTE ESTA RUTA FALLE PORQUE LE SACAMOE EL ID.
+
             Spark.post("/:id/sector", AgenteController::nuevoHC);
+            Spark.get("/:id/recomendaciones", AgenteController::mostrarRecomendacionesView, engine);
         });
     }
 
@@ -136,6 +139,7 @@ public class Router {
             Spark.post("/:id/unirseTrayecto", TrayectoController::unirseATrayecto);
 //            Spark.get("/:id/trayectos/unirseATrayecto", TrayectoController::unirseATrayectoView, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
+            Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
             Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);
         });
 
@@ -174,7 +178,9 @@ public class Router {
             //agregarParadaView
             Spark.get("/actualizarFE", AdminController::actualizarFE);
             Spark.get("/agregarTransporte", AdminController::mostrarAgregarTransporterView, engine);
+
             Spark.post("/agregarTransporte", AdminController::agregarTransporte);
+            Spark.get("/recomendaciones", AdminController::mostrarRecomendaciones, engine);
             //agregarTransporte
 
             Spark.get("/:id", (request, response) -> {
