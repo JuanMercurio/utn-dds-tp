@@ -1,15 +1,33 @@
 {{# partial "adminHeader"}}
-    <h1>Agregar Transporte</h1>
-    <form method="post" action="agregarTransporte">
-        <select name="tipoTransporte" id="tipoTransporte">
-            <option value=""> ---- </option>
-            <option value="particular">Vehiculo Particular</option>
-            <option value="contratado">Servicio Contratado</option>
-            <option value="publico">Transporte Publico</option>
-            <option value="otro">Otro</option>
-        </select>
-        <input type="text" name="nombreTransporte" placeholder="Nombre">
-        <input type="submit">
-    </form>
+    <div class="container">
+        <div class="card border-success mb-5 mx-auto mt-7" style="max-width: 60rem; margin-top: -200px;">
+            <div class="card-header bg-transparent border-success text-center">
+                <h1>Agregar Transporte</h1>
+            </div>
+            <div class="card-body text-success">
+                <form method="post" action="agregarTransporte">
+                    <div class="form-group mb-2">
+                        <label for="tipoTransporte"> Tipo de transporte:  </label>
+                        <select name="tipoTransporte" id="tipoTransporte">
+                            <option value=""> ---- </option>
+                            <option value="particular">Vehiculo Particular</option>
+                            <option value="contratado">Servicio Contratado</option>
+                            <option value="publico">Transporte Publico</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="nombreTransporte"> <b>Nombre del transporte:  </b></label>
+                        <input type="text" id="nombreTransporte" name="nombreTransporte" placeholder="Nombre">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="nombreFETransporte"> <b>Nombre FE: </b></label>
+                        <input type="text" id="nombreFETransporte" name="nombreFE" placeholder="NombreFE">
+                    </div>
+                    <input type="submit" class="btn btn-success mt-3">
+                </form>
+            </div>
+        </div>
+    </div>
 {{/partial}}
 {{> headers/adminHeader.hbs}}
