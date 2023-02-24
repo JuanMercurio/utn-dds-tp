@@ -17,10 +17,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table(name = "organizacion")
 @Setter
 @Getter
+@Entity
+@Table(name = "organizacion")
 public class Organizacion {
 
     @Id

@@ -1,7 +1,6 @@
 package utn.ddsG8.impacto_ambiental.controllers;
 
 import spark.*;
-import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
 import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
@@ -23,7 +22,6 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TrayectoController {
 
@@ -33,7 +31,6 @@ public class TrayectoController {
     private final static Repositorio<Transporte> repoTransporte = FactoryRepositorio.get(Transporte.class);
     private final static Repositorio<Trayecto> repoTrayecto = FactoryRepositorio.get(Trayecto.class);
     private final static Repositorio<Direccion> repoDireccion = FactoryRepositorio.get(Direccion.class);
-    private final static List<Localidad> localidadList = FactoryRepositorio.get(Localidad.class).buscarTodos();
     private final static Repositorio<Localidad> repoLocalidad = FactoryRepositorio.get(Localidad.class);
     private final static Repositorio<ServicioContratado> repoServicioContratado = FactoryRepositorio.get(ServicioContratado.class);
 
@@ -67,10 +64,11 @@ public class TrayectoController {
         List<Parada> paradas = repoParada.buscarTodos();
         List<ServicioContratado> servicioContratados = repoServicioContratado.buscarTodos();
         List<TransporteNoContaminante> noContaminantes = FactoryRepositorio.get(TransporteNoContaminante.class).buscarTodos();
+//        List<Localidad> localidadList = repoLocalidad.buscarTodos();//.stream().filter(l -> l.id_db % 2 == 0).collect(Collectors.toList());
         Set<Organizacion> orgs = miembro.getSectores().stream().map(Sector::getOrganizacion).collect(Collectors.toSet());
 
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("localidades", localidadList);
+//        parametros.put("localidades", localidadList.subList(0, 100)); sacamos porque no carga cuando esta desplegado
         parametros.put("publicos", tpublicos);
         parametros.put("particulares", transportesDeMiembro);
         parametros.put("paradas", paradas);
@@ -78,7 +76,7 @@ public class TrayectoController {
         parametros.put("noContaminantes", noContaminantes);
         parametros.put("orgs", orgs);
 
-        return new ModelAndView(parametros, "/trayecto/newTramo.hbs");
+        return new ModelAndView(parametros, "trayecto/newTramo.hbs");
     }
 
     //todo
@@ -87,6 +85,7 @@ public class TrayectoController {
     }
 
     public static Response agregarTramo(Request request, Response response) {
+
 
         Transporte transporte;
         try {
@@ -97,15 +96,45 @@ public class TrayectoController {
 
 
         Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
-
         if (trayecto == null) {
             System.out.println("rompio todo el id del trayecto esa: "+ request.params("idTrayecto"));
             Spark.halt();
         }
 
-        Tramo tramo = new Tramo(transporte,
-                determinarDireccion(request, "direccion-inicial"),
-                determinarDireccion(request, "direccion-final"));
+        Direccion direccionInicial;
+        Direccion direccionFinal;
+
+        if (request.queryParams("direccion-inicial") != null) {
+            direccionInicial = repoDireccion.buscar(Integer.parseInt(request.queryParams("direccion-inicial")));
+            direccionFinal = repoDireccion.buscar(Integer.parseInt(request.queryParams("direccion-final")));
+        } else {
+
+
+            List<Localidad> localidades = repoLocalidad.buscarTodos();
+            List<Localidad> localidadInicial = localidades.stream().filter(l -> l.getNombre().equals(request.queryParams("localidad-direccion-inicial").toUpperCase())).collect(Collectors.toList());
+            List<Localidad> localidadFinal = localidades.stream().filter(l -> l.getNombre().equals(request.queryParams("localidad-direccion-final").toUpperCase())).collect(Collectors.toList());
+
+            if (localidadFinal.size() == 0 || localidadInicial.size() == 0) {
+                response.body("error");
+                response.status(500);
+                return response;
+            }
+
+            direccionInicial = new Direccion(request.queryParams("calle-direccion-inicial"),
+                Integer.parseInt(request.queryParams("altura-direccion-inicial")),
+                localidadInicial.get(0));
+
+            repoDireccion.agregar(direccionInicial);
+
+            direccionFinal = new Direccion(request.queryParams("calle-direccion-final"),
+                Integer.parseInt(request.queryParams("altura-direccion-final")),
+                localidadFinal.get(0));
+
+            repoDireccion.agregar(direccionFinal);
+        }
+
+
+        Tramo tramo = new Tramo(transporte, direccionInicial, direccionFinal);
 
         agregarOrganizaciones(request, trayecto);
         trayecto.agregarTramo(tramo);

@@ -36,7 +36,9 @@ public class TransportePublico extends  Transporte {
     public void agregarParada(Parada nueva, int numeroParada) {
         // IMPORTANTE: Esta implementado como que el administrador pone 0 para la primera parada, no 1
         // Se puede cambiar con un simple -1. Decidir que queda
-        paradas.add(numeroParada, nueva);
+         if (numeroParada == paradas.size()) {
+             paradas.add(nueva);
+         } else paradas.add(numeroParada, nueva);
         Parada anterior = paradas.get(Math.max(0, numeroParada-1));
         Parada proxima = paradas.get(Math.min(numeroParada+1, paradas.size() - 1));
         if (numeroParada == 0) {

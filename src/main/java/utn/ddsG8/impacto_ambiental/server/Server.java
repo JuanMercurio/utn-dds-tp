@@ -9,6 +9,6 @@ public class Server {
 		Spark.port(9078);
 		Router.init();
 		DebugScreen.enableDebugScreen();
-//		Notificador.iniciarNotificador();
+		Notificador.iniciarNotificador();
 	}
 }

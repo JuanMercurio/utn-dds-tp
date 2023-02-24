@@ -51,7 +51,6 @@ public class Router {
             Spark.post("/:idTrayecto/agregarTramo", TrayectoController::agregarTramo);
             Spark.post("/:idTrayecto/terminar", (request, response) -> {
                 response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
-                System.out.println("saturno");
                 return response;
             });
 
@@ -107,8 +106,11 @@ public class Router {
             Spark.before("/:id",  AuthMiddleware::authenticateId);
 
             Spark.get("/:id", OrganizacionController::show, engine);
+            Spark.post("/:id/contactos/:idContacto/eliminar", OrganizacionController::eliminarContacto);
 
-//            Spark.get("/:id/edit", OrganizacionController::edit, engine);
+            Spark.get("/:id/contactos/agregar", OrganizacionController::agregarContactoView, engine);
+            Spark.post("/:id/contactos/agregar", OrganizacionController::agregarContacto);
+
             Spark.post("/:id", OrganizacionController::update);
 
             Spark.get("/:id/subirActividades", OrganizacionController::subirActividadesView, engine);
@@ -118,7 +120,6 @@ public class Router {
             Spark.post("/:id/solicitudes", OrganizacionController::administrarSolicitud);
             Spark.get("/:id/huella", OrganizacionController::vistaCalculadora, engine);
             Spark.post("/:id/huella", OrganizacionController::persistirHuella);
-//            Spark.post("/remove", orgController::remove);
         });
     }
 
@@ -146,7 +147,7 @@ public class Router {
     }
 
     private static void prohibidoConfig() {
-        Spark.get("/prohibido", (request, response) -> "Acceso denegado wacho");
+        Spark.get("/prohibido", (request, response) -> "Acceso denegado pedir permiso a administrador");
     }
 
     private static void loginConfig() {

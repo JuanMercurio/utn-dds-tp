@@ -1,0 +1,30 @@
+{{# partial "organizationHeader"}}
+
+    <div class="hc-content d-flex justify-content-center">
+        <div class="hc-card w-50 d-flex justify-content-center flex-column align-items-center">
+            <div>
+                <h3>Agregar Contacto</h3>
+            </div>
+            <form method="post">
+
+                <div class="form-group my-2">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control w-75" type="text" name="nombre" id="nombre">
+                </div>
+                <div class="form-group my-2">
+                    <label for="nombre">Email</label>
+                    <input class="form-control w-75" type="text" name="email" id="email">
+                </div>
+                <div class="form-group my-2">
+                    <label for="nombre">Telefono</label>
+                    <input class="form-control w-75"  type="text" name="telefono" id="telefono">
+                </div>
+
+
+                <button type="submit" class=" w-75 btn btn-primary">Agregar</button>
+            </form>
+        </div>
+    </div>
+
+{{/partial}}
+{{> headers/organizationHeader.hbs}}

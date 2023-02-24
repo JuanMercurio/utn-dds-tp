@@ -15,6 +15,7 @@ public class LoginController {
     private static Repositorio<User> repo = FactoryRepositorio.get(User.class);
 
     public static Response login(Request request, Response response) {
+        response.status(200);
         String boton = request.queryParams("form");
 
         if(boton == null) {
@@ -27,6 +28,7 @@ public class LoginController {
                     + "'";
 
             List<User> usuarios = repo.query(query);
+
 
             // si es 1 puso bien los datos
             if (usuarios.size() == 1) {

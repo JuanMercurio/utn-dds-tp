@@ -18,10 +18,13 @@ public class UserController {
     public static User create(Request request, Response response) {
 
         PassValidator passValidator = new PassValidatorList( archivoContrasenias, 8, 1, 1,1);
-        if (!passValidator.validarPass(request.queryParams("password")) || usuarios.query("from User where username = '" + request.queryParams("username") + "'").size() > 0) {
-            response.status(500); // se puede usar para alerts
+        if (!passValidator.validarPass(request.queryParams("password")))  {
+            response.status(500);
             response.redirect(request.url());
-            System.out.println("jejejej piifiado");
+            return null;
+        }  if (usuarios.query("from User where username = '" + request.queryParams("username") + "'").size() > 0) {
+            response.status(500);
+            response.redirect(request.url());
             return null;
         } else {
             User user = new User(request.queryParams("username"), request.queryParams("password"));

@@ -206,7 +206,9 @@ public class AdminController {
         return new ModelAndView(null, "/admin/createAdmin.hbs");
     }
 
-    public static String save(Request request, Response response) {
-        return "El registro de admin se encuentra desactivado vuelva a intentar luego";
+    public static Response save(Request request, Response response) {
+        User user = UserController.crearUsuario(request, response);
+        if (user == null) return response;
+        return response;
     }
 }

@@ -28,6 +28,40 @@
                     </div>
                 </div>
             </div>
+
+            <div class="hc-card mt-3 bg-light w-75">
+                <div>
+                    <h5>Contactos</h5>
+                </div>
+                <table class="paradas-table w-100">
+                    <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Tel</td>
+                        <td>Email</td>
+                        <td>Eliminar</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each organizacion.contactos }}
+                        <tr>
+                            <td>{{nombre}}</td>
+                            <td>{{telefono}}</td>
+                            <td>{{email}}</td>
+                            <td>
+                                <div style="display: flex;">
+                                    <form method="post" action="{{organizacion.id}}/contactos/{{id}}/eliminar">
+                                        <input type="hidden" name="contacto" value="{{id}}">
+                                        <button class="btn btn-danger"  type="submit"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                <button class="btn btn-primary mt-2" onclick="redirectTo('/contactos/agregar')">Agregar Contacto</button>
+            </div>
         </div>
     </div>
 

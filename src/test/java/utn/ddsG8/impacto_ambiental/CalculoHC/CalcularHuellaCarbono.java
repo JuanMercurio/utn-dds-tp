@@ -16,9 +16,7 @@ public class CalcularHuellaCarbono {
 
     @Test
     public void test() {
-        Direccion dir = new Direccion("saturno", 123, repoLocalidad.buscar(3280));
-        Organizacion org = new Organizacion("saturno", OrgTipo.Empresa, Clasificacion.Empresa_del_Sector_Primario, dir);
-        org.setId(50);
-        repoOrganizacion.agregar(org);
+        Organizacion org = repoOrganizacion.buscar(3);
+        System.out.println(org.getContactos().size());
     }
 }

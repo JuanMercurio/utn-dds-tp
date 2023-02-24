@@ -4,6 +4,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
+import utn.ddsG8.impacto_ambiental.domain.Notificaciones.Contacto;
 import utn.ddsG8.impacto_ambiental.domain.calculos.CalcularHC;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Huella;
 import utn.ddsG8.impacto_ambiental.domain.calculos.Medicion;
@@ -24,6 +25,7 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class OrganizacionController {
@@ -41,9 +43,10 @@ public class OrganizacionController {
     // retorna una vista en la cual figura la organizacion con el id elegido
     public static ModelAndView show(Request request, Response response) {
         Organizacion org = repoOrg.buscar(new Integer(request.params("id")));
+        double huella = org.calcularHC();
         return new ModelAndView(new HashMap<String, Object>(){{
             put("organizacion", org);
-            put("huella", new BigDecimal(org.calcularHC()).setScale(2, RoundingMode.CEILING));
+            put("huella", BigDecimal.valueOf(huella).setScale(2, RoundingMode.CEILING));
         }}, "organizacion/org.hbs");
     }
 
@@ -169,6 +172,36 @@ public class OrganizacionController {
         }
         else response.status(500);
 
+        return response;
+    }
+
+    public static Response eliminarContacto(Request request, Response response) {
+        Organizacion org = OrganizacionHelper.getOrg(request);
+        Contacto contactoEliminar = org.getContactos().stream().filter(c -> c.getId() == Integer.parseInt(request.queryParams("contacto"))).collect(Collectors.toList()).get(0);
+        org.getContactos().remove(contactoEliminar);
+        repoOrg.modificar(org);
+
+        response.redirect("/organizacion/" + request.session().attribute("id") + "" );
+        return response;
+    }
+
+    public static ModelAndView agregarContactoView(Request request, Response response) {
+        return new ModelAndView(null, "organizacion/nuevoContacto.hbs");
+    }
+
+    public static Response agregarContacto(Request request, Response response) {
+
+        Organizacion org = OrganizacionHelper.getOrg(request);
+        Contacto contacto = new Contacto(
+                request.queryParams("nombre"),
+                request.queryParams("email"),
+                request.queryParams("telefono")
+        );
+
+        org.getContactos().add(contacto);
+        repoOrg.modificar(org);
+
+        response.redirect("/organizacion/" + request.session().attribute("id") + "" );
         return response;
     }
 }
