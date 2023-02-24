@@ -6,7 +6,9 @@ import spark.Request;
 import spark.Response;
 import utn.ddsG8.impacto_ambiental.domain.calculos.FE;
 import utn.ddsG8.impacto_ambiental.domain.estructura.*;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.Tramo;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.Transporte;
+import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.TransporteNoContaminante;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.Parada;
 import utn.ddsG8.impacto_ambiental.domain.movilidad.transportes.publico.TransportePublico;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.Localidad;
@@ -59,6 +61,25 @@ public class AdminController {
         //response.redirect("/agregarTransportes.hbs");
         //verTransporterView(request,response);
         //todo: agregar transporte
+        System.out.println("Tipo transporte"+request.queryParams("tipoTransporte"));
+        System.out.println("nombreTransporte "+request.queryParams("nombreTransporte"));
+        System.out.println("nombreFE "+request.queryParams("nombreFE"));
+        if(request.queryParams("tipoTransporte").equals("transportepublico")){
+            TransportePublico transporteNuevo = new TransportePublico(request.queryParams("nombreTransporte"),request.queryParams("tipoTransporte"),request.queryParams("nombreFE"));
+
+        }
+        else if (request.queryParams("tipoTransporte").equals("otro")){
+            TransporteNoContaminante transporteNuevo = new TransporteNoContaminante(request.queryParams("nombreTransporte"),request.queryParams("nombreFE"));
+
+
+        }
+        /*if()
+        Transporte nuevoTransporte = new Transporte(
+                request.queryParams("nombreTransporte"),
+                request.queryParams("nombreFE"), request.queryParams("tipoTransporte")
+
+        );*/
+
         response.redirect("mostrarTransportes");
         return response;
 
