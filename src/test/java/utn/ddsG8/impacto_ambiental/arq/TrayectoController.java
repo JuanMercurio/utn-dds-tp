@@ -26,7 +26,7 @@ public class TrayectoController {
         List<Transporte> VehiculosDeMiembro =  Transporte.query("from Transporte where duenio = 21");
 
         List<Tramo> tramos = miembro.getTrayectos().stream().flatMap(t -> t.getTramos().stream()).collect(Collectors.toList());
-        List<Tramo> tramosDeAutos = tramos.stream().filter(t -> !t.getTransporte().esPublico()).collect(Collectors.toList());
+           List<Tramo> tramosDeAutos = tramos.stream().filter(t -> !t.getTransporte().esPublico()).collect(Collectors.toList());
         List<Transporte> transportesDeMiembro = tramosDeAutos.stream().map(t -> t.getTransporte()).collect(Collectors.toList());
         List<TransportePublico> tpublicos = transportesPublicos.buscarTodos();
         List<Parada> paradas = paradaRepo.buscarTodos();

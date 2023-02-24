@@ -37,7 +37,6 @@ public class Router {
         miembroConfig();
         trayectoConfig();
         orgConfig();
-
     }
 
     private static void trayectoConfig() {
@@ -46,6 +45,7 @@ public class Router {
 //            Spark.before("/*", AuthMiddleware::authenticateSession);
 //            Spark.before("",  AuthMiddleware::isMiembro);
 
+            Spark.get("/:idTrayecto", TrayectoController::trayectoView, engine);
             Spark.post("/:idTrayecto/eliminar", TrayectoController::eliminarTrayecto);
             Spark.get("/:idTrayecto/agregarTramo", TrayectoController::agregarTramoView, engine);
             Spark.post("/:idTrayecto/agregarTramo", TrayectoController::agregarTramo);
@@ -54,14 +54,14 @@ public class Router {
                 System.out.println("saturno");
                 return response;
             });
+
             Spark.get("/:idTrayecto/tramo/:idtramo", TrayectoController::tramoView);
-            Spark.get("/:idTrayecto", TrayectoController::trayectoView, engine);
             Spark.get("", TrayectoController::trayectosMiembroView, engine);
             Spark.post("", TrayectoController::crearTrayecto);
 
         });
 
-            Spark.get("/verTrayectos", TrayectoController::trayectosMiembroView, engine);
+//        Spark.get("/verTrayectos", TrayectoController::trayectosMiembroView, engine);
         Spark.get("/vehiculos", TrayectoController::agregarVehiculoView, engine);
         Spark.post("/agregarVehiculo", TrayectoController::agregarVehiculo);
         Spark.post("eliminarVehiculo", TrayectoController::eliminarVehiculo);
@@ -132,6 +132,9 @@ public class Router {
             Spark.get("/:id", MiembroController::show, engine);
             Spark.get("/:id/reportes", MiembroController::reportes, engine);
             Spark.get("/:id/trayectos", TrayectoController::trayectosMiembroView, engine);
+            Spark.get("/:id/unirseTrayecto", TrayectoController::unirseATrayectoView, engine);
+            Spark.post("/:id/unirseTrayecto", TrayectoController::unirseATrayecto);
+//            Spark.get("/:id/trayectos/unirseATrayecto", TrayectoController::unirseATrayectoView, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
             Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);
         });

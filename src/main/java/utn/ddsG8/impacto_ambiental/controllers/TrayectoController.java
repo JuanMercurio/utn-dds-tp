@@ -2,6 +2,7 @@ package utn.ddsG8.impacto_ambiental.controllers;
 
 import spark.*;
 import utn.ddsG8.impacto_ambiental.db.EntityManagerHelper;
+import utn.ddsG8.impacto_ambiental.db.Persistable;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Direccion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Miembro;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
@@ -22,6 +23,7 @@ import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TrayectoController {
 
@@ -199,10 +201,35 @@ public class TrayectoController {
         return response;
     }
 
-//    public static Response actualizarTrayectos(Request request, Response response) {
-//        repoTrayecto.buscarTodos();
-//        response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
-//        response.header("Cache-Control", "no-cache, no-store, must-revalidate");
-//        return response;
-//    }
+    public static ModelAndView unirseATrayectoView(Request request, Response response) {
+        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        List<Trayecto> trayectos = MiembroHelper.getCurrentMiembro(request).getSectores().stream().map(s -> s.getOrganizacion()).flatMap(o -> o.getTrayectos().stream()).collect(Collectors.toList());
+        List<Trayecto> trayectosFiltrados = new ArrayList<>();
+
+        for (Trayecto trayecto : trayectos) {
+           if (trayectosFiltrados.stream().filter(t -> t.getId() == trayecto.getId()).count() == 0)  {
+               trayectosFiltrados.add(trayecto);
+           }
+        }
+
+        List<Trayecto> trayectosSorteados = trayectosFiltrados.stream()
+                .sorted(Comparator.comparingInt(Persistable::getId))
+                .filter(t -> t.getMiembros().stream().filter(m -> m.getId() == miembro.getId()).count() == 0)
+                .collect(Collectors.toList());
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("trayectos", trayectosSorteados);
+        return new ModelAndView(parametros, "miembro/unirseATrayecto.hbs");
+    }
+
+    public static Response unirseATrayecto(Request request, Response response) {
+
+        Trayecto trayecto = repoTrayecto.buscar(Integer.parseInt(request.queryParams("trayecto")));
+        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
+        trayecto.agregarMiembro(miembro);
+        repoTrayecto.modificar(trayecto);
+
+        response.redirect("/miembro/" + request.session().attribute("id") + "/trayectos");
+        return response;
+    }
 }

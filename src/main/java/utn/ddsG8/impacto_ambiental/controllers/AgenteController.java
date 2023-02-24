@@ -37,7 +37,7 @@ public class AgenteController {
         User user = UserController.crearUsuario(request, response);
         if (user == null) return response;
 
-        SectorTerritorial sector = FactoryRepositorio.get(SectorTerritorial.class).buscar(Integer.valueOf(request.queryParams("sector")));
+        SectorTerritorial sector = FactoryRepositorio.get(SectorTerritorial.class).buscar(Integer.parseInt(request.queryParams("sector")));
         AgenteSectorial newAgente = new AgenteSectorial(request.queryParams("nombre"));
         newAgente.setSectorTerritorial(sector);
         newAgente.setId(user.getId());
@@ -55,7 +55,6 @@ public class AgenteController {
         }}, "agenteSectorial/agente.hbs");
     }
 
-    //TODO falta agregar bastante aca
     public static ModelAndView showReporteAgente(Request request, Response response) {
         AgenteSectorial agente = AgenteHelper.getLoggerAgent(request);
         double huella = CalcularHC.getInstancia().obtenerHCSectorTerritorial(agente.getSectorTerritorial());

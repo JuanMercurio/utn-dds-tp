@@ -14,10 +14,6 @@ import java.util.List;
 public class LoginController {
     private static Repositorio<User> repo = FactoryRepositorio.get(User.class);
 
-
-    // TODO: metodo que se ocupe de ver si ya existe el usuario. De paso se puede arreglar la repeticion
-    // de codigo en los controllers cuando creamos usuario
-
     public static Response login(Request request, Response response) {
         String boton = request.queryParams("form");
 

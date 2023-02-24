@@ -21,6 +21,7 @@ public class UserController {
         if (!passValidator.validarPass(request.queryParams("password")) || usuarios.query("from User where username = '" + request.queryParams("username") + "'").size() > 0) {
             response.status(500); // se puede usar para alerts
             response.redirect(request.url());
+            System.out.println("jejejej piifiado");
             return null;
         } else {
             User user = new User(request.queryParams("username"), request.queryParams("password"));

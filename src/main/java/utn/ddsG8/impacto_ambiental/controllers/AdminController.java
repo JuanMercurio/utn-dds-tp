@@ -33,10 +33,6 @@ public class AdminController {
         }}, "admin/factoresFE.hbs");
     }
 
-    // TODO pregunta. Cuando se edita el factor y el redirect es a /admin/factoresFE el dato no cambia en la pantalla
-    // si le damos refresh si cambia. El dato queda en memoria? Como hacer para que vaya al server siempre
-    // esto lo solucione haciendo un redicrect a actulizarFE donde pide todos los factores de nuevo.
-    // No es una solucin elegante o como se debe hacer supongo. Preguntar a pablo
     public static Response editarFactor(Request request, Response response) {
         if (request.queryParams("form").equals("nuevo-FE")) {
             FE fe = new FE(request.queryParams("nombre-nuevo-fe"), Double.parseDouble(request.queryParams("valor-nuevo-fe")));
@@ -179,21 +175,8 @@ public class AdminController {
     public static ModelAndView createView(Request request, Response respose) {
         return new ModelAndView(null, "/admin/createAdmin.hbs");
     }
-    public static Response save(Request request, Response response) {
 
-        /*COPIADO DE MIEMBRO...*/
-        User user = UserController.crearUsuario(request, response);
-        if (user == null) return response;
-
-        String nombre = request.queryParams("nombre");
-        String apellido = request.queryParams("apellido");
-        String documento = request.queryParams("documento");
-        TipoDoc tipodoc = TipoDoc.valueOf(request.queryParams("docTipo"));
-
-        Miembro nuevoMiembro = new Miembro(nombre, apellido, tipodoc, documento);
-        nuevoMiembro.setId(user.getId());
-        //miembros.agregar(nuevoMiembro);
-
-        return response;
+    public static String save(Request request, Response response) {
+        return "El registro de admin se encuentra desactivado vuelva a intentar luego";
     }
 }
