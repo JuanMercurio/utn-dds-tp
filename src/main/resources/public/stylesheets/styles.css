@@ -10,6 +10,14 @@
   justify-content: center;
 }
 
+.orgContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rem;
+}
+
 .form {
   min-width: 60rem;
   background: #fff;
