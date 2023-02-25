@@ -9,7 +9,6 @@ import utn.ddsG8.impacto_ambiental.domain.estructura.Clasificacion;
 import utn.ddsG8.impacto_ambiental.domain.estructura.Organizacion;
 import utn.ddsG8.impacto_ambiental.domain.helpers.AgenteHelper;
 import utn.ddsG8.impacto_ambiental.domain.services.distancia.*;
-import utn.ddsG8.impacto_ambiental.domain.helpers.RoleHelper;
 import utn.ddsG8.impacto_ambiental.repositories.Repositorio;
 import utn.ddsG8.impacto_ambiental.repositories.factories.FactoryRepositorio;
 import utn.ddsG8.impacto_ambiental.sessions.User;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class AgenteController {
 
-    public final static Repositorio<AgenteSectorial> agentes = FactoryRepositorio.get(AgenteSectorial.class);
+    public final static Repositorio<AgenteSectorial> repoAgenteSectorial = FactoryRepositorio.get(AgenteSectorial.class);
     public final static Repositorio<Organizacion> repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
 
     public static ModelAndView createView(Request req, Response res) {
@@ -41,13 +40,15 @@ public class AgenteController {
         AgenteSectorial newAgente = new AgenteSectorial(request.queryParams("nombre"));
         newAgente.setSectorTerritorial(sector);
         newAgente.setId(user.getId());
-        agentes.agregar(newAgente);
+        System.out.println("llegoj");
+        repoAgenteSectorial.agregar(newAgente);
+        System.out.println("llegoj");
 
         return response;
     }
 
     public static ModelAndView show(Request request, Response response) {
-        AgenteSectorial agente = agentes.buscar(new Integer(request.params("id")));
+        AgenteSectorial agente = AgenteHelper.getLoggerAgent(request);
         List<Organizacion> orgs = repoOrganizacion.buscarTodos().stream().filter(o -> o.perteneceASector(agente.getSectorTerritorial())).collect(Collectors.toList());
         return new ModelAndView(new HashMap<String, Object>(){{
             put("orgs", orgs);

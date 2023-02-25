@@ -40,6 +40,8 @@ public class Repositorio<T> {
     }
 
     public List<T> query(String query){
-        return EntityManagerHelper.getEntityManager().createQuery(query).getResultList();
+        List<T> lista =  EntityManagerHelper.getEntityManager().createQuery(query).getResultList();
+        EntityManagerHelper.closeEntityManager();
+        return lista;
     }
 }

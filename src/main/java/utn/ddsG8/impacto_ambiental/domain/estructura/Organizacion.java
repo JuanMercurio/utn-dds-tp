@@ -117,6 +117,7 @@ public class Organizacion {
     }
 
     public boolean perteneceASector(SectorTerritorial sectorTerritorial) {
+        if (this.direccion == null) return false;
         return this.direccion.perteneceASectorTerritorial(sectorTerritorial);
     }
 
