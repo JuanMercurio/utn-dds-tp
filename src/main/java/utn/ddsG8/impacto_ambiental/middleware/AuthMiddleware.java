@@ -18,6 +18,8 @@ public class AuthMiddleware {
 
     public static Response authenticateId(Request request, Response response) {
 
+        System.out.println(UserHelper.loggedUser(request).getId());
+        System.out.println(request.params("id"));
         if (!UserHelper.isAdmin(request) && UserHelper.loggedUser(request).getId() != Integer.parseInt(request.params("id"))) {
             response.redirect("/prohibido");
             Spark.halt();
