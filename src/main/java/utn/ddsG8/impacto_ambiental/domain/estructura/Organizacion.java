@@ -52,7 +52,7 @@ public class Organizacion {
     @Column(name = "archivo_datos_actividades")
     private String archivoDatosActividades;
 
-    @ManyToMany(mappedBy = "organizaciones", fetch =FetchType.LAZY, cascade = CascadeType.PERSIST) // tiene sentido que los trayectos sigan vivos sin la organizacion?
+    @ManyToMany(mappedBy = "organizaciones", fetch = FetchType.LAZY)
     private Set<Trayecto> trayectos;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
