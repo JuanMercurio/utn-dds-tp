@@ -140,7 +140,7 @@ public class Router {
             Spark.post("/:id/unirseTrayecto", TrayectoController::unirseATrayecto);
 //            Spark.get("/:id/trayectos/unirseATrayecto", TrayectoController::unirseATrayectoView, engine);
             Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
-            Spark.get("/:id/unirseAOrg", MiembroController::organizacionesParaUnirse, engine);
+            Spark.get("/:id/unirseAOrg/enviado", (request, response) -> "Su solicitud ha sido enviada");
             Spark.post("/:id/unirseAOrg", MiembroController::unirseAOrg);
         });
 

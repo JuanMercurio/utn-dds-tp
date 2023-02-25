@@ -109,7 +109,6 @@ public class OrganizacionController {
        SolicitudMiembro solicitud = solicitudesPendientes.buscar(idSolicitud);
        solicitudesPendientes.eliminar(solicitud);
 
-       // todo... hay que notificar?
 
        if (request.queryParams("estado") == "aceptado") {
            solicitud.getSector().agregarMiembro(solicitud.getSolicitante());

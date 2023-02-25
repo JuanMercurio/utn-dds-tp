@@ -35,7 +35,7 @@ public class Trayecto extends Persistable {
     )
     private List<Miembro> miembros;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "trayecto_org",
             joinColumns = @JoinColumn(name = "trayecto_id"),

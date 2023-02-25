@@ -68,13 +68,7 @@ public class MiembroController {
         miembro.unirseAOrg(org, sector);
         repoOrganizacion.modificar(org);
         // TODO falta mandar un alert o algo como que ya lo solicito
-        response.redirect("actualizar");
-        return response;
-    }
-
-    public static Response actualizandome(Request request, Response response) {
-        repoOrganizacion.buscarTodos();
-        response.redirect("unirseAOrg");
+        response.redirect("unirseAOrg/enviado");
         return response;
     }
 

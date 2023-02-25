@@ -193,8 +193,12 @@ public class TrayectoController {
 
 
     public static Response eliminarTrayecto(Request request, Response response) {
+        Miembro miembro = MiembroHelper.getCurrentMiembro(request);
         Trayecto trayectoEliminar = repoTrayecto.buscar(Integer.parseInt(request.params("idTrayecto")));
+//        Trayecto trayectoEliminar = miembro.getTrayectos().stream().filter(t -> t.getId() == Integer.parseInt(request.params("idTrayecto"))).collect(Collectors.toList()).get(0);
+        miembro.getTrayectos().remove(trayectoEliminar);
         repoTrayecto.eliminar(trayectoEliminar);
+        repoMiembro.modificar(miembro);
         response.redirect("/miembro/" + request.session().attribute("id") + "/trayecto");
         return response;
     }

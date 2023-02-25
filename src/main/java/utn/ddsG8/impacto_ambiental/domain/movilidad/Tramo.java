@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "tipo_tramo")
 public class Tramo extends Persistable {
 
-
     @Column(name = "distancia")
     @Convert(converter = DistanciaConverter.class)
     protected Distancia distancia;

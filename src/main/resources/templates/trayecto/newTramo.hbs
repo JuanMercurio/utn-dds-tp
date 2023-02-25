@@ -45,6 +45,7 @@
                         <div class="col" id="direccion-inicio">
                             <div class="form-outline">
                                 <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-inicial">
+                                <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
                             </div>
                         </div>
                         <div class="col">
@@ -67,6 +68,7 @@
                         <div class="col" id="direccion-inicio">
                                 <div class="form-outline">
                                     <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-final">
+                                    <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
                                 </div>
                         </div>
                         <div class="col">
@@ -117,6 +119,7 @@
                             <div class="form-outline">
                                 <div class="form-outline">
                                     <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-inicial">
+                                    <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
                                 </div>
                             </div>
                         </div>
@@ -186,6 +189,7 @@
                         <div class="col" id="direccion-inicio">
                             <div class="form-outline">
                                 <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-inicial">
+                                <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
                             </div>
                         </div>
                         <div class="col">
@@ -208,6 +212,7 @@
                         <div class="col" id="direccion-inicio">
                             <div class="form-outline">
                                 <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-final">
+                                <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
                             </div>
                         </div>
                         <div class="col">
@@ -357,29 +362,5 @@
         });
 
         </script>
-
-    <script>
-      URL = window.location.href
-  document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    fetch(URL, {
-      method: 'POST',
-      body: new FormData(document.querySelector('form'))
-    })
-    .then(response => {
-      if (response.ok) {
-        window.location.href = URL
-      } else {
-        alert('No es una localidad valida');
-      }
-
-    })
-    .catch(error => {
-      console.error(error);
-      alert('An error occurred while submitting the form.');
-    });
-  });
-</script>
 {{/partial}}
 {{> headers/memberHeader.hbs}}
