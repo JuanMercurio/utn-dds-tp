@@ -1,0 +1,34 @@
+{{# partial "memberHeader"}}
+<div class="hc-content">
+   <div class="hc-card">
+      <div class="mb-3">
+         <span class="hc-card-title">
+         Vinculación a nuevas organizaciones
+         </span>
+      </div>
+      <p>Seleccione las organizaciones y sectores a los cuales les desea enviar una solicitud de vinculacion </p>
+      <div class="hc-card-body mt-3" id="nuevaParadaDiv">
+         {{#each organizaciones}}
+         <form class="alta-form" method="post">
+            <div class="alta-form-row">
+               <div class="form-group">
+                  <input type="hidden" name="org" value="{{this.id}}">
+                  <input type="hidden" name="miembro" value="{{miembro.id}}">
+                  <label class="alta-form-group-name">
+                  {{this.razonSocial}}
+                  </label>
+                  <select class="form-control" name="sector">
+                     {{#each sectores}}
+                     <option value="{{this.id}}">Sector - {{this.id}}</option>
+                     {{/each}}
+                  </select>
+                  <button type="submit" class="btn btn-success mt-2">Enviar solicitud</button>
+               </div>
+            </div>
+         </form>
+         {{/each}}
+      </div>
+   </div>
+</div>
+{{/partial}}
+{{> headers/memberHeader.hbs}}

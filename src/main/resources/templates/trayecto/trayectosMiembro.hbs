@@ -1,0 +1,66 @@
+{{# partial "memberHeader" }}
+
+    <div  style="display: flex; flex-direccion: column; width: 100%; justify-content: center; align-items: center; height: 5rem;">
+    <form method="post">
+      <button type="submit" name="accion" value="crear" class="btn btn-warning m-2" style="height: 3rem; width:22rem; font-size: 1.3rem; border-radius: 1rem ">Crear Nuevo Trayecto</button>
+    </form>
+        <button name="accion"  value="unirse" class="btn btn-warning -2"  style="height: 3rem; width:22rem; font-size: 1.3rem; border-radius: 1rem ">
+            <a href="unirseTrayecto" style="color: black">
+                Unirse a un Trayecto
+            </a>
+        </button>
+    </div>
+
+      <div class="hc-content" style="margin-top: 0px; padding-top:0 ;">
+          <div class="hc-card" style="background-color: white"  >
+              <div class="mb-3">
+         <span class="hc-card-title">
+             Tiene los siguientes trayectos:
+         </span>
+              </div>
+              <hr />
+              {{#if miembro.trayectos}}
+                  <div class="paradas-card w-100">
+                      <table class="paradas-table w-100">
+                          <thead>
+                          <tr>
+                              <td>ID</td>
+                              <td>Fecha</td>
+                              <td>Distancia</td>
+                              <td>HC</td>
+                              <td>Acciones</td>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {{#each miembro.trayectos }}
+                              <tr>
+                                  <td>{{id}}</td>
+                                  <td>{{fecha}}</td>
+                                  <td>{{distancia.valor}} {{distancia.unidad}}</td>
+                                  <td>{{huella}}</td>
+                                  <td>
+                                      <div style="display: flex;">
+                                      <button class="btn btn-primary" style="background-color:#579d57; border-color:#579d57; margin-right:0.5rem; " type="submit" onclick="window.location.href = window.location.href + '/{{id}}'"><i class="far fa-eye"></i></button>
+
+                                      <form method="post" action="trayecto/{{id}}/eliminar">
+                                          <input type="hidden" name="trayecto" value="{{id}}">
+                                          <button class="btn btn-danger"  type="submit"><i class="far fa-trash-alt"></i></button>
+                                      </form>
+                                      </div>
+                                  </td>
+                              </tr>
+                          {{/each}}
+                          </tbody>
+                      </table>
+                  </div>
+              {{else}}
+                  <p>No tiene Trayectos hasta el momento.</p>
+              {{/if}}
+              <div class="alert alert-success" style="margin-top: 1rem" role="alert">
+                  <h5> Tu huella total es de {{huella}}</h5>
+              </div>
+          </div>
+      </div>
+
+{{/partial}}
+{{> headers/memberHeader.hbs}}

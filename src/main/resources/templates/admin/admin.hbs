@@ -1,0 +1,20 @@
+{{# partial "adminHeader"}}
+
+<script>
+    if(!sessionStorage.getItem("savedPath")){
+        sessionStorage.setItem("savedPath", document.URL);
+    }
+</script>
+
+    <div class="hc-content">
+        <div class="hc-card">
+            <div class="mb-3">
+                <span class="hc-card-title2">
+                    Bienvenido/a admin!
+                </span>
+            </div>
+        </div>
+    </div>
+
+{{/partial}}
+{{> headers/adminHeader.hbs}}

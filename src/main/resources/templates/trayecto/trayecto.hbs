@@ -1,0 +1,55 @@
+{{# partial "memberHeader" }}
+
+<div class="hc-content">
+   <div class="hc-card">
+      <div class="mb-3">
+         <span class="hc-card-title" style="color: #32a852">
+         Información de trayecto
+         </span>
+      </div>
+      <hr />
+      {{#if trayecto.tramos}} 
+      <p>El trayecto tiene los siguientes tramos:</p>
+      <div class="paradas-card w-100">
+         <table class="paradas-table w-100">
+            <thead>
+               <tr>
+                  <td>Tipo de transporte</td>
+                  <td>Distancia</td>
+                   <td>Huella</td>
+               </tr>
+            </thead>
+            <tbody>
+               {{#each trayecto.tramos }}
+               <tr>
+                  <td>{{transporte.tipoDeTransporte}}</td>
+                  <td>{{distancia.valor}} {{distancia.unidad}}</td>
+                   <td>{{huella}}</td>
+               </tr>
+               {{/each}}
+            </tbody>
+         </table>
+      </div>
+      {{else}}
+      <p>El trayecto {{trayecto.id}} no tiene tramos hasta el momento.</p>
+      {{/if}}
+      <div class="alert alert-success" role="alert" style="margin-top: 1rem">
+         <h5 class="m-0"> El total de HC calculado es de: {{huella}}</h5>
+      </div>
+   </div>
+
+    <div class="hc-card" style="margin-top: 1.5rem; color:#32a852; background-color: white; width: 30% ">
+         <span class="hc-card-title" style="color: #32a852">
+             En este trayecto forman parte las siguientes Organizaciones:
+         </span>
+        {{#each trayecto.organizaciones }}
+            <ul class="list-group" style="width: 7rem; margin-top: 1rem">
+                <li class="list-group-item">{{razonSocial}}</li>
+            </ul>
+        {{/each}}
+
+    </div>
+</div>
+
+{{/partial}}
+{{> headers/memberHeader.hbs}}

@@ -1,0 +1,366 @@
+{{# partial "memberHeader"}}
+
+
+    <style>
+    .inv {
+        display: none;
+    }
+    </style>
+
+    <div class="hc-content d-flex justify-content-center">
+        <div class="hc-card w-75 bg-white">
+
+            <div class="row mb-4 d-flex justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <h5>Seleccione el tipo de transporte usado en el tramo</h5>
+                </div>
+                <select class="form-control form-control-lg w-25" id="target">
+                    <option value="" disabled selected>---</option>
+                    <option value="particular">Vehiculo Particular</option>
+                    <option value="contratado">Servicio Contratado</option>
+                    <option value="publico">Transporte Publico</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div id="otro" class="inv">
+                <form method="post">
+                    <div class="row-mb-4 w-50" style="margin-bottom: 2rem">
+                        <div>
+                            <h5>Transporte</h5>
+                        </div>
+                        <select class="form-control" name="transporte" id="transporte" required>
+                            <option value="" disabled selected> --- </option>
+                            {{#each noContaminantes}}
+                                <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="row mb-4">
+                        <!--                        <label class="label-primary" for="direccion-inicio">Direccion Inicial</label>-->
+                        <div>
+                            <h5>Direccion Inicial</h5>
+                        </div>
+                        <div class="col" id="direccion-inicio">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-inicial">
+                                <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Calle Inicial" name="calle-direccion-inicial">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Altura Inicial" name="altura-direccion-inicial">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-4">
+                        <div>
+                            <h5>Direccion Final</h5>
+                        </div>
+                        <div class="col" id="direccion-inicio">
+                                <div class="form-outline">
+                                    <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-final">
+                                    <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
+                                </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Calle Inicial" name="calle-direccion-final" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Altura Inicial" name="altura-direccion-final" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Que organizaciones participan de este tramo?</h4>
+                    {{#each orgs}}
+                        <div class="mt-2">
+                            <input class="form-check-input " type="checkbox" id="org{{@index}}" name="org{{@index}}" value="{{id}}">
+                            <label for="org{{@index}}"> {{razonSocial}}</label><br>
+                        </div>
+                    {{/each}}
+                    <button class="btn btn-success mt-3" type="submit">Agregar Tramo</button>
+                </form>
+            </div>
+
+            <div id="particular" class="inv">
+                <form method="post">
+                    <div class="row-mb-4 w-50" style="margin-bottom: 2rem">
+                        <div>
+                            <h5>Transporte</h5>
+                            <p>Seleccione entre sus vehiculos. Si este no figura puede añadirlo con el boton debajo</p>
+                        </div>
+                        <select class="form-control form-control-inline" name="transporte" id="transporte" required>
+                            <option value="" disabled selected> --- </option>
+                            {{#each particulares}}
+                                <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+
+                        <button  class="btn btn-primary mt-2" onclick="window.location.href = '/agregarVehiculo'">Añadir Vehiculo</button>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div>
+                            <h5>Direccion Inicial</h5>
+                        </div>
+                        <div class="col" id="direccion-inicio">
+                            <div class="form-outline">
+                                <div class="form-outline">
+                                    <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-inicial">
+                                    <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Calle Inicial" name="calle-direccion-inicial">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Altura Inicial" name="altura-direccion-inicial">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-4">
+                        <div>
+                            <h5>Direccion Final</h5>
+                        </div>
+                        <div class="col" id="direccion-inicio">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-final">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Calle Inicial" name="calle-direccion-final" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Altura Inicial" name="altura-direccion-final" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Que organizaciones participan de este tramo?</h4>
+                    {{#each orgs}}
+                        <div class="mt-2">
+                            <input class="form-check-input " type="checkbox" id="org{{@index}}" name="org{{@index}}" value="{{id}}">
+                            <label for="org{{@index}}"> {{razonSocial}}</label><br>
+                        </div>
+                    {{/each}}
+                    <button class="btn btn-success mt-3" type="submit">Agregar Tramo</button>
+                </form>
+            </div>
+
+            <div id="contratado" class="inv">
+                <form method="post">
+                    <div class="row-mb-4 w-50" style="margin-bottom: 2rem">
+                        <div>
+                            <h5>Servicio</h5>
+                        </div>
+                        <select class="form-control" name="transporte" id="transporte" required>
+                            <option value="" disabled selected> --- </option>
+                            {{#each contratados}}
+                                <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div>
+                            <h5>Direccion Inicial</h5>
+                        </div>
+                        <div class="col" id="direccion-inicio">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-inicial">
+                                <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Calle Inicial" name="calle-direccion-inicial">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Altura Inicial" name="altura-direccion-inicial">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-4">
+                        <div>
+                            <h5>Direccion Final</h5>
+                        </div>
+                        <div class="col" id="direccion-inicio">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Localidad" name="localidad-direccion-final">
+                                <a href="/localidades.txt" style="color:blue">Click aqui para ver las localidades validas</a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Calle Inicial" name="calle-direccion-final" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control form-control-inline" type="text" placeholder="Altura Inicial" name="altura-direccion-final" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Que organizaciones participan de este tramo?</h4>
+                    {{#each orgs}}
+                        <div class="mt-2">
+                            <input class="form-check-input " type="checkbox" id="org{{@index}}" name="org{{@index}}" value="{{id}}">
+                            <label for="org{{@index}}"> {{razonSocial}}</label><br>
+                        </div>
+                    {{/each}}
+                    <button class="btn btn-success mt-3" type="submit">Agregar Tramo</button>
+                </form>
+            </div>
+
+            <div id="publico" class="inv">
+                <form method="post">
+                    <div class="mb-3">
+                        <h5>Transporte Publico</h5>
+                        <select class="form-control w-25" name="transportePublico" id="transportePublico">
+                            <option value="">---</option>
+                            {{#each publicos}}
+                                <option value="{{id}}" >{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <h5>Parada Inicial</h5>
+                        <select class="form-control" id="parada-inicial" name="direccion-inicial"  >
+                            {{#each paradas}}
+                                <option class="elemento {{direccion.id}}" style="display: none" data-parent= "{{nombre}}" value="{{direccion.id}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <h5>Parada Final</h5>
+                        <select class="form-control" id="parada-final" name="direccion-final">
+                            {{#each paradas}}
+                                <option class="elemento  {{direccion.id}}"  style="display: none" data-parent= "{{nombre}}" value="{{direccion.id}}"> {{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <h4>Que organizaciones participan de este tramo?</h4>
+                    {{#each orgs}}
+                        <div class="mt-2">
+                            <input class="form-check-input " type="checkbox" id="org{{@index}}" name="org{{@index}}" value="{{id}}">
+                            <label for="org{{@index}}"> {{razonSocial}}</label><br>
+                        </div>
+                    {{/each}}
+                    <button class="btn btn-success mt-3" type="submit">Agregar Tramo</button>
+                </form>
+            </div>
+            <!--            todo tendria que ir a la vista del trayecto-->
+
+            <form method="post" action="terminar">
+                <div class="d-flex justify-content-center">
+                    <button  class="btn btn-lg btn-warning mt-3" type="submit">Terminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+            document
+                .getElementById('target')
+                .addEventListener('change', function () {
+                    'use strict';
+                    var vis = document.querySelector('.vis'),
+                        target = document.getElementById(this.value);
+                    if (vis !== null) {
+                        vis.className = 'inv';
+                    }
+                    if (target !== null ) {
+                        target.className = 'vis';
+                    }
+            });
+            const filtro = document.getElementById('transporte');
+            const elementos = document.querySelectorAll('.elemento');
+
+
+
+
+        const select1 = document.getElementById('transportePublico');
+        const select2 = document.getElementById('parada-inicial');
+        const select3 = document.getElementById('parada-final');
+        const opciones = select2.getElementsByTagName('option');
+        const opciones3 = select3.getElementsByTagName('option');
+         document.addEventListener("DOMContentLoaded", function(event) {
+             select2.style.display='block';
+            select1.value = select1.getElementsByTagName('option')[0];
+      });
+
+        select1.addEventListener('change', function() {
+
+                const select = document.getElementById('transportePublico');
+                const opcioness = select.options;
+                const indiceSeleccionado = select.selectedIndex;
+                const opcionSeleccionada = opcioness.item(indiceSeleccionado);
+                const nombreOpcion  = opcionSeleccionada.textContent;
+                console.log(nombreOpcion);
+                select2.style.display='block';
+                console.log("ESTOY FUNCIONANDOOOO");
+
+                    const valorSeleccionado = select1.value;
+                    for (let i = 0; i < opciones.length; i++) {
+                        console.log("ADENTRO DEL FOR");
+                        const opcion = opciones[i];
+                        const padres = opcion.getAttribute('data-parent');
+                        if(padres.includes(opcionSeleccionada.textContent) == true){
+                            opcion.style.display = 'block';
+                            console.log("ADENTRO DEL IF");
+                        }else{
+                            opcion.style.display = 'none';
+                            console.log("ADENTRO DEL else IF");
+                        }
+
+                    }
+                     for (let i = 0; i < opciones3.length; i++) {
+                        console.log("ADENTRO DEL FOR");
+                        const opcion = opciones3[i];
+                        const padres = opcion.getAttribute('data-parent');
+                        if(padres.includes(opcionSeleccionada.textContent) == true){
+                            opcion.style.display = 'block';
+                            console.log("ADENTRO DEL IF");
+                        }else{
+                            opcion.style.display = 'none';
+                            console.log("ADENTRO DEL else IF");
+                        }
+
+                    }
+                    select2.value= "---";
+                    select3.value= "---";
+
+        });
+
+        </script>
+{{/partial}}
+{{> headers/memberHeader.hbs}}

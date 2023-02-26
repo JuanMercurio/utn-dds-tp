@@ -1,0 +1,32 @@
+{{# partial "memberHeader"}}
+
+    <div class="hc-content">
+        <div class="hc-card">
+
+            <table class="paradas-table w-100 mt-3">
+                <thead>
+                <tr>
+                    <td>Nombre Organizacion</td>
+                    <td>Huella</td>
+                    <td>Tu huella en la Org</td>
+                    <td>Impacto</td>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each orgs}}
+                    <tr>
+                        <td> {{razonSocial}} </td>
+                        <td> {{calcularHCOrg}} </td>
+                        <td> {{impactoMiembroSobreOrg this miembro}} </td>
+                        <td> {{porcentajeHCMiembroOrg this miembro}} </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+{{/partial}}
+{{> headers/memberHeader.hbs}}

@@ -1,0 +1,35 @@
+{{# partial "contenido"}}
+
+    <script>
+    if(!sessionStorage.getItem("savedPath")){
+        sessionStorage.setItem("savedPath", document.URL);
+    }
+</script>
+
+    <nav class="hc-navbar">
+        <div class="hc-navbar-img">
+            <img class="hc-navbar-img-huellas" src= '/images/huellas.jpeg'>
+        </div>
+        <div class="hc-navbar-items">
+            <a    class="hc-navbar-item clickeable-element" onclick="redirectTo('/sector')" >
+                <i class="fa-solid fa-envelope hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Reportes</span>
+            </a>
+            <a class="hc-navbar-item clickeable-element" onclick="redirectTo('')">
+                <i class="fa fa-user-circle hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Perfil</span>
+            </a>
+            <a class="hc-navbar-item clickeable-element" onclick="redirectTo('/recomendaciones')">
+                <i class="fa fa-exclamation-circle hc-navbar-item-icon" aria-hidden="true"></i>
+                <span class="hc-navbar-item-text">Recomendaciones</span>
+            </a>
+            <a class="hc-navbar-item clickeable-element" href="/login">
+                <i class="fa-solid fa-arrow-right-from-bracket hc-navbar-item-icon"></i>
+                <span class="hc-navbar-item-text">Salir</span>
+            </a>
+        </div>
+    </nav>
+    {{#block "agenteHeader"}} {{/block}}
+
+{{/partial}}
+{{> base.hbs}}

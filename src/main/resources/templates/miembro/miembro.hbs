@@ -1,0 +1,39 @@
+{{# partial "memberHeader"}}
+
+<script>
+    if(!sessionStorage.getItem("savedPath")){
+        sessionStorage.setItem("savedPath", document.URL);
+    }
+</script>
+<br>
+<br>
+
+    <div class="hc-content">
+        <div class="hc-card">
+            <div class="mb-3">
+                <span class="hc-card-title2">
+                    Bienvenido/a {{miembro.nombre}}!
+                </span>
+            </div>
+            <div>
+                <div class="hc-card">
+                    <div class="mb-3">
+                        <span class="hc-card-title">
+                            Datos personales - Mi perfil
+                        </span>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">  <b>Nombre: </b>{{miembro.nombre}}
+                        </div>
+                        <div class="card-header">  <b>Apellido: </b>{{miembro.apellido}}
+                        </div>
+                        <div class="card-header"> <b>Tipo Documento:</b> {{miembro.tipoDoc}}</div>
+                        <div class="card-header"><b>Documento:</b>  {{miembro.documento}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{/partial}}
+{{> headers/memberHeader.hbs}}

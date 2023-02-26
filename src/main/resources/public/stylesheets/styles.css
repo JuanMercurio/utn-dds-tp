@@ -1,0 +1,54 @@
+* {
+  padding: 0px;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orgContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rem;
+}
+
+.form {
+  min-width: 60rem;
+  background: #fff;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+  box-shadow: #198754 0px 1px 4px;
+}
+.form > h1 {
+  font-family: "Roboto";
+  font-weight: bold;
+}
+
+.form-header {
+  display: flex;
+  justify-content: center;
+}
+.form-header > h1 {
+  font-family: "Montserrat";
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-select:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/*# sourceMappingURL=styles.css.map */

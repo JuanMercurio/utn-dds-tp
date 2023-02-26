@@ -1,2 +1,8 @@
 target/
 .idea/
+*.iml
+
+*persistence.xml #Esto no funciona si el *persistence.xml ya esta en el repo.
+# Recomiedo correr el comando: 
+#   - git update-index --assume-unchanged /src/main/resourses/META-INT/persistence.xml
+# Para que el repo local no trackee cambios y podemos usar archivos persistence.xml diferentes

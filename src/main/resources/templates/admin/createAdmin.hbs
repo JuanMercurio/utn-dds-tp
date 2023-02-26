@@ -1,0 +1,34 @@
+{{# partial "registrationHeader"}}
+
+<div class="container">
+    <form class="form" method="post">
+        <div class="form-header">
+            <h1>Registrarse como admin</h1>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Nombre Usuario" required>
+            <label for="username">Nombre de usuario</label>
+        </div>
+        <div class="form-floating">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+            />
+            <label for="floatingPassword">Contraseña</label>
+
+        <div class="col text-center mt-3">
+            <button type="submit" class="btn btn-success" value="Log In">Registrarse</button>
+            {{!-- si no funca cambiar el button por un input --}}
+        </div>
+        </div>
+    </form>
+</div>
+
+
+{{/partial}}
+{{> headers/registrationHeader.hbs}}

@@ -1,0 +1,70 @@
+{{# partial "organizationHeader"}}
+
+    <script>
+        if(!sessionStorage.getItem("savedPath")){
+            sessionStorage.setItem("savedPath", document.URL);
+        }
+    </script>
+    <div class="hc-content">
+        <div class="hc-card">
+            <div class="mb-3">
+                <span class="hc-card-title2">
+                   Organizacion: {{organizacion.razonSocial}}!
+                </span>
+            </div>
+            <div>
+                <div class="hc-card">
+                    <div class="mb-3">
+                        <span class="hc-card-title">
+                            Datos de la organizacion
+                        </span>
+                    </div>
+                    <div class="card">
+                        <div class="card-body"> <b>Razon Social:</b> {{organizacion.razonSocial}}  </div>
+                        <div class="card-body"> <b>Numero identificador:</b> {{organizacion.id}}</div>
+                        <div class="card-body"> <b>Clasificacion:</b> {{organizacion.clasificacion}}</div>
+                        <div class="card-body"> <b>Tipo de Organizacion:</b> {{organizacion.tipo}}</div>
+                        <div class="card-body"><b>Huella de Carbono:</b>  {{huella}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hc-card mt-3 bg-light w-75">
+                <div>
+                    <h5>Contactos</h5>
+                </div>
+                <table class="paradas-table w-100">
+                    <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Tel</td>
+                        <td>Email</td>
+                        <td>Eliminar</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each organizacion.contactos }}
+                        <tr>
+                            <td>{{nombre}}</td>
+                            <td>{{telefono}}</td>
+                            <td>{{email}}</td>
+                            <td>
+                                <div style="display: flex;">
+                                    <form method="post" action="{{organizacion.id}}/contactos/{{id}}/eliminar">
+                                        <input type="hidden" name="contacto" value="{{id}}">
+                                        <button class="btn btn-danger"  type="submit"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                <button class="btn btn-primary mt-2" onclick="redirectTo('/contactos/agregar')">Agregar Contacto</button>
+            </div>
+        </div>
+    </div>
+
+
+{{/partial}}
+{{> headers/organizationHeader.hbs}}

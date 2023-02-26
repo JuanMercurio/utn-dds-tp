@@ -1,0 +1,112 @@
+{{# partial "registrationHeader"}}
+
+    <div class="orgContainer">
+        <form class="form orgForm" method="post">
+            <div class="form-header">
+                <h1>Registrarse como organizacion</h1>
+            </div>
+            <div class="form-floating mb-3">
+                <input
+                        class="form-control"
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Usuario"
+                        required
+                />
+                <label for="floatingInput">Nombre de usuario</label>
+            </div>
+            <div class="form-floating">
+                <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        aria-describedby="password-helper"
+                        required
+                />
+                <label for="floatingPassword">Contraseña</label>
+                <small id="password-help" class="form-text text-muted">Su contraseña debe tener por lo menos 8 caracteres, entre ellos por lo menos 1 mayuscula, 1 minuscula y 1 numero</small>
+                <div class="form-floating mt-3">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="razonSocial"
+                            name="razonSocial"
+                            placeholder="Razon Social"
+                            required
+                    />
+                    <label for="floatingPassword">Razon Social</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <select class="form-select" id="pais" name="pais">
+                        <option value="Argentina">Argentina</option>
+                    </select>
+                    <label for="pais">Pais</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <select class="form-select" id="localidad" name="localidad">
+                        {{#each localidades}}
+                            <option value="{{id}}">{{nombre}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="localida">Localidad</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="calle"
+                            name="calle"
+                            placeholder="Calle"
+                            required
+                    />
+                    <label for="floatingPassword">Calle</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input
+                            type="number"
+                            class="form-control"
+                            id="altura"
+                            name="altura"
+                            placeholder="Altura"
+                            required
+                    />
+                    <label for="floatingPassword">Altura</label>
+                </div>
+
+
+                <div class="form-floating mt-3">
+                    <select class="form-select" id="orgTipo" name="orgTipo">
+                        <option value="Gubernamental">Gubernamental</option>
+                        <option value="OGN">OGN</option>
+                        <option value="Empresa">Empresa</option>
+                        <option value="Institucion">Institucion</option>
+                    </select>
+                    <label for="orgTipo">Tipo de organización</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <select class="form-select" id="clasificacion" name="clasificacion">
+                        <option value="Ministerio">Ministerio</option>
+                        <option value="Universidad">Universidad</option>
+                        <option value="Escuela">Escuela</option>
+                        <option value="Empresa_del_Sector_Primario">Empresa del sector Primario</option>
+                        <option value="Empresa_del_Sector_Secundario">Empresa del sector Secundario</option>
+                    </select>
+                    <label for="clasificacion">Clasificacion</label>
+                </div>
+
+                <div class="col text-center mt-3">
+                    <button type="submit" class="btn btn-success" value="Log In">Registrarse</button>
+                    {{!-- si no funca cambiar el button por un input --}}
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{{/partial}}
+{{> headers/registrationHeader.hbs}}

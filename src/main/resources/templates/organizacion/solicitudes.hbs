@@ -1,0 +1,9 @@
+{{# partial "organizationHeader"  }}
+
+    {{#each solicitud}}
+        <h1> {{this.solicitante.id}} </h1>
+    {{/each}}
+
+{{/partial}}
+
+{{> base.hbs}}

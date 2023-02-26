@@ -1,0 +1,30 @@
+{{# partial "organizationHeader"}}
+
+   <!-- <h1>Subir Archivo Actividades</h1>
+    <form method = "post" enctype='multipart/form-data'>
+        <input name="archivo" type="file" accept=".xlsx" />
+        <input type="submit"/>
+    </form> -->
+
+    <div class="hc-content">
+        <div class="hc-card">
+            <div class="mb-3">
+            <span class="hc-card-title2">
+                Subir archivo de actividades
+            </span>
+            </div>
+
+            <form method = "post" enctype='multipart/form-data'>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Seleccione un archivo con el formato '.xslx'</label>
+                    <input name="archivo" class="form-control" type="file" id="formFile" accept=".xlsx">
+                    <input type="submit" class="btn btn-success mt-2"/>
+                    <!--<button type="button" class="btn btn-success mt-2" type="submit">Subir</button> -->
+
+                </div>
+            </form>
+        </div>
+    </div>
+{{/partial}}
+
+{{> headers/organizationHeader.hbs}}
