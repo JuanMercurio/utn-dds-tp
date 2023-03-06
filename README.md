@@ -18,6 +18,7 @@ UTN FRBA 2022
 
 ### Tecnologias
 - Java
+- Maven
 - Retrofit
 - Hibernate
 - Spark
