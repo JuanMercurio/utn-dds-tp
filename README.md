@@ -14,7 +14,9 @@ TP - DDS
 UTN FRBA 2022
 </p>
 
-
+ <p align="center">
+ <a href="https://drive.google.com/file/d/1kabpFOAiHu6EjXc2LZPrmE_8eA2ayqVl/view">Enunciado</a>
+ </p>
 
 ### Tecnologias
 - Java
@@ -38,8 +40,3 @@ UTN FRBA 2022
 - MVC Design
 - Web Design
 - Cloud Integration
-
-
-
-
-
