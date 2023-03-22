@@ -4,12 +4,12 @@
 TP - DDS 
 </h1>
 <p align="center">
-<a href="http://20.226.116.161:9078/login">
+<a href="http://impactoambiental.eastus.cloudapp.azure.com:9078/login">
 <img src="https://user-images.githubusercontent.com/48862380/222979212-55d0589d-2726-4dc9-8331-7c3a0f49bea4.png"></a>
 </p>
 
 <p align="center">
-<a href="http://20.226.116.161:9078/login">Mi Impacto Ambiental</a>
+<a href="http://impactoambiental.eastus.cloudapp.azure.com:9078/login">Mi Impacto Ambiental</a>
 <br> Trabajo Practico - Diseño de Sistemas -
 UTN FRBA 2022
 </p>
