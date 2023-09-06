@@ -24,7 +24,7 @@ UTN FRBA 2022
 - Retrofit
 - Hibernate
 - Spark
-- Hibernate
+- Handlebars
 - Javascript
 - HTML
 - CSS
